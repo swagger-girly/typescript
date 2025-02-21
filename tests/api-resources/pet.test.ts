@@ -141,10 +141,8 @@ describe('resource pet', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('uploadImage: only required params', async () => {
-    const responsePromise = client.pet.uploadImage(0, {
-      body: await toFile(Buffer.from('# my file contents'), 'README.md'),
-    });
+  test.skip('uploadImage', async () => {
+    const responsePromise = client.pet.uploadImage(0);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -155,10 +153,17 @@ describe('resource pet', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('uploadImage: required and optional params', async () => {
-    const response = await client.pet.uploadImage(0, {
-      body: await toFile(Buffer.from('# my file contents'), 'README.md'),
-      additionalMetadata: 'additionalMetadata',
-    });
+  test.skip('uploadImage: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.pet.uploadImage(
+        0,
+        {
+          additionalMetadata: 'additionalMetadata',
+          body: await toFile(Buffer.from('# my file contents'), 'README.md'),
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 });
