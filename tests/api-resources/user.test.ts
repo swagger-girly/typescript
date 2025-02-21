@@ -98,8 +98,8 @@ describe('resource user', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('createWithList: only required params', async () => {
-    const responsePromise = client.user.createWithList({ body: [{}] });
+  test.skip('createWithList', async () => {
+    const responsePromise = client.user.createWithList();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -110,21 +110,27 @@ describe('resource user', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('createWithList: required and optional params', async () => {
-    const response = await client.user.createWithList({
-      body: [
+  test.skip('createWithList: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.user.createWithList(
         {
-          id: 10,
-          email: 'john@email.com',
-          firstName: 'John',
-          lastName: 'James',
-          password: '12345',
-          phone: '12345',
-          username: 'theUser',
-          userStatus: 1,
+          body: [
+            {
+              id: 10,
+              email: 'john@email.com',
+              firstName: 'John',
+              lastName: 'James',
+              password: '12345',
+              phone: '12345',
+              username: 'theUser',
+              userStatus: 1,
+            },
+          ],
         },
-      ],
-    });
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 
   // skipped: tests are disabled for the time being
