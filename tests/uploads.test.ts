@@ -1,6 +1,7 @@
 import fs from 'fs';
 import type { ResponseLike } from 'hello-world-testingggg/internal/to-file';
 import { toFile } from 'hello-world-testingggg/uploads';
+import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';
