@@ -1,5 +1,5 @@
 import { multipartFormRequestOptions, createForm } from 'hello-world-testingggg/internal/uploads';
-import { toFile } from 'hello-world-testingggg/uploads';
+import { toFile } from 'hello-world-testingggg/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
