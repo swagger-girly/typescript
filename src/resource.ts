@@ -1,11 +1,2 @@
-// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
-import type { HelloWorldTestingggg } from './client';
-
-export class APIResource {
-  protected _client: HelloWorldTestingggg;
-
-  constructor(client: HelloWorldTestingggg) {
-    this._client = client;
-  }
-}
+/** @deprecated Import from ./core/resource instead */
+export * from './core/resource';
