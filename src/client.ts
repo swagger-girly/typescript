@@ -200,8 +200,8 @@ export class HelloWorldTestingggg {
     return;
   }
 
-  protected authHeaders(opts: FinalRequestOptions): Headers | undefined {
-    return new Headers({ api_key: this.apiKey });
+  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
+    return buildHeaders([{ api_key: this.apiKey }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
