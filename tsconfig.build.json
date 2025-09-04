@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "hello-world-testingggg/*": ["dist/src/*"],
-      "hello-world-testingggg": ["dist/src/index.ts"],
+      "hello-world-testingggg": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

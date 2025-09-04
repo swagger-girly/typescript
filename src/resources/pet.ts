@@ -9,6 +9,14 @@ import { path } from '../internal/utils/path';
 export class PetResource extends APIResource {
   /**
    * Add a new pet to the store
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.create({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
    */
   create(body: PetCreateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.post('/pet', { body, ...options });
@@ -16,6 +24,11 @@ export class PetResource extends APIResource {
 
   /**
    * Returns a single pet
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.retrieve(0);
+   * ```
    */
   retrieve(petID: number, options?: RequestOptions): APIPromise<Pet> {
     return this._client.get(path`/pet/${petID}`, options);
@@ -23,6 +36,14 @@ export class PetResource extends APIResource {
 
   /**
    * Update an existing pet by Id
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.update({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
    */
   update(body: PetUpdateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.put('/pet', { body, ...options });
@@ -30,6 +51,11 @@ export class PetResource extends APIResource {
 
   /**
    * Deletes a pet
+   *
+   * @example
+   * ```ts
+   * await client.pet.delete(0);
+   * ```
    */
   delete(petID: number, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/pet/${petID}`, {
@@ -40,6 +66,11 @@ export class PetResource extends APIResource {
 
   /**
    * Multiple status values can be provided with comma separated strings
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.findByStatus();
+   * ```
    */
   findByStatus(
     query: PetFindByStatusParams | null | undefined = {},
@@ -51,6 +82,11 @@ export class PetResource extends APIResource {
   /**
    * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
    * for testing.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.findByTags();
+   * ```
    */
   findByTags(
     query: PetFindByTagsParams | null | undefined = {},
@@ -61,6 +97,11 @@ export class PetResource extends APIResource {
 
   /**
    * Updates a pet in the store with form data
+   *
+   * @example
+   * ```ts
+   * await client.pet.updateWithForm(0);
+   * ```
    */
   updateWithForm(
     petID: number,
@@ -77,13 +118,22 @@ export class PetResource extends APIResource {
 
   /**
    * uploads an image
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.uploadImage(
+   *   0,
+   *   fs.createReadStream('path/to/file'),
+   * );
+   * ```
    */
   uploadImage(
     petID: number,
+    body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
     params: PetUploadImageParams | null | undefined = undefined,
     options?: RequestOptions,
   ): APIPromise<PetUploadImageResponse> {
-    const { additionalMetadata, body } = params ?? {};
+    const { additionalMetadata } = params ?? {};
     return this._client.post(path`/pet/${petID}/uploadImage`, {
       query: { additionalMetadata },
       body: body,
@@ -229,11 +279,6 @@ export interface PetUploadImageParams {
    * Query param: Additional Metadata
    */
   additionalMetadata?: string;
-
-  /**
-   * Body param:
-   */
-  body?: string | ArrayBuffer | ArrayBufferView | Blob | DataView;
 }
 
 export declare namespace PetResource {

@@ -9,6 +9,11 @@ import { path } from '../internal/utils/path';
 export class UserResource extends APIResource {
   /**
    * This can only be done by the logged in user.
+   *
+   * @example
+   * ```ts
+   * const user = await client.user.create();
+   * ```
    */
   create(body: UserCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<User> {
     return this._client.post('/user', { body, ...options });
@@ -16,6 +21,11 @@ export class UserResource extends APIResource {
 
   /**
    * Get user by user name
+   *
+   * @example
+   * ```ts
+   * const user = await client.user.retrieve('username');
+   * ```
    */
   retrieve(username: string, options?: RequestOptions): APIPromise<User> {
     return this._client.get(path`/user/${username}`, options);
@@ -23,6 +33,11 @@ export class UserResource extends APIResource {
 
   /**
    * This can only be done by the logged in user.
+   *
+   * @example
+   * ```ts
+   * await client.user.update('username');
+   * ```
    */
   update(
     pathUsername: string,
@@ -38,6 +53,11 @@ export class UserResource extends APIResource {
 
   /**
    * This can only be done by the logged in user.
+   *
+   * @example
+   * ```ts
+   * await client.user.delete('username');
+   * ```
    */
   delete(username: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/user/${username}`, {
@@ -48,6 +68,11 @@ export class UserResource extends APIResource {
 
   /**
    * Creates list of users with given input array
+   *
+   * @example
+   * ```ts
+   * const user = await client.user.createWithList();
+   * ```
    */
   createWithList(
     params: UserCreateWithListParams | null | undefined = undefined,
@@ -59,6 +84,11 @@ export class UserResource extends APIResource {
 
   /**
    * Logs user into the system
+   *
+   * @example
+   * ```ts
+   * const response = await client.user.login();
+   * ```
    */
   login(query: UserLoginParams | null | undefined = {}, options?: RequestOptions): APIPromise<string> {
     return this._client.get('/user/login', { query, ...options });
@@ -66,6 +96,11 @@ export class UserResource extends APIResource {
 
   /**
    * Logs out current logged in user session
+   *
+   * @example
+   * ```ts
+   * await client.user.logout();
+   * ```
    */
   logout(options?: RequestOptions): APIPromise<void> {
     return this._client.get('/user/logout', {

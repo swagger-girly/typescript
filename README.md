@@ -1,6 +1,6 @@
 # Hello World Testingggg TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/hello-world-testingggg.svg)](https://npmjs.org/package/hello-world-testingggg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/hello-world-testingggg)
+[![NPM version](<https://img.shields.io/npm/v/hello-world-testingggg.svg?label=npm%20(stable)>)](https://npmjs.org/package/hello-world-testingggg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/hello-world-testingggg)
 
 This library provides convenient access to the Hello World Testingggg REST API from server-side TypeScript or JavaScript.
 
@@ -24,13 +24,9 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg();
 
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
+const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
 
-  console.log(pet.id);
-}
-
-main();
+console.log(pet.id);
 ```
 
 ### Request & Response types
@@ -43,12 +39,8 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg();
 
-async function main() {
-  const params: HelloWorldTestingggg.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
-  const pet: HelloWorldTestingggg.Pet = await client.pet.update(params);
-}
-
-main();
+const params: HelloWorldTestingggg.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
+const pet: HelloWorldTestingggg.Pet = await client.pet.update(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -61,22 +53,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
-    if (err instanceof HelloWorldTestingggg.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
+  if (err instanceof HelloWorldTestingggg.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -233,9 +221,8 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.foo.create({
-  foo: 'my_param',
-  bar: 12,
+client.pet.update({
+  // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
 });
@@ -353,7 +340,7 @@ TypeScript >= 4.9 is supported.
 The following runtimes are supported:
 
 - Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
 - Deno v1.28.0 or higher.
 - Bun 1.0 or later.
 - Cloudflare Workers.
