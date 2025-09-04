@@ -2,7 +2,7 @@
 
 import type { HelloWorldTestingggg } from '../client';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: HelloWorldTestingggg;
 
   constructor(client: HelloWorldTestingggg) {
