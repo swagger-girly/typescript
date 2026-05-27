@@ -42,10 +42,21 @@ export type ToolCallResult = {
   isError?: boolean;
 };
 
-export type HandlerFunction = (
-  client: HelloWorldTestingggg,
-  args: Record<string, unknown> | undefined,
-) => Promise<ToolCallResult>;
+export type McpRequestContext = {
+  client: HelloWorldTestingggg;
+  stainlessApiKey?: string | undefined;
+  upstreamClientEnvs?: Record<string, string> | undefined;
+  mcpSessionId?: string | undefined;
+  mcpClientInfo?: { name: string; version: string } | undefined;
+};
+
+export type HandlerFunction = ({
+  reqContext,
+  args,
+}: {
+  reqContext: McpRequestContext;
+  args: Record<string, unknown> | undefined;
+}) => Promise<ToolCallResult>;
 
 export function asTextContentResult(result: unknown): ToolCallResult {
   return {
@@ -87,6 +98,18 @@ export async function asBinaryContentResult(response: Response): Promise<ToolCal
   }
 }
 
+export function asErrorResult(message: string): ToolCallResult {
+  return {
+    content: [
+      {
+        type: 'text',
+        text: message,
+      },
+    ],
+    isError: true,
+  };
+}
+
 export type Metadata = {
   resource: string;
   operation: 'read' | 'write';
@@ -96,7 +119,7 @@ export type Metadata = {
   operationId?: string;
 };
 
-export type Endpoint = {
+export type McpTool = {
   metadata: Metadata;
   tool: Tool;
   handler: HandlerFunction;

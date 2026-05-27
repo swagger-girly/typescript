@@ -6,6 +6,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Operations about user
+ */
 export class UserResource extends APIResource {
   /**
    * This can only be done by the logged in user.
@@ -40,11 +43,11 @@ export class UserResource extends APIResource {
    * ```
    */
   update(
-    pathUsername: string,
+    username: string,
     body: UserUpdateParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<void> {
-    return this._client.put(path`/user/${pathUsername}`, {
+    return this._client.put(path`/user/${username}`, {
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -167,7 +170,7 @@ export interface UserUpdateParams {
 
   phone?: string;
 
-  body_username?: string;
+  username?: string;
 
   /**
    * User Status
