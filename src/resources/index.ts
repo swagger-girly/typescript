@@ -1,8 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  PetResource,
-  type Pet,
+  Pet,
+  type PetCreateResponse,
+  type PetRetrieveResponse,
+  type PetUpdateResponse,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
   type PetUploadImageResponse,
@@ -15,8 +17,10 @@ export {
 } from './pet';
 export { Store, type StoreListInventoryResponse } from './store/store';
 export {
-  UserResource,
-  type User,
+  User,
+  type UserCreateResponse,
+  type UserRetrieveResponse,
+  type UserCreateWithListResponse,
   type UserLoginResponse,
   type UserCreateParams,
   type UserUpdateParams,

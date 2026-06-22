@@ -9,7 +9,7 @@ import { path } from '../internal/utils/path';
 /**
  * Operations about user
  */
-export class UserResource extends APIResource {
+export class User extends APIResource {
   /**
    * This can only be done by the logged in user.
    *
@@ -18,7 +18,10 @@ export class UserResource extends APIResource {
    * const user = await client.user.create();
    * ```
    */
-  create(body: UserCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<User> {
+  create(
+    body: UserCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UserCreateResponse> {
     return this._client.post('/user', { body, ...options });
   }
 
@@ -30,7 +33,7 @@ export class UserResource extends APIResource {
    * const user = await client.user.retrieve('username');
    * ```
    */
-  retrieve(username: string, options?: RequestOptions): APIPromise<User> {
+  retrieve(username: string, options?: RequestOptions): APIPromise<UserRetrieveResponse> {
     return this._client.get(path`/user/${username}`, options);
   }
 
@@ -74,13 +77,13 @@ export class UserResource extends APIResource {
    *
    * @example
    * ```ts
-   * const user = await client.user.createWithList();
+   * const response = await client.user.createWithList();
    * ```
    */
   createWithList(
     params: UserCreateWithListParams | null | undefined = undefined,
     options?: RequestOptions,
-  ): APIPromise<User> {
+  ): APIPromise<UserCreateWithListResponse> {
     const { body } = params ?? {};
     return this._client.post('/user/createWithList', { body: body, ...options });
   }
@@ -113,7 +116,49 @@ export class UserResource extends APIResource {
   }
 }
 
-export interface User {
+export interface UserCreateResponse {
+  id?: number;
+
+  email?: string;
+
+  firstName?: string;
+
+  lastName?: string;
+
+  password?: string;
+
+  phone?: string;
+
+  username?: string;
+
+  /**
+   * User Status
+   */
+  userStatus?: number;
+}
+
+export interface UserRetrieveResponse {
+  id?: number;
+
+  email?: string;
+
+  firstName?: string;
+
+  lastName?: string;
+
+  password?: string;
+
+  phone?: string;
+
+  username?: string;
+
+  /**
+   * User Status
+   */
+  userStatus?: number;
+}
+
+export interface UserCreateWithListResponse {
   id?: number;
 
   email?: string;
@@ -179,7 +224,30 @@ export interface UserUpdateParams {
 }
 
 export interface UserCreateWithListParams {
-  body?: Array<User>;
+  body?: Array<UserCreateWithListParams.Body>;
+}
+
+export namespace UserCreateWithListParams {
+  export interface Body {
+    id?: number;
+
+    email?: string;
+
+    firstName?: string;
+
+    lastName?: string;
+
+    password?: string;
+
+    phone?: string;
+
+    username?: string;
+
+    /**
+     * User Status
+     */
+    userStatus?: number;
+  }
 }
 
 export interface UserLoginParams {
@@ -194,9 +262,11 @@ export interface UserLoginParams {
   username?: string;
 }
 
-export declare namespace UserResource {
+export declare namespace User {
   export {
-    type User as User,
+    type UserCreateResponse as UserCreateResponse,
+    type UserRetrieveResponse as UserRetrieveResponse,
+    type UserCreateWithListResponse as UserCreateWithListResponse,
     type UserLoginResponse as UserLoginResponse,
     type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,

@@ -20,12 +20,14 @@ import { APIPromise } from './core/api-promise';
 import {
   Pet,
   PetCreateParams,
+  PetCreateResponse,
   PetFindByStatusParams,
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetResource,
+  PetRetrieveResponse,
   PetUpdateParams,
+  PetUpdateResponse,
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
@@ -33,10 +35,12 @@ import {
 import {
   User,
   UserCreateParams,
+  UserCreateResponse,
   UserCreateWithListParams,
+  UserCreateWithListResponse,
   UserLoginParams,
   UserLoginResponse,
-  UserResource,
+  UserRetrieveResponse,
   UserUpdateParams,
 } from './resources/user';
 import { Store, StoreListInventoryResponse } from './resources/store/store';
@@ -764,7 +768,7 @@ export class HelloWorldTestingggg {
   /**
    * Everything about your Pets
    */
-  pet: API.PetResource = new API.PetResource(this);
+  pet: API.Pet = new API.Pet(this);
   /**
    * Access to Petstore orders
    */
@@ -772,19 +776,21 @@ export class HelloWorldTestingggg {
   /**
    * Operations about user
    */
-  user: API.UserResource = new API.UserResource(this);
+  user: API.User = new API.User(this);
 }
 
-HelloWorldTestingggg.PetResource = PetResource;
+HelloWorldTestingggg.Pet = Pet;
 HelloWorldTestingggg.Store = Store;
-HelloWorldTestingggg.UserResource = UserResource;
+HelloWorldTestingggg.User = User;
 
 export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    PetResource as PetResource,
-    type Pet as Pet,
+    Pet as Pet,
+    type PetCreateResponse as PetCreateResponse,
+    type PetRetrieveResponse as PetRetrieveResponse,
+    type PetUpdateResponse as PetUpdateResponse,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
@@ -799,8 +805,10 @@ export declare namespace HelloWorldTestingggg {
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
 
   export {
-    UserResource as UserResource,
-    type User as User,
+    User as User,
+    type UserCreateResponse as UserCreateResponse,
+    type UserRetrieveResponse as UserRetrieveResponse,
+    type UserCreateWithListResponse as UserCreateWithListResponse,
     type UserLoginResponse as UserLoginResponse,
     type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,
