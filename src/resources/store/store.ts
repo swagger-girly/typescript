@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as OrderAPI from './order';
-import { Order, OrderCreateParams, OrderResource } from './order';
+import { Order, OrderCreateParams, OrderCreateResponse, OrderRetrieveResponse } from './order';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -10,7 +10,7 @@ import { RequestOptions } from '../../internal/request-options';
  * Access to Petstore orders
  */
 export class Store extends APIResource {
-  order: OrderAPI.OrderResource = new OrderAPI.OrderResource(this._client);
+  order: OrderAPI.Order = new OrderAPI.Order(this._client);
 
   /**
    * Returns a map of status codes to quantities
@@ -27,10 +27,15 @@ export class Store extends APIResource {
 
 export type StoreListInventoryResponse = { [key: string]: number };
 
-Store.OrderResource = OrderResource;
+Store.Order = Order;
 
 export declare namespace Store {
   export { type StoreListInventoryResponse as StoreListInventoryResponse };
 
-  export { OrderResource as OrderResource, type Order as Order, type OrderCreateParams as OrderCreateParams };
+  export {
+    Order as Order,
+    type OrderCreateResponse as OrderCreateResponse,
+    type OrderRetrieveResponse as OrderRetrieveResponse,
+    type OrderCreateParams as OrderCreateParams,
+  };
 }
