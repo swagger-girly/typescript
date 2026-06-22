@@ -49,7 +49,7 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 const client = new HelloWorldTestingggg();
 
 const params: HelloWorldTestingggg.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
-const pet: HelloWorldTestingggg.PetUpdateResponse = await client.pet.update(params);
+const pet: HelloWorldTestingggg.Pet = await client.pet.update(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.

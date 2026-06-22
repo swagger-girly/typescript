@@ -9,7 +9,7 @@ import { path } from '../internal/utils/path';
 /**
  * Everything about your Pets
  */
-export class Pet extends APIResource {
+export class PetResource extends APIResource {
   /**
    * Add a new pet to the store
    *
@@ -21,7 +21,7 @@ export class Pet extends APIResource {
    * });
    * ```
    */
-  create(body: PetCreateParams, options?: RequestOptions): APIPromise<PetCreateResponse> {
+  create(body: PetCreateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.post('/pet', { body, ...options });
   }
 
@@ -33,7 +33,7 @@ export class Pet extends APIResource {
    * const pet = await client.pet.retrieve(0);
    * ```
    */
-  retrieve(petID: number, options?: RequestOptions): APIPromise<PetRetrieveResponse> {
+  retrieve(petID: number, options?: RequestOptions): APIPromise<Pet> {
     return this._client.get(path`/pet/${petID}`, options);
   }
 
@@ -48,7 +48,7 @@ export class Pet extends APIResource {
    * });
    * ```
    */
-  update(body: PetUpdateParams, options?: RequestOptions): APIPromise<PetUpdateResponse> {
+  update(body: PetUpdateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.put('/pet', { body, ...options });
   }
 
@@ -72,7 +72,7 @@ export class Pet extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.pet.findByStatus();
+   * const pets = await client.pet.findByStatus();
    * ```
    */
   findByStatus(
@@ -88,7 +88,7 @@ export class Pet extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.pet.findByTags();
+   * const pets = await client.pet.findByTags();
    * ```
    */
   findByTags(
@@ -146,168 +146,38 @@ export class Pet extends APIResource {
   }
 }
 
-export interface PetCreateResponse {
+export interface Category {
+  id?: number;
+
+  name?: string;
+}
+
+export interface Pet {
   name: string;
 
   photoUrls: Array<string>;
 
   id?: number;
 
-  category?: PetCreateResponse.Category;
+  category?: Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<PetCreateResponse.Tag>;
+  tags?: Array<Tag>;
 }
 
-export namespace PetCreateResponse {
-  export interface Category {
-    id?: number;
-
-    name?: string;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
-}
-
-export interface PetRetrieveResponse {
-  name: string;
-
-  photoUrls: Array<string>;
-
+export interface Tag {
   id?: number;
 
-  category?: PetRetrieveResponse.Category;
-
-  /**
-   * pet status in the store
-   */
-  status?: 'available' | 'pending' | 'sold';
-
-  tags?: Array<PetRetrieveResponse.Tag>;
+  name?: string;
 }
 
-export namespace PetRetrieveResponse {
-  export interface Category {
-    id?: number;
+export type PetFindByStatusResponse = Array<Pet>;
 
-    name?: string;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
-}
-
-export interface PetUpdateResponse {
-  name: string;
-
-  photoUrls: Array<string>;
-
-  id?: number;
-
-  category?: PetUpdateResponse.Category;
-
-  /**
-   * pet status in the store
-   */
-  status?: 'available' | 'pending' | 'sold';
-
-  tags?: Array<PetUpdateResponse.Tag>;
-}
-
-export namespace PetUpdateResponse {
-  export interface Category {
-    id?: number;
-
-    name?: string;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
-}
-
-export type PetFindByStatusResponse = Array<PetFindByStatusResponse.PetFindByStatusResponseItem>;
-
-export namespace PetFindByStatusResponse {
-  export interface PetFindByStatusResponseItem {
-    name: string;
-
-    photoUrls: Array<string>;
-
-    id?: number;
-
-    category?: PetFindByStatusResponseItem.Category;
-
-    /**
-     * pet status in the store
-     */
-    status?: 'available' | 'pending' | 'sold';
-
-    tags?: Array<PetFindByStatusResponseItem.Tag>;
-  }
-
-  export namespace PetFindByStatusResponseItem {
-    export interface Category {
-      id?: number;
-
-      name?: string;
-    }
-
-    export interface Tag {
-      id?: number;
-
-      name?: string;
-    }
-  }
-}
-
-export type PetFindByTagsResponse = Array<PetFindByTagsResponse.PetFindByTagsResponseItem>;
-
-export namespace PetFindByTagsResponse {
-  export interface PetFindByTagsResponseItem {
-    name: string;
-
-    photoUrls: Array<string>;
-
-    id?: number;
-
-    category?: PetFindByTagsResponseItem.Category;
-
-    /**
-     * pet status in the store
-     */
-    status?: 'available' | 'pending' | 'sold';
-
-    tags?: Array<PetFindByTagsResponseItem.Tag>;
-  }
-
-  export namespace PetFindByTagsResponseItem {
-    export interface Category {
-      id?: number;
-
-      name?: string;
-    }
-
-    export interface Tag {
-      id?: number;
-
-      name?: string;
-    }
-  }
-}
+export type PetFindByTagsResponse = Array<Pet>;
 
 export interface PetUploadImageResponse {
   code?: number;
@@ -324,28 +194,14 @@ export interface PetCreateParams {
 
   id?: number;
 
-  category?: PetCreateParams.Category;
+  category?: Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<PetCreateParams.Tag>;
-}
-
-export namespace PetCreateParams {
-  export interface Category {
-    id?: number;
-
-    name?: string;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
+  tags?: Array<Tag>;
 }
 
 export interface PetUpdateParams {
@@ -355,28 +211,14 @@ export interface PetUpdateParams {
 
   id?: number;
 
-  category?: PetUpdateParams.Category;
+  category?: Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<PetUpdateParams.Tag>;
-}
-
-export namespace PetUpdateParams {
-  export interface Category {
-    id?: number;
-
-    name?: string;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
+  tags?: Array<Tag>;
 }
 
 export interface PetFindByStatusParams {
@@ -412,11 +254,11 @@ export interface PetUploadImageParams {
   additionalMetadata?: string;
 }
 
-export declare namespace Pet {
+export declare namespace PetResource {
   export {
-    type PetCreateResponse as PetCreateResponse,
-    type PetRetrieveResponse as PetRetrieveResponse,
-    type PetUpdateResponse as PetUpdateResponse,
+    type Category as Category,
+    type Pet as Pet,
+    type Tag as Tag,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,

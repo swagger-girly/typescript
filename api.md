@@ -2,18 +2,18 @@
 
 Types:
 
-- <code><a href="./src/resources/pet.ts">PetCreateResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetRetrieveResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetUpdateResponse</a></code>
+- <code><a href="./src/resources/pet.ts">Category</a></code>
+- <code><a href="./src/resources/pet.ts">Pet</a></code>
+- <code><a href="./src/resources/pet.ts">Tag</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
 
 Methods:
 
-- <code title="post /pet">client.pet.<a href="./src/resources/pet.ts">create</a>({ ...params }) -> PetCreateResponse</code>
-- <code title="get /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">retrieve</a>(petID) -> PetRetrieveResponse</code>
-- <code title="put /pet">client.pet.<a href="./src/resources/pet.ts">update</a>({ ...params }) -> PetUpdateResponse</code>
+- <code title="post /pet">client.pet.<a href="./src/resources/pet.ts">create</a>({ ...params }) -> Pet</code>
+- <code title="get /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">retrieve</a>(petID) -> Pet</code>
+- <code title="put /pet">client.pet.<a href="./src/resources/pet.ts">update</a>({ ...params }) -> Pet</code>
 - <code title="delete /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">delete</a>(petID) -> void</code>
 - <code title="get /pet/findByStatus">client.pet.<a href="./src/resources/pet.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
 - <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>

@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  Pet,
-  type PetCreateResponse,
-  type PetRetrieveResponse,
-  type PetUpdateResponse,
+  PetResource,
+  type Category,
+  type Pet,
+  type Tag,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
   type PetUploadImageResponse,

@@ -18,19 +18,19 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  Category,
   Pet,
   PetCreateParams,
-  PetCreateResponse,
   PetFindByStatusParams,
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetRetrieveResponse,
+  PetResource,
   PetUpdateParams,
-  PetUpdateResponse,
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
+  Tag,
 } from './resources/pet';
 import {
   User,
@@ -768,7 +768,7 @@ export class HelloWorldTestingggg {
   /**
    * Everything about your Pets
    */
-  pet: API.Pet = new API.Pet(this);
+  pet: API.PetResource = new API.PetResource(this);
   /**
    * Access to Petstore orders
    */
@@ -779,7 +779,7 @@ export class HelloWorldTestingggg {
   user: API.User = new API.User(this);
 }
 
-HelloWorldTestingggg.Pet = Pet;
+HelloWorldTestingggg.PetResource = PetResource;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
 
@@ -787,10 +787,10 @@ export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    Pet as Pet,
-    type PetCreateResponse as PetCreateResponse,
-    type PetRetrieveResponse as PetRetrieveResponse,
-    type PetUpdateResponse as PetUpdateResponse,
+    PetResource as PetResource,
+    type Category as Category,
+    type Pet as Pet,
+    type Tag as Tag,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
