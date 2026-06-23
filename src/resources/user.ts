@@ -97,7 +97,11 @@ export class User extends APIResource {
    * ```
    */
   login(query: UserLoginParams | null | undefined = {}, options?: RequestOptions): APIPromise<string> {
-    return this._client.get('/user/login', { query, ...options });
+    return this._client.get('/user/login', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+    });
   }
 
   /**

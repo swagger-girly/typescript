@@ -146,12 +146,6 @@ export class PetResource extends APIResource {
   }
 }
 
-export interface Category {
-  id?: number;
-
-  name?: string;
-}
-
 export interface Pet {
   name: string;
 
@@ -159,20 +153,28 @@ export interface Pet {
 
   id?: number;
 
-  category?: Category;
+  category?: Pet.Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<Tag>;
+  tags?: Array<Pet.Tag>;
 }
 
-export interface Tag {
-  id?: number;
+export namespace Pet {
+  export interface Category {
+    id?: number;
 
-  name?: string;
+    name?: string;
+  }
+
+  export interface Tag {
+    id?: number;
+
+    name?: string;
+  }
 }
 
 export type PetFindByStatusResponse = Array<Pet>;
@@ -194,14 +196,28 @@ export interface PetCreateParams {
 
   id?: number;
 
-  category?: Category;
+  category?: PetCreateParams.Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<Tag>;
+  tags?: Array<PetCreateParams.Tag>;
+}
+
+export namespace PetCreateParams {
+  export interface Category {
+    id?: number;
+
+    name?: string;
+  }
+
+  export interface Tag {
+    id?: number;
+
+    name?: string;
+  }
 }
 
 export interface PetUpdateParams {
@@ -211,14 +227,28 @@ export interface PetUpdateParams {
 
   id?: number;
 
-  category?: Category;
+  category?: PetUpdateParams.Category;
 
   /**
    * pet status in the store
    */
   status?: 'available' | 'pending' | 'sold';
 
-  tags?: Array<Tag>;
+  tags?: Array<PetUpdateParams.Tag>;
+}
+
+export namespace PetUpdateParams {
+  export interface Category {
+    id?: number;
+
+    name?: string;
+  }
+
+  export interface Tag {
+    id?: number;
+
+    name?: string;
+  }
 }
 
 export interface PetFindByStatusParams {
@@ -256,9 +286,7 @@ export interface PetUploadImageParams {
 
 export declare namespace PetResource {
   export {
-    type Category as Category,
     type Pet as Pet,
-    type Tag as Tag,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,

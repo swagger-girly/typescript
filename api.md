@@ -2,9 +2,7 @@
 
 Types:
 
-- <code><a href="./src/resources/pet.ts">Category</a></code>
 - <code><a href="./src/resources/pet.ts">Pet</a></code>
-- <code><a href="./src/resources/pet.ts">Tag</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
