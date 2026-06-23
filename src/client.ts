@@ -18,7 +18,6 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
-  Category,
   Pet,
   PetCreateParams,
   PetFindByStatusParams,
@@ -30,7 +29,6 @@ import {
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
-  Tag,
 } from './resources/pet';
 import {
   User,
@@ -788,9 +786,7 @@ export declare namespace HelloWorldTestingggg {
 
   export {
     PetResource as PetResource,
-    type Category as Category,
     type Pet as Pet,
-    type Tag as Tag,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,

@@ -2,9 +2,7 @@
 
 export {
   PetResource,
-  type Category,
   type Pet,
-  type Tag,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
   type PetUploadImageResponse,
