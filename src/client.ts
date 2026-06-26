@@ -29,6 +29,7 @@ import {
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
+  PetWatchStatusParams,
 } from './resources/pet';
 import {
   User,
@@ -796,6 +797,7 @@ export declare namespace HelloWorldTestingggg {
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
+    type PetWatchStatusParams as PetWatchStatusParams,
   };
 
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };

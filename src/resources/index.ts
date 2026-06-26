@@ -12,6 +12,7 @@ export {
   type PetFindByTagsParams,
   type PetUpdateWithFormParams,
   type PetUploadImageParams,
+  type PetWatchStatusParams,
 } from './pet';
 export { Store, type StoreListInventoryResponse } from './store/store';
 export {

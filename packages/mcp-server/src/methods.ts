@@ -59,6 +59,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/pet/{petId}/uploadImage',
   },
   {
+    clientCallName: 'client.pet.watchStatus',
+    fullyQualifiedName: 'pet.watchStatus',
+    httpMethod: 'get',
+    httpPath: '/pet/{petId}/status/stream',
+  },
+  {
     clientCallName: 'client.store.listInventory',
     fullyQualifiedName: 'store.listInventory',
     httpMethod: 'get',
