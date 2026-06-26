@@ -16,15 +16,6 @@ export {
   type PetUploadImageParams,
   type PetWatchStatusParams,
 } from './pet';
-export { Store, type StoreListInventoryResponse } from './store/store';
-export {
-  User,
-  type UserCreateResponse,
-  type UserRetrieveResponse,
-  type UserCreateWithListResponse,
-  type UserLoginResponse,
-  type UserCreateParams,
-  type UserUpdateParams,
-  type UserCreateWithListParams,
-  type UserLoginParams,
-} from './user';
+export { type PetWSBrowserOptions } from './ws-browser';
+export { type PetWSClientOptions } from './ws';
+export { type PetWSReconnectOptions, type PetWSParameters } from './ws-base';

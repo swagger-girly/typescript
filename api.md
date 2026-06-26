@@ -6,6 +6,8 @@ Types:
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
+- <code><a href="./src/resources/pet.ts">ConnectClientEvent</a></code>
+- <code><a href="./src/resources/pet.ts">ConnectServerEvent</a></code>
 
 Methods:
 
