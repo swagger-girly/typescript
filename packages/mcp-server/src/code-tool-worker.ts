@@ -116,6 +116,7 @@ const fuse = new Fuse(
     'client.pet.update',
     'client.pet.updateWithForm',
     'client.pet.uploadImage',
+    'client.pet.watchStatus',
     'client.store.listInventory',
     'client.store.order.create',
     'client.store.order.delete',

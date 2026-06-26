@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { Stream } from '../core/streaming';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -144,6 +145,34 @@ export class PetResource extends APIResource {
       headers: buildHeaders([{ 'Content-Type': 'application/octet-stream' }, options?.headers]),
     });
   }
+
+  /**
+   * Streams pet status updates over Server-Sent Events. Each `status` event contains
+   * a full `Pet` payload.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.watchStatus(0);
+   * ```
+   */
+  watchStatus(
+    petID: number,
+    params: PetWatchStatusParams | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Stream<unknown>> {
+    const { 'Last-Event-ID': lastEventID } = params ?? {};
+    return this._client.get(path`/pet/${petID}/status/stream`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          Accept: 'text/event-stream',
+          ...(lastEventID != null ? { 'Last-Event-ID': lastEventID } : undefined),
+        },
+        options?.headers,
+      ]),
+      stream: true,
+    }) as APIPromise<Stream<unknown>>;
+  }
 }
 
 export interface Pet {
@@ -284,6 +313,13 @@ export interface PetUploadImageParams {
   additionalMetadata?: string;
 }
 
+export interface PetWatchStatusParams {
+  /**
+   * Optional event identifier used to resume a previous stream.
+   */
+  'Last-Event-ID'?: string;
+}
+
 export declare namespace PetResource {
   export {
     type Pet as Pet,
@@ -296,5 +332,6 @@ export declare namespace PetResource {
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
+    type PetWatchStatusParams as PetWatchStatusParams,
   };
 }

@@ -38,6 +38,24 @@ const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
 console.log(pet.id);
 ```
 
+## Streaming responses
+
+We provide support for streaming responses using Server Sent Events (SSE).
+
+```ts
+import HelloWorldTestingggg from 'hello-world-testingggg';
+
+const client = new HelloWorldTestingggg();
+
+const stream = await client.pet.watchStatus(0);
+for await (const pet of stream) {
+  console.log(pet.id);
+}
+```
+
+If you need to cancel a stream, you can `break` from the loop
+or call `stream.controller.abort()`.
+
 ### Request & Response types
 
 This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
