@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as PetAPI from './pet';
 import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise, SinglePage } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -55,6 +56,24 @@ export class PetResource extends APIResource {
   }
 
   /**
+   * Returns a cursor-paginated list of pets.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PetListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PetsCursorPage, Pet> {
+    return this._client.getAPIList('/pet', CursorPage<Pet>, { query, ...options });
+  }
+
+  /**
    * Deletes a pet
    *
    * @example
@@ -98,6 +117,50 @@ export class PetResource extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PetFindByTagsResponse> {
     return this._client.get('/pet/findByTags', { query, ...options });
+  }
+
+  /**
+   * Returns a single page-shaped pet response without SDK pagination helpers.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listFakePage();
+   * ```
+   */
+  listFakePage(options?: RequestOptions): APIPromise<PetListFakePageResponse> {
+    return this._client.get('/pet/fake-page', options);
+  }
+
+  /**
+   * Returns a single page-shaped pet response whose fake pagination behavior is
+   * inferred from the Stainless config scheme.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.listFakePageInferred()) {
+   *   // ...
+   * }
+   * ```
+   */
+  listFakePageInferred(options?: RequestOptions): PagePromise<PetsSinglePage, Pet> {
+    return this._client.getAPIList('/pet/fake-page-inferred', SinglePage<Pet>, options);
+  }
+
+  /**
+   * Returns the same cursor-shaped pet list response without enabling SDK pagination
+   * helpers.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listUnpaginated();
+   * ```
+   */
+  listUnpaginated(
+    query: PetListUnpaginatedParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetListUnpaginatedResponse> {
+    return this._client.get('/pet/unpaginated', { query, ...options });
   }
 
   /**
@@ -176,6 +239,10 @@ export class PetResource extends APIResource {
   }
 }
 
+export type PetsCursorPage = CursorPage<Pet>;
+
+export type PetsSinglePage = SinglePage<Pet>;
+
 export interface Pet {
   name: string;
 
@@ -210,6 +277,18 @@ export namespace Pet {
 export type PetFindByStatusResponse = Array<Pet>;
 
 export type PetFindByTagsResponse = Array<Pet>;
+
+export interface PetListFakePageResponse {
+  data: Array<Pet>;
+
+  has_more: boolean;
+}
+
+export interface PetListUnpaginatedResponse {
+  items: Array<Pet>;
+
+  next_cursor?: string | null;
+}
 
 export interface PetUploadImageResponse {
   code?: number;
@@ -313,6 +392,8 @@ export namespace PetUpdateParams {
   }
 }
 
+export interface PetListParams extends CursorPageParams {}
+
 export interface PetFindByStatusParams {
   /**
    * Status values that need to be considered for filter
@@ -325,6 +406,18 @@ export interface PetFindByTagsParams {
    * Tags to filter by
    */
   tags?: Array<string>;
+}
+
+export interface PetListUnpaginatedParams {
+  /**
+   * Cursor from a previous response used to fetch the next page.
+   */
+  cursor?: string;
+
+  /**
+   * Maximum number of pets to return.
+   */
+  limit?: number;
 }
 
 export interface PetUpdateWithFormParams {
@@ -358,13 +451,19 @@ export declare namespace PetResource {
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
+    type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
+    type PetsCursorPage as PetsCursorPage,
+    type PetsSinglePage as PetsSinglePage,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
+    type PetListParams as PetListParams,
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
+    type PetListUnpaginatedParams as PetListUnpaginatedParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
     type PetWatchStatusParams as PetWatchStatusParams,

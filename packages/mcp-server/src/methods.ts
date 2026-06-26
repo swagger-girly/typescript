@@ -29,6 +29,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/pet',
   },
   {
+    clientCallName: 'client.pet.list',
+    fullyQualifiedName: 'pet.list',
+    httpMethod: 'get',
+    httpPath: '/pet',
+  },
+  {
     clientCallName: 'client.pet.delete',
     fullyQualifiedName: 'pet.delete',
     httpMethod: 'delete',
@@ -46,6 +52,24 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'pet.findByTags',
     httpMethod: 'get',
     httpPath: '/pet/findByTags',
+  },
+  {
+    clientCallName: 'client.pet.listFakePage',
+    fullyQualifiedName: 'pet.listFakePage',
+    httpMethod: 'get',
+    httpPath: '/pet/fake-page',
+  },
+  {
+    clientCallName: 'client.pet.listFakePageInferred',
+    fullyQualifiedName: 'pet.listFakePageInferred',
+    httpMethod: 'get',
+    httpPath: '/pet/fake-page-inferred',
+  },
+  {
+    clientCallName: 'client.pet.listUnpaginated',
+    fullyQualifiedName: 'pet.listUnpaginated',
+    httpMethod: 'get',
+    httpPath: '/pet/unpaginated',
   },
   {
     clientCallName: 'client.pet.updateWithForm',

@@ -148,6 +148,37 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
 
+## Auto-pagination
+
+List methods in the HelloWorldTestingggg API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllPets(params) {
+  const allPets = [];
+  // Automatically fetches more pages as needed.
+  for await (const pet of client.pet.list()) {
+    allPets.push(pet);
+  }
+  return allPets;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.pet.list();
+for (const pet of page.items) {
+  console.log(pet);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)

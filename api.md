@@ -5,6 +5,8 @@ Types:
 - <code><a href="./src/resources/pet.ts">Pet</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetListFakePageResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetListUnpaginatedResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectClientEvent</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectServerEvent</a></code>
@@ -14,9 +16,13 @@ Methods:
 - <code title="post /pet">client.pet.<a href="./src/resources/pet.ts">create</a>({ ...params }) -> Pet</code>
 - <code title="get /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">retrieve</a>(petID) -> Pet</code>
 - <code title="put /pet">client.pet.<a href="./src/resources/pet.ts">update</a>({ ...params }) -> Pet</code>
+- <code title="get /pet">client.pet.<a href="./src/resources/pet.ts">list</a>({ ...params }) -> PetsCursorPage</code>
 - <code title="delete /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">delete</a>(petID) -> void</code>
 - <code title="get /pet/findByStatus">client.pet.<a href="./src/resources/pet.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
 - <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
+- <code title="get /pet/fake-page">client.pet.<a href="./src/resources/pet.ts">listFakePage</a>() -> PetListFakePageResponse</code>
+- <code title="get /pet/fake-page-inferred">client.pet.<a href="./src/resources/pet.ts">listFakePageInferred</a>() -> PetsSinglePage</code>
+- <code title="get /pet/unpaginated">client.pet.<a href="./src/resources/pet.ts">listUnpaginated</a>({ ...params }) -> PetListUnpaginatedResponse</code>
 - <code title="post /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">updateWithForm</a>(petID, { ...params }) -> void</code>
 - <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">uploadImage</a>(petID, body, { ...params }) -> PetUploadImageResponse</code>
 - <code title="get /pet/{petId}/status/stream">client.pet.<a href="./src/resources/pet.ts">watchStatus</a>(petID, { ...params }) -> Pet</code>

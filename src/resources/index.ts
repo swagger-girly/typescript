@@ -5,16 +5,22 @@ export {
   type Pet,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
+  type PetListFakePageResponse,
+  type PetListUnpaginatedResponse,
   type PetUploadImageResponse,
   type ConnectClientEvent,
   type ConnectServerEvent,
   type PetCreateParams,
   type PetUpdateParams,
+  type PetListParams,
   type PetFindByStatusParams,
   type PetFindByTagsParams,
+  type PetListUnpaginatedParams,
   type PetUpdateWithFormParams,
   type PetUploadImageParams,
   type PetWatchStatusParams,
+  type PetsCursorPage,
+  type PetsSinglePage,
 } from './pet';
 export { Store, type StoreListInventoryResponse } from './store/store';
 export {

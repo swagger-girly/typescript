@@ -14,6 +14,13 @@ import * as Opts from './internal/request-options';
 import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
+import {
+  AbstractPage,
+  type CursorPageParams,
+  CursorPageResponse,
+  SinglePageResponse,
+} from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
@@ -37,12 +44,18 @@ import {
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
+  PetListFakePageResponse,
+  PetListParams,
+  PetListUnpaginatedParams,
+  PetListUnpaginatedResponse,
   PetResource,
   PetUpdateParams,
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
   PetWatchStatusParams,
+  PetsCursorPage,
+  PetsSinglePage,
 } from './resources/pet/pet';
 import { Store, StoreListInventoryResponse } from './resources/store/store';
 import { type Fetch } from './internal/builtin-types';
@@ -511,6 +524,30 @@ export class HelloWorldTestingggg {
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
 
+  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: PromiseOrValue<RequestOptions>,
+  ): Pagination.PagePromise<PageClass, Item> {
+    return this.requestAPIList(
+      Page,
+      opts && 'then' in opts ?
+        opts.then((opts) => ({ method: 'get', path, ...opts }))
+      : { method: 'get', path, ...opts },
+    );
+  }
+
+  requestAPIList<
+    Item = unknown,
+    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
+  >(
+    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
+    options: PromiseOrValue<FinalRequestOptions>,
+  ): Pagination.PagePromise<PageClass, Item> {
+    const request = this.makeRequest(options, null, undefined);
+    return new Pagination.PagePromise<PageClass, Item>(this as any as HelloWorldTestingggg, request, Page);
+  }
+
   async fetchWithTimeout(
     url: RequestInfo,
     init: RequestInit | undefined,
@@ -787,18 +824,30 @@ HelloWorldTestingggg.User = User;
 export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
 
+  export import CursorPage = Pagination.CursorPage;
+  export { type CursorPageParams as CursorPageParams, type CursorPageResponse as CursorPageResponse };
+
+  export import SinglePage = Pagination.SinglePage;
+  export { type SinglePageResponse as SinglePageResponse };
+
   export {
     PetResource as PetResource,
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
+    type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
+    type PetsCursorPage as PetsCursorPage,
+    type PetsSinglePage as PetsSinglePage,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
+    type PetListParams as PetListParams,
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
+    type PetListUnpaginatedParams as PetListUnpaginatedParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
     type PetWatchStatusParams as PetWatchStatusParams,
