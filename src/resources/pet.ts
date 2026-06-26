@@ -133,10 +133,10 @@ export class PetResource extends APIResource {
   uploadImage(
     petID: number,
     body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
-    params: PetUploadImageParams | null | undefined = {},
+    params: PetUploadImageParams,
     options?: RequestOptions,
   ): APIPromise<PetUploadImageResponse> {
-    const { additionalMetadata } = params ?? {};
+    const { additionalMetadata } = params;
     return this._client.post(path`/pet/${petID}/uploadImage`, {
       body: body,
       query: { additionalMetadata },
