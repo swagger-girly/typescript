@@ -34,6 +34,7 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'delete',
     httpPath: '/pet/{petId}',
   },
+  { clientCallName: 'client.pet.connect', fullyQualifiedName: 'pet.connect' },
   {
     clientCallName: 'client.pet.findByStatus',
     fullyQualifiedName: 'pet.findByStatus',

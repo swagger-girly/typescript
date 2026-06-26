@@ -18,6 +18,19 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  User,
+  UserCreateParams,
+  UserCreateResponse,
+  UserCreateWithListParams,
+  UserCreateWithListResponse,
+  UserLoginParams,
+  UserLoginResponse,
+  UserRetrieveResponse,
+  UserUpdateParams,
+} from './resources/user';
+import {
+  ConnectClientEvent,
+  ConnectServerEvent,
   Pet,
   PetCreateParams,
   PetFindByStatusParams,
@@ -30,18 +43,7 @@ import {
   PetUploadImageParams,
   PetUploadImageResponse,
   PetWatchStatusParams,
-} from './resources/pet';
-import {
-  User,
-  UserCreateParams,
-  UserCreateResponse,
-  UserCreateWithListParams,
-  UserCreateWithListResponse,
-  UserLoginParams,
-  UserLoginResponse,
-  UserRetrieveResponse,
-  UserUpdateParams,
-} from './resources/user';
+} from './resources/pet/pet';
 import { Store, StoreListInventoryResponse } from './resources/store/store';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -791,6 +793,8 @@ export declare namespace HelloWorldTestingggg {
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
+    type ConnectClientEvent as ConnectClientEvent,
+    type ConnectServerEvent as ConnectServerEvent,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
     type PetFindByStatusParams as PetFindByStatusParams,

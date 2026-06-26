@@ -108,6 +108,7 @@ function getTSDiagnostics(code: string): string[] {
 
 const fuse = new Fuse(
   [
+    'client.pet.connect',
     'client.pet.create',
     'client.pet.delete',
     'client.pet.findByStatus',

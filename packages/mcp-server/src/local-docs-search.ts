@@ -416,6 +416,36 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'connect',
+    endpoint: '',
+    httpMethod: '',
+    summary: '',
+    description: '',
+    stainlessPath: '(resource) pet > (method) connect',
+    qualified: 'client.pet.connect',
+    perLanguage: {
+      typescript: {
+        method: 'client.pet.connect',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nawait client.pet.connect('petId');",
+      },
+      python: {
+        method: 'pet.connect',
+        example:
+          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nclient.pet.connect(\n    "petId",\n)',
+      },
+      kotlin: {
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetConnectParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    client.pet().connect("petId")\n}',
+      },
+      go: {
+        method: 'client.Pet.Connect',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Pet.Connect(context.TODO(), "petId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+    },
+  },
+  {
     name: 'list_inventory',
     endpoint: '/store/inventory',
     httpMethod: 'get',
