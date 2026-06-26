@@ -142,7 +142,11 @@ describe('resource pet', () => {
 
   // Mock server tests are disabled
   test.skip('uploadImage', async () => {
-    const responsePromise = client.pet.uploadImage(0, await toFile(Buffer.from('Example data'), 'README.md'));
+    const responsePromise = client.pet.uploadImage(
+      0,
+      await toFile(Buffer.from('Example data'), 'README.md'),
+      {},
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -150,18 +154,5 @@ describe('resource pet', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('uploadImage: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.pet.uploadImage(
-        0,
-        await toFile(Buffer.from('Example data'), 'README.md'),
-        { additionalMetadata: 'additionalMetadata' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 });
