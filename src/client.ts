@@ -35,6 +35,7 @@ import {
   UserRetrieveResponse,
   UserUpdateParams,
 } from './resources/user';
+import { ParsedWebhookEvent, PetCreatedWebhookEvent, Webhooks } from './resources/webhooks';
 import {
   ConnectClientEvent,
   ConnectServerEvent,
@@ -76,6 +77,11 @@ export interface ClientOptions {
    * The API key for authorization in the header.
    */
   apiKey?: string | undefined;
+
+  /**
+   * Defaults to process.env['PETSTORE_WEBHOOK_SECRET'].
+   */
+  webhookSecret?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -151,6 +157,7 @@ export interface ClientOptions {
  */
 export class HelloWorldTestingggg {
   apiKey: string;
+  webhookSecret: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -168,6 +175,7 @@ export class HelloWorldTestingggg {
    * API Client for interfacing with the Hello World Testingggg API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.webhookSecret=process.env['PETSTORE_WEBHOOK_SECRET'] ?? null]
    * @param {string} [opts.baseURL=process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] ?? /api/v3] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -179,6 +187,7 @@ export class HelloWorldTestingggg {
   constructor({
     baseURL = readEnv('HELLO_WORLD_TESTINGGGG_BASE_URL'),
     apiKey = readEnv('API_KEY'),
+    webhookSecret = readEnv('PETSTORE_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -189,6 +198,7 @@ export class HelloWorldTestingggg {
 
     const options: ClientOptions = {
       apiKey,
+      webhookSecret,
       ...opts,
       baseURL: baseURL || `/api/v3`,
     };
@@ -227,6 +237,7 @@ export class HelloWorldTestingggg {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.webhookSecret = webhookSecret;
   }
 
   /**
@@ -243,6 +254,7 @@ export class HelloWorldTestingggg {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      webhookSecret: this.webhookSecret,
       ...options,
     });
     return client;
@@ -807,6 +819,7 @@ export class HelloWorldTestingggg {
    * Everything about your Pets
    */
   pet: API.PetResource = new API.PetResource(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
   /**
    * Access to Petstore orders
    */
@@ -818,6 +831,7 @@ export class HelloWorldTestingggg {
 }
 
 HelloWorldTestingggg.PetResource = PetResource;
+HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
 
@@ -854,6 +868,12 @@ export declare namespace HelloWorldTestingggg {
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
     type PetWatchStatusParams as PetWatchStatusParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
+    type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };

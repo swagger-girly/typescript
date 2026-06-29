@@ -122,6 +122,7 @@ const fuse = new Fuse(
     'client.pet.updateWithForm',
     'client.pet.uploadImage',
     'client.pet.watchStatus',
+    'client.webhooks.parsed',
     'client.store.listInventory',
     'client.store.order.create',
     'client.store.order.delete',

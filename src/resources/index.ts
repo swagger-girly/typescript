@@ -34,3 +34,4 @@ export {
   type UserCreateWithListParams,
   type UserLoginParams,
 } from './user';
+export { Webhooks, type PetCreatedWebhookEvent, type ParsedWebhookEvent } from './webhooks';

@@ -27,6 +27,17 @@ Methods:
 - <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">uploadImage</a>(petID, body, { ...params }) -> PetUploadImageResponse</code>
 - <code title="get /pet/{petId}/status/stream">client.pet.<a href="./src/resources/pet.ts">watchStatus</a>(petID, { ...params }) -> Pet</code>
 
+# Webhooks
+
+Types:
+
+- <code><a href="./src/resources/webhooks.ts">PetCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ParsedWebhookEvent</a></code>
+
+Methods:
+
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">parsed</a>(body) -> void</code>
+
 # Store
 
 Types:
