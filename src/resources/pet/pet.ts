@@ -3,7 +3,12 @@
 import { APIResource } from '../../core/resource';
 import * as PetAPI from './pet';
 import { APIPromise } from '../../core/api-promise';
-import { CursorPage, type CursorPageParams, PagePromise, SinglePage } from '../../core/pagination';
+import {
+  CustomCursorPage,
+  type CustomCursorPageParams,
+  PagePromise,
+  XFakeSinglePage,
+} from '../../core/pagination';
 import { Stream } from '../../core/streaming';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -69,8 +74,8 @@ export class PetResource extends APIResource {
   list(
     query: PetListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PetsCursorPage, Pet> {
-    return this._client.getAPIList('/pet', CursorPage<Pet>, { query, ...options });
+  ): PagePromise<PetsCustomCursorPage, Pet> {
+    return this._client.getAPIList('/pet', CustomCursorPage<Pet>, { query, ...options });
   }
 
   /**
@@ -143,8 +148,8 @@ export class PetResource extends APIResource {
    * }
    * ```
    */
-  listFakePageInferred(options?: RequestOptions): PagePromise<PetsSinglePage, Pet> {
-    return this._client.getAPIList('/pet/fake-page-inferred', SinglePage<Pet>, options);
+  listFakePageInferred(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
+    return this._client.getAPIList('/pet/fake-page-inferred', XFakeSinglePage<Pet>, options);
   }
 
   /**
@@ -239,9 +244,9 @@ export class PetResource extends APIResource {
   }
 }
 
-export type PetsCursorPage = CursorPage<Pet>;
+export type PetsCustomCursorPage = CustomCursorPage<Pet>;
 
-export type PetsSinglePage = SinglePage<Pet>;
+export type PetsXFakeSinglePage = XFakeSinglePage<Pet>;
 
 export interface Pet {
   name: string;
@@ -392,7 +397,7 @@ export namespace PetUpdateParams {
   }
 }
 
-export interface PetListParams extends CursorPageParams {}
+export interface PetListParams extends CustomCursorPageParams {}
 
 export interface PetFindByStatusParams {
   /**
@@ -456,8 +461,8 @@ export declare namespace PetResource {
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
-    type PetsCursorPage as PetsCursorPage,
-    type PetsSinglePage as PetsSinglePage,
+    type PetsCustomCursorPage as PetsCustomCursorPage,
+    type PetsXFakeSinglePage as PetsXFakeSinglePage,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
     type PetListParams as PetListParams,

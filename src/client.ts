@@ -17,9 +17,9 @@ import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
 import {
   AbstractPage,
-  type CursorPageParams,
-  CursorPageResponse,
-  SinglePageResponse,
+  type CustomCursorPageParams,
+  CustomCursorPageResponse,
+  XFakeSinglePageResponse,
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -54,8 +54,8 @@ import {
   PetUploadImageParams,
   PetUploadImageResponse,
   PetWatchStatusParams,
-  PetsCursorPage,
-  PetsSinglePage,
+  PetsCustomCursorPage,
+  PetsXFakeSinglePage,
 } from './resources/pet/pet';
 import { Store, StoreListInventoryResponse } from './resources/store/store';
 import { type Fetch } from './internal/builtin-types';
@@ -824,11 +824,14 @@ HelloWorldTestingggg.User = User;
 export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
 
-  export import CursorPage = Pagination.CursorPage;
-  export { type CursorPageParams as CursorPageParams, type CursorPageResponse as CursorPageResponse };
+  export import CustomCursorPage = Pagination.CustomCursorPage;
+  export {
+    type CustomCursorPageParams as CustomCursorPageParams,
+    type CustomCursorPageResponse as CustomCursorPageResponse,
+  };
 
-  export import SinglePage = Pagination.SinglePage;
-  export { type SinglePageResponse as SinglePageResponse };
+  export import XFakeSinglePage = Pagination.XFakeSinglePage;
+  export { type XFakeSinglePageResponse as XFakeSinglePageResponse };
 
   export {
     PetResource as PetResource,
@@ -840,8 +843,8 @@ export declare namespace HelloWorldTestingggg {
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
-    type PetsCursorPage as PetsCursorPage,
-    type PetsSinglePage as PetsSinglePage,
+    type PetsCustomCursorPage as PetsCustomCursorPage,
+    type PetsXFakeSinglePage as PetsXFakeSinglePage,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
     type PetListParams as PetListParams,
