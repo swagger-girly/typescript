@@ -89,6 +89,7 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/pet/{petId}/status/stream',
   },
+  { clientCallName: 'client.webhooks.parsed', fullyQualifiedName: 'webhooks.parsed' },
   {
     clientCallName: 'client.store.listInventory',
     fullyQualifiedName: 'store.listInventory',

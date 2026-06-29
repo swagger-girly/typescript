@@ -149,6 +149,7 @@ const remoteStainlessHandler = async ({
       readEnv('API_KEY') ?? client.apiKey,
       'set API_KEY environment variable or provide apiKey client option',
     ),
+    PETSTORE_WEBHOOK_SECRET: readEnv('PETSTORE_WEBHOOK_SECRET') ?? client.webhookSecret ?? undefined,
     HELLO_WORLD_TESTINGGGG_BASE_URL:
       readEnv('HELLO_WORLD_TESTINGGGG_BASE_URL') ?? client.baseURL ?? undefined,
   };
@@ -289,6 +290,7 @@ const localDenoHandler = async ({
       const opts = {
         ...(client.baseURL != null ? { baseURL: client.baseURL } : undefined),
         ...(client.apiKey != null ? { apiKey: client.apiKey } : undefined),
+        ...(client.webhookSecret != null ? { webhookSecret: client.webhookSecret } : undefined),
         defaultHeaders: {
           'X-Stainless-MCP': 'true',
         },
