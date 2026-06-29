@@ -19,8 +19,8 @@ export {
   type PetUpdateWithFormParams,
   type PetUploadImageParams,
   type PetWatchStatusParams,
-  type PetsCursorPage,
-  type PetsSinglePage,
+  type PetsCustomCursorPage,
+  type PetsXFakeSinglePage,
 } from './pet';
 export { Store, type StoreListInventoryResponse } from './store/store';
 export {

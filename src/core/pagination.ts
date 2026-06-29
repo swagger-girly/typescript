@@ -107,19 +107,19 @@ export class PagePromise<
   }
 }
 
-export interface CursorPageResponse<Item> {
+export interface CustomCursorPageResponse<Item> {
   items: Array<Item>;
 
   next_cursor: string | null;
 }
 
-export interface CursorPageParams {
+export interface CustomCursorPageParams {
   cursor?: string;
 
   limit?: number;
 }
 
-export class CursorPage<Item> extends AbstractPage<Item> implements CursorPageResponse<Item> {
+export class CustomCursorPage<Item> extends AbstractPage<Item> implements CustomCursorPageResponse<Item> {
   items: Array<Item>;
 
   next_cursor: string | null;
@@ -127,7 +127,7 @@ export class CursorPage<Item> extends AbstractPage<Item> implements CursorPageRe
   constructor(
     client: HelloWorldTestingggg,
     response: Response,
-    body: CursorPageResponse<Item>,
+    body: CustomCursorPageResponse<Item>,
     options: FinalRequestOptions,
   ) {
     super(client, response, body, options);
@@ -156,13 +156,13 @@ export class CursorPage<Item> extends AbstractPage<Item> implements CursorPageRe
   }
 }
 
-export interface SinglePageResponse<Item> {
+export interface XFakeSinglePageResponse<Item> {
   data: Array<Item>;
 
   has_more: boolean;
 }
 
-export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageResponse<Item> {
+export class XFakeSinglePage<Item> extends AbstractPage<Item> implements XFakeSinglePageResponse<Item> {
   data: Array<Item>;
 
   has_more: boolean;
@@ -170,7 +170,7 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
   constructor(
     client: HelloWorldTestingggg,
     response: Response,
-    body: SinglePageResponse<Item>,
+    body: XFakeSinglePageResponse<Item>,
     options: FinalRequestOptions,
   ) {
     super(client, response, body, options);
