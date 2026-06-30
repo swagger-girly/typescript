@@ -35,7 +35,14 @@ import {
   UserRetrieveResponse,
   UserUpdateParams,
 } from './resources/user';
-import { ParsedWebhookEvent, PetCreatedWebhookEvent, Webhooks } from './resources/webhooks';
+import {
+  ParsedWebhookEvent,
+  PetCreatedWebhookEvent,
+  PetInventoryLowWebhookEvent,
+  PetModerationWebhookEvent,
+  PetUpdatedWebhookEvent,
+  Webhooks,
+} from './resources/webhooks';
 import {
   ConnectClientEvent,
   ConnectServerEvent,
@@ -873,6 +880,9 @@ export declare namespace HelloWorldTestingggg {
   export {
     Webhooks as Webhooks,
     type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
+    type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
+    type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
+    type PetModerationWebhookEvent as PetModerationWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 
