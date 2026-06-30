@@ -19,11 +19,32 @@ import {
   AbstractPage,
   type CustomCursorPageParams,
   CustomCursorPageResponse,
+  type ReportCursorPageParams,
+  ReportCursorPageResponse,
   XFakeSinglePageResponse,
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
+import {
+  Archive,
+  File,
+  FileCreateArchiveParams,
+  FileUpdateParams,
+  FileUploadDirectParams,
+  FileUploadParams,
+  Files,
+  Fileslist,
+} from './resources/files';
+import {
+  Profile,
+  ProfileCreateParams,
+  ProfileCreateRequest,
+  ProfileLegacySearchParams,
+  ProfileLegacySearchResponse,
+  ProfileUpdateParams,
+  Profiles,
+} from './resources/profiles';
 import {
   User,
   UserCreateParams,
@@ -41,6 +62,7 @@ import {
   PetInventoryLowWebhookEvent,
   PetModerationWebhookEvent,
   PetUpdatedWebhookEvent,
+  StoreReportGeneratedWebhookEvent,
   Webhooks,
 } from './resources/webhooks';
 import {
@@ -52,7 +74,7 @@ import {
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetListFakePageResponse,
+  PetListFakePageInferredResponse,
   PetListParams,
   PetListUnpaginatedParams,
   PetListUnpaginatedResponse,
@@ -826,6 +848,14 @@ export class HelloWorldTestingggg {
    * Everything about your Pets
    */
   pet: API.PetResource = new API.PetResource(this);
+  /**
+   * File storage operations
+   */
+  files: API.Files = new API.Files(this);
+  /**
+   * Pet owner profile and compliance operations
+   */
+  profiles: API.Profiles = new API.Profiles(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
   /**
    * Access to Petstore orders
@@ -838,6 +868,8 @@ export class HelloWorldTestingggg {
 }
 
 HelloWorldTestingggg.PetResource = PetResource;
+HelloWorldTestingggg.Files = Files;
+HelloWorldTestingggg.Profiles = Profiles;
 HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
@@ -854,12 +886,18 @@ export declare namespace HelloWorldTestingggg {
   export import XFakeSinglePage = Pagination.XFakeSinglePage;
   export { type XFakeSinglePageResponse as XFakeSinglePageResponse };
 
+  export import ReportCursorPage = Pagination.ReportCursorPage;
+  export {
+    type ReportCursorPageParams as ReportCursorPageParams,
+    type ReportCursorPageResponse as ReportCursorPageResponse,
+  };
+
   export {
     PetResource as PetResource,
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListFakePageInferredResponse as PetListFakePageInferredResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
@@ -878,11 +916,33 @@ export declare namespace HelloWorldTestingggg {
   };
 
   export {
+    Files as Files,
+    type Archive as Archive,
+    type File as File,
+    type Fileslist as Fileslist,
+    type FileUpdateParams as FileUpdateParams,
+    type FileCreateArchiveParams as FileCreateArchiveParams,
+    type FileUploadParams as FileUploadParams,
+    type FileUploadDirectParams as FileUploadDirectParams,
+  };
+
+  export {
+    Profiles as Profiles,
+    type Profile as Profile,
+    type ProfileCreateRequest as ProfileCreateRequest,
+    type ProfileLegacySearchResponse as ProfileLegacySearchResponse,
+    type ProfileCreateParams as ProfileCreateParams,
+    type ProfileUpdateParams as ProfileUpdateParams,
+    type ProfileLegacySearchParams as ProfileLegacySearchParams,
+  };
+
+  export {
     Webhooks as Webhooks,
     type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
     type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
     type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
     type PetModerationWebhookEvent as PetModerationWebhookEvent,
+    type StoreReportGeneratedWebhookEvent as StoreReportGeneratedWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 

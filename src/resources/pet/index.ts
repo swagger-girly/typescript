@@ -5,7 +5,7 @@ export {
   type Pet,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
-  type PetListFakePageResponse,
+  type PetListFakePageInferredResponse,
   type PetListUnpaginatedResponse,
   type PetUploadImageResponse,
   type ConnectClientEvent,

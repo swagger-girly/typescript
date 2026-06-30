@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import * as PetAPI from './pet/pet';
+import * as ReportsAPI from './store/reports/reports';
 import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
@@ -135,12 +136,25 @@ export namespace PetModerationWebhookEvent {
   }
 }
 
+export interface StoreReportGeneratedWebhookEvent {
+  id: string;
+
+  created_at: string;
+
+  metrics: unknown;
+
+  report: ReportsAPI.Report;
+
+  type: 'store.report.generated';
+}
+
 export type ParsedWebhookEvent =
   | PetCreatedWebhookEvent
   | PetUpdatedWebhookEvent
   | PetInventoryLowWebhookEvent
   | ParsedWebhookEvent.PetModerationApprovedEvent
-  | ParsedWebhookEvent.PetModerationRejectedEvent;
+  | ParsedWebhookEvent.PetModerationRejectedEvent
+  | StoreReportGeneratedWebhookEvent;
 
 export namespace ParsedWebhookEvent {
   export interface PetModerationApprovedEvent {
@@ -199,6 +213,7 @@ export declare namespace Webhooks {
     type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
     type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
     type PetModerationWebhookEvent as PetModerationWebhookEvent,
+    type StoreReportGeneratedWebhookEvent as StoreReportGeneratedWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 }
