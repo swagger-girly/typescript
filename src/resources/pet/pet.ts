@@ -129,11 +129,14 @@ export class PetResource extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.pet.listFakePage();
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.listFakePage()) {
+   *   // ...
+   * }
    * ```
    */
-  listFakePage(options?: RequestOptions): APIPromise<PetListFakePageResponse> {
-    return this._client.get('/pet/fake-page', options);
+  listFakePage(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
+    return this._client.getAPIList('/pet/fake-page', XFakeSinglePage<Pet>, options);
   }
 
   /**
@@ -142,14 +145,11 @@ export class PetResource extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const pet of client.pet.listFakePageInferred()) {
-   *   // ...
-   * }
+   * const response = await client.pet.listFakePageInferred();
    * ```
    */
-  listFakePageInferred(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
-    return this._client.getAPIList('/pet/fake-page-inferred', XFakeSinglePage<Pet>, options);
+  listFakePageInferred(options?: RequestOptions): APIPromise<PetListFakePageInferredResponse> {
+    return this._client.get('/pet/fake-page-inferred', options);
   }
 
   /**
@@ -283,7 +283,7 @@ export type PetFindByStatusResponse = Array<Pet>;
 
 export type PetFindByTagsResponse = Array<Pet>;
 
-export interface PetListFakePageResponse {
+export interface PetListFakePageInferredResponse {
   data: Array<Pet>;
 
   has_more: boolean;
@@ -456,7 +456,7 @@ export declare namespace PetResource {
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListFakePageInferredResponse as PetListFakePageInferredResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,

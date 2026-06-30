@@ -191,3 +191,81 @@ export class XFakeSinglePage<Item> extends AbstractPage<Item> implements XFakeSi
     return null;
   }
 }
+
+export interface ReportCursorPageResponse<Item> {
+  data: Array<Item>;
+
+  has_more: boolean;
+}
+
+export interface ReportCursorPageParams {
+  page_size?: number;
+
+  starting_after?: string;
+
+  ending_before?: string;
+}
+
+export class ReportCursorPage<Item extends { id: string }>
+  extends AbstractPage<Item>
+  implements ReportCursorPageResponse<Item>
+{
+  data: Array<Item>;
+
+  has_more: boolean;
+
+  constructor(
+    client: HelloWorldTestingggg,
+    response: Response,
+    body: ReportCursorPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.has_more = body.has_more;
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  override hasNextPage(): boolean {
+    return this.has_more && super.hasNextPage();
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const data = this.getPaginatedItems();
+
+    const isForwards = !(
+      typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {})
+    );
+    if (isForwards) {
+      const id = data[data.length - 1]?.id;
+      if (!id) {
+        return null;
+      }
+
+      return {
+        ...this.options,
+        query: {
+          ...maybeObj(this.options.query),
+          starting_after: id,
+        },
+      };
+    }
+
+    const id = data[0]?.id;
+    if (!id) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        ending_before: id,
+      },
+    };
+  }
+}
