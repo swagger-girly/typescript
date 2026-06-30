@@ -1,21 +1,27 @@
 # Hello World Testingggg TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/hello-world-testingggg.svg)](https://npmjs.org/package/hello-world-testingggg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/hello-world-testingggg)
+[![NPM version](<https://img.shields.io/npm/v/hello-world-testingggg.svg?label=npm%20(stable)>)](https://npmjs.org/package/hello-world-testingggg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/hello-world-testingggg)
 
 This library provides convenient access to the Hello World Testingggg REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found on [swagger.io](http://swagger.io). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
+
+## MCP Server
+
+Use the Hello World Testingggg MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)
+
+> Note: You may need to set environment variables in your MCP client.
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/hello-world-testingggg-typescript.git
+npm install hello-world-testingggg
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install hello-world-testingggg`
 
 ## Usage
 
@@ -27,14 +33,28 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg();
 
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
+const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
 
+console.log(pet.id);
+```
+
+## Streaming responses
+
+We provide support for streaming responses using Server Sent Events (SSE).
+
+```ts
+import HelloWorldTestingggg from 'hello-world-testingggg';
+
+const client = new HelloWorldTestingggg();
+
+const stream = await client.pet.watchStatus(0);
+for await (const pet of stream) {
   console.log(pet.id);
 }
-
-main();
 ```
+
+If you need to cancel a stream, you can `break` from the loop
+or call `stream.controller.abort()`.
 
 ### Request & Response types
 
@@ -46,15 +66,40 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg();
 
-async function main() {
-  const params: HelloWorldTestingggg.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
-  const pet: HelloWorldTestingggg.Pet = await client.pet.update(params);
-}
-
-main();
+const params: HelloWorldTestingggg.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
+const pet: HelloWorldTestingggg.Pet = await client.pet.update(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import HelloWorldTestingggg, { toFile } from 'hello-world-testingggg';
+
+const client = new HelloWorldTestingggg();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.files.update('path', { file: fs.createReadStream('/path/to/file') });
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.files.update('path', { file: new File(['my bytes'], 'file') });
+
+// You can also pass a `fetch` `Response`:
+await client.files.update('path', { file: await fetch('https://somesite/file') });
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.files.update('path', { file: await toFile(Buffer.from('my bytes'), 'file') });
+await client.files.update('path', { file: await toFile(new Uint8Array([0, 1, 2]), 'file') });
+```
 
 ## Handling errors
 
@@ -64,8 +109,9 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
+const pet = await client.pet
+  .update({ name: 'doggie', photoUrls: ['string'] })
+  .catch(async (err) => {
     if (err instanceof HelloWorldTestingggg.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -74,12 +120,9 @@ async function main() {
       throw err;
     }
   });
-}
-
-main();
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -134,13 +177,46 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
 
+## Auto-pagination
+
+List methods in the HelloWorldTestingggg API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllPets(params) {
+  const allPets = [];
+  // Automatically fetches more pages as needed.
+  for await (const pet of client.pet.list()) {
+    allPets.push(pet);
+  }
+  return allPets;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.pet.list();
+for (const pet of page.items) {
+  console.log(pet);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
 
 The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
 
 <!-- prettier-ignore -->
 ```ts
@@ -155,6 +231,59 @@ const { data: pet, response: raw } = await client.pet
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(pet.id);
+```
+
+### Logging
+
+> [!IMPORTANT]
+> All log messages are intended for debugging only. The format and content of log messages
+> may change between releases.
+
+#### Log levels
+
+The log level can be configured in two ways:
+
+1. Via the `HELLO_WORLD_TESTINGGGG_LOG` environment variable
+2. Using the `logLevel` client option (overrides the environment variable if set)
+
+```ts
+import HelloWorldTestingggg from 'hello-world-testingggg';
+
+const client = new HelloWorldTestingggg({
+  logLevel: 'debug', // Show all log messages
+});
+```
+
+Available log levels, from most to least verbose:
+
+- `'debug'` - Show debug messages, info, warnings, and errors
+- `'info'` - Show info messages, warnings, and errors
+- `'warn'` - Show warnings and errors (default)
+- `'error'` - Show only errors
+- `'off'` - Disable all logging
+
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
+Some authentication-related headers are redacted, but sensitive data in request and response bodies
+may still be visible.
+
+#### Custom logger
+
+By default, this library logs to `globalThis.console`. You can also provide a custom logger.
+Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
+
+When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
+below the configured level will not be sent to your logger.
+
+```ts
+import HelloWorldTestingggg from 'hello-world-testingggg';
+import pino from 'pino';
+
+const logger = pino();
+
+const client = new HelloWorldTestingggg({
+  logger: logger.child({ name: 'HelloWorldTestingggg' }),
+  logLevel: 'debug', // Send all messages to pino, allowing it to filter
+});
 ```
 
 ### Making custom/undocumented requests
@@ -181,9 +310,8 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.foo.create({
-  foo: 'my_param',
-  bar: 12,
+client.pet.update({
+  // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
 });
@@ -216,32 +344,11 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
+import HelloWorldTestingggg from 'hello-world-testingggg';
 import fetch from 'my-fetch';
 
 const client = new HelloWorldTestingggg({ fetch });
 ```
-
-### Logging and middleware
-
-You may also provide a custom `fetch` function when instantiating the client,
-which can be used to inspect or alter the `Request` or `Response` before/after each request:
-
-```ts
-import { fetch } from 'undici'; // as one example
-import HelloWorldTestingggg from 'hello-world-testingggg';
-
-const client = new HelloWorldTestingggg({
-  fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
-    console.log('About to make a request', url, init);
-    const response = await fetch(url, init);
-    console.log('Got response', response);
-    return response;
-  },
-});
-```
-
-Note that if given a `HELLO_WORLD_TESTINGGGG_LOG=debug` environment variable, this library will log all requests and responses automatically.
-This is intended for debugging purposes only and may change in the future without notice.
 
 ### Fetch options
 
@@ -313,7 +420,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/hello-world-testingggg-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/swagger-girly/typescript/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
@@ -322,7 +429,7 @@ TypeScript >= 4.9 is supported.
 The following runtimes are supported:
 
 - Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
 - Deno v1.28.0 or higher.
 - Bun 1.0 or later.
 - Cloudflare Workers.

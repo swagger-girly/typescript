@@ -1,83 +1,116 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import type { RequestInit, RequestInfo, BodyInit } from './internal/builtin-types';
-import type { HTTPMethod, PromiseOrValue, MergedRequestInit } from './internal/types';
+import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestInit } from './internal/types';
 import { uuid4 } from './internal/utils/uuid';
-import { validatePositiveInteger, isAbsoluteURL } from './internal/utils/values';
+import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
 import { sleep } from './internal/utils/sleep';
+export type { Logger, LogLevel } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
 import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
-import * as Errors from './error';
-import * as Uploads from './uploads';
-import * as API from './resources/index';
-import { APIPromise } from './api-promise';
-import { type Fetch } from './internal/builtin-types';
-import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
-import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
 import {
+  AbstractPage,
+  type CustomCursorPageParams,
+  CustomCursorPageResponse,
+  type ReportCursorPageParams,
+  ReportCursorPageResponse,
+  XFakeSinglePageResponse,
+} from './core/pagination';
+import * as Uploads from './core/uploads';
+import * as API from './resources/index';
+import { APIPromise } from './core/api-promise';
+import {
+  Archive,
+  File,
+  FileCreateArchiveParams,
+  FileUpdateParams,
+  FileUploadDirectParams,
+  FileUploadParams,
+  Files,
+  Fileslist,
+} from './resources/files';
+import {
+  Profile,
+  ProfileCreateParams,
+  ProfileCreateRequest,
+  ProfileLegacySearchParams,
+  ProfileLegacySearchResponse,
+  ProfileUpdateParams,
+  Profiles,
+} from './resources/profiles';
+import {
+  User,
+  UserCreateParams,
+  UserCreateResponse,
+  UserCreateWithListParams,
+  UserCreateWithListResponse,
+  UserLoginParams,
+  UserLoginResponse,
+  UserRetrieveResponse,
+  UserUpdateParams,
+} from './resources/user';
+import {
+  ParsedWebhookEvent,
+  PetCreatedWebhookEvent,
+  PetInventoryLowWebhookEvent,
+  PetModerationWebhookEvent,
+  PetUpdatedWebhookEvent,
+  StoreReportGeneratedWebhookEvent,
+  Webhooks,
+} from './resources/webhooks';
+import {
+  ConnectClientEvent,
+  ConnectServerEvent,
   Pet,
   PetCreateParams,
   PetFindByStatusParams,
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
+  PetListFakePageInferredResponse,
+  PetListParams,
+  PetListUnpaginatedParams,
+  PetListUnpaginatedResponse,
   PetResource,
   PetUpdateParams,
   PetUpdateWithFormParams,
   PetUploadImageParams,
   PetUploadImageResponse,
-} from './resources/pet';
-import {
-  User,
-  UserCreateParams,
-  UserCreateWithListParams,
-  UserLoginParams,
-  UserLoginResponse,
-  UserResource,
-  UserUpdateParams,
-} from './resources/user';
-import { readEnv } from './internal/utils/env';
-import { logger } from './internal/utils/log';
-import { isEmptyObj } from './internal/utils/values';
+  PetWatchStatusParams,
+  PetsCustomCursorPage,
+  PetsXFakeSinglePage,
+} from './resources/pet/pet';
 import { Store, StoreListInventoryResponse } from './resources/store/store';
-
-const safeJSON = (text: string) => {
-  try {
-    return JSON.parse(text);
-  } catch (err) {
-    return undefined;
-  }
-};
-
-type LogFn = (message: string, ...rest: unknown[]) => void;
-export type Logger = {
-  error: LogFn;
-  warn: LogFn;
-  info: LogFn;
-  debug: LogFn;
-};
-export type LogLevel = 'off' | 'error' | 'warn' | 'info' | 'debug';
-const isLogLevel = (key: string | undefined): key is LogLevel => {
-  const levels: Record<LogLevel, true> = {
-    off: true,
-    error: true,
-    warn: true,
-    info: true,
-    debug: true,
-  };
-  return key! in levels;
-};
+import { type Fetch } from './internal/builtin-types';
+import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
+import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { readEnv } from './internal/utils/env';
+import {
+  type LogLevel,
+  type Logger,
+  formatRequestDetails,
+  loggerFor,
+  parseLogLevel,
+} from './internal/utils/log';
+import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
    * The API key for authorization in the header.
    */
   apiKey?: string | undefined;
+
+  /**
+   * Defaults to process.env['PETSTORE_WEBHOOK_SECRET'].
+   */
+  webhookSecret?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -92,6 +125,8 @@ export interface ClientOptions {
    *
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
+   *
+   * @unit milliseconds
    */
   timeout?: number | undefined;
   /**
@@ -134,30 +169,29 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['HELLO_WORLD_TESTINGGGG_LOG'].
+   * Defaults to process.env['HELLO_WORLD_TESTINGGGG_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: LogLevel | undefined | null;
+  logLevel?: LogLevel | undefined;
 
   /**
    * Set the logger.
    *
    * Defaults to globalThis.console.
    */
-  logger?: Logger | undefined | null;
+  logger?: Logger | undefined;
 }
-
-type FinalizedRequestInit = RequestInit & { headers: Headers };
 
 /**
  * API Client for interfacing with the Hello World Testingggg API.
  */
 export class HelloWorldTestingggg {
   apiKey: string;
+  webhookSecret: string | null;
 
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
@@ -170,6 +204,7 @@ export class HelloWorldTestingggg {
    * API Client for interfacing with the Hello World Testingggg API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.webhookSecret=process.env['PETSTORE_WEBHOOK_SECRET'] ?? null]
    * @param {string} [opts.baseURL=process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] ?? /api/v3] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -181,6 +216,7 @@ export class HelloWorldTestingggg {
   constructor({
     baseURL = readEnv('HELLO_WORLD_TESTINGGGG_BASE_URL'),
     apiKey = readEnv('API_KEY'),
+    webhookSecret = readEnv('PETSTORE_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -191,6 +227,7 @@ export class HelloWorldTestingggg {
 
     const options: ClientOptions = {
       apiKey,
+      webhookSecret,
       ...opts,
       baseURL: baseURL || `/api/v3`,
     };
@@ -198,22 +235,65 @@ export class HelloWorldTestingggg {
     this.baseURL = options.baseURL!;
     this.timeout = options.timeout ?? HelloWorldTestingggg.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
-    if (options.logLevel != null) {
-      this.logLevel = options.logLevel;
-    } else {
-      const envLevel = readEnv('HELLO_WORLD_TESTINGGGG_LOG');
-      if (isLogLevel(envLevel)) {
-        this.logLevel = envLevel;
-      }
-    }
+    const defaultLogLevel = 'warn';
+    // Set default logLevel early so that we can log a warning in parseLogLevel.
+    this.logLevel = defaultLogLevel;
+    this.logLevel =
+      parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
+      parseLogLevel(
+        readEnv('HELLO_WORLD_TESTINGGGG_LOG'),
+        "process.env['HELLO_WORLD_TESTINGGGG_LOG']",
+        this,
+      ) ??
+      defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
+    const customHeadersEnv = readEnv('HELLO_WORLD_TESTINGGGG_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
+
     this._options = options;
 
     this.apiKey = apiKey;
+    this.webhookSecret = webhookSecret;
+  }
+
+  /**
+   * Create a new client instance re-using the same options given to the current client with optional overriding.
+   */
+  withOptions(options: Partial<ClientOptions>): this {
+    const client = new (this.constructor as any as new (props: ClientOptions) => typeof this)({
+      ...this._options,
+      baseURL: this.baseURL,
+      maxRetries: this.maxRetries,
+      timeout: this.timeout,
+      logger: this.logger,
+      logLevel: this.logLevel,
+      fetch: this.fetch,
+      fetchOptions: this.fetchOptions,
+      apiKey: this.apiKey,
+      webhookSecret: this.webhookSecret,
+      ...options,
+    });
+    return client;
+  }
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== '/api/v3';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -224,12 +304,12 @@ export class HelloWorldTestingggg {
     return;
   }
 
-  protected authHeaders(opts: FinalRequestOptions): Headers | undefined {
-    return new Headers({ api_key: this.apiKey });
+  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([{ api_key: this.apiKey }]);
   }
 
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+  protected stringifyQuery(query: object | Record<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -249,40 +329,28 @@ export class HelloWorldTestingggg {
     return Errors.APIError.generate(status, error, message, headers);
   }
 
-  buildURL(path: string, query: Record<string, unknown> | null | undefined): string {
+  buildURL(
+    path: string,
+    query: Record<string, unknown> | null | undefined,
+    defaultBaseURL?: string | undefined,
+  ): string {
+    const baseURL = (!this.#baseURLOverridden() && defaultBaseURL) || this.baseURL;
     const url =
       isAbsoluteURL(path) ?
         new URL(path)
-      : new URL(this.baseURL + (this.baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
+      : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery = Object.fromEntries(url.searchParams);
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as Record<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
-  }
-
-  private calculateContentLength(body: unknown): string | null {
-    if (typeof body === 'string') {
-      if (typeof (globalThis as any).Buffer !== 'undefined') {
-        return (globalThis as any).Buffer.byteLength(body, 'utf8').toString();
-      }
-
-      if (typeof (globalThis as any).TextEncoder !== 'undefined') {
-        const encoder = new (globalThis as any).TextEncoder();
-        const encoded = encoder.encode(body);
-        return encoded.length.toString();
-      }
-    } else if (ArrayBuffer.isView(body)) {
-      return body.byteLength.toString();
-    }
-
-    return null;
   }
 
   /**
@@ -337,12 +405,13 @@ export class HelloWorldTestingggg {
     options: PromiseOrValue<FinalRequestOptions>,
     remainingRetries: number | null = null,
   ): APIPromise<Rsp> {
-    return new APIPromise(this, this.makeRequest(options, remainingRetries));
+    return new APIPromise(this, this.makeRequest(options, remainingRetries, undefined));
   }
 
   private async makeRequest(
     optionsInput: PromiseOrValue<FinalRequestOptions>,
     retriesRemaining: number | null,
+    retryOfRequestLogID: string | undefined,
   ): Promise<APIResponseProps> {
     const options = await optionsInput;
     const maxRetries = options.maxRetries ?? this.maxRetries;
@@ -352,11 +421,27 @@ export class HelloWorldTestingggg {
 
     await this.prepareOptions(options);
 
-    const { req, url, timeout } = this.buildRequest(options, { retryCount: maxRetries - retriesRemaining });
+    const { req, url, timeout } = await this.buildRequest(options, {
+      retryCount: maxRetries - retriesRemaining,
+    });
 
     await this.prepareRequest(req, { url, options });
 
-    logger(this).debug('request', url, options, req.headers);
+    /** Not an API request ID, just for correlating local log entries. */
+    const requestLogID = 'log_' + ((Math.random() * (1 << 24)) | 0).toString(16).padStart(6, '0');
+    const retryLogStr = retryOfRequestLogID === undefined ? '' : `, retryOf: ${retryOfRequestLogID}`;
+    const startTime = Date.now();
+
+    loggerFor(this).debug(
+      `[${requestLogID}] sending request`,
+      formatRequestDetails({
+        retryOfRequestLogID,
+        method: options.method,
+        url,
+        options,
+        headers: req.headers,
+      }),
+    );
 
     if (options.signal?.aborted) {
       throw new Errors.APIUserAbortError();
@@ -364,52 +449,144 @@ export class HelloWorldTestingggg {
 
     const controller = new AbortController();
     const response = await this.fetchWithTimeout(url, req, timeout, controller).catch(castToError);
+    const headersTime = Date.now();
 
-    if (response instanceof Error) {
+    if (response instanceof globalThis.Error) {
+      const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
       if (options.signal?.aborted) {
         throw new Errors.APIUserAbortError();
-      }
-      if (retriesRemaining) {
-        return this.retryRequest(options, retriesRemaining);
-      }
-      if (isAbortError(response)) {
-        throw new Errors.APIConnectionTimeoutError();
       }
       // detect native connection timeout errors
       // deno throws "TypeError: error sending request for url (https://example/): client error (Connect): tcp connect error: Operation timed out (os error 60): Operation timed out (os error 60)"
       // undici throws "TypeError: fetch failed" with cause "ConnectTimeoutError: Connect Timeout Error (attempted address: example:443, timeout: 1ms)"
       // others do not provide enough information to distinguish timeouts from other connection errors
-      if (/timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''))) {
+      const isTimeout =
+        isAbortError(response) ||
+        /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''));
+      if (retriesRemaining) {
+        loggerFor(this).info(
+          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`,
+        );
+        loggerFor(this).debug(
+          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`,
+          formatRequestDetails({
+            retryOfRequestLogID,
+            url,
+            durationMs: headersTime - startTime,
+            message: response.message,
+          }),
+        );
+        return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID);
+      }
+      loggerFor(this).info(
+        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`,
+      );
+      loggerFor(this).debug(
+        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`,
+        formatRequestDetails({
+          retryOfRequestLogID,
+          url,
+          durationMs: headersTime - startTime,
+          message: response.message,
+        }),
+      );
+      if (isTimeout) {
         throw new Errors.APIConnectionTimeoutError();
       }
       throw new Errors.APIConnectionError({ cause: response });
     }
 
+    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${
+      response.ok ? 'succeeded' : 'failed'
+    } with status ${response.status} in ${headersTime - startTime}ms`;
+
     if (!response.ok) {
-      if (retriesRemaining && this.shouldRetry(response)) {
+      const shouldRetry = await this.shouldRetry(response);
+      if (retriesRemaining && shouldRetry) {
         const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
-        logger(this).debug(`response (error; ${retryMessage})`, response.status, url, response.headers);
-        return this.retryRequest(options, retriesRemaining, response.headers);
+
+        // We don't need the body of this response.
+        await Shims.CancelReadableStream(response.body);
+        loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
+        loggerFor(this).debug(
+          `[${requestLogID}] response error (${retryMessage})`,
+          formatRequestDetails({
+            retryOfRequestLogID,
+            url: response.url,
+            status: response.status,
+            headers: response.headers,
+            durationMs: headersTime - startTime,
+          }),
+        );
+        return this.retryRequest(
+          options,
+          retriesRemaining,
+          retryOfRequestLogID ?? requestLogID,
+          response.headers,
+        );
       }
 
-      const errText = await response.text().catch((err: any) => castToError(err).message);
-      const errJSON = safeJSON(errText);
-      const errMessage = errJSON ? undefined : errText;
-      const retryMessage = retriesRemaining ? `(error; no more retries left)` : `(error; not retryable)`;
+      const retryMessage = shouldRetry ? `error; no more retries left` : `error; not retryable`;
 
-      logger(this).debug(
-        `response (error; ${retryMessage})`,
-        response.status,
-        url,
-        response.headers,
-        errMessage,
+      loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
+
+      const errText = await response.text().catch((err: any) => castToError(err).message);
+      const errJSON = safeJSON(errText) as any;
+      const errMessage = errJSON ? undefined : errText;
+
+      loggerFor(this).debug(
+        `[${requestLogID}] response error (${retryMessage})`,
+        formatRequestDetails({
+          retryOfRequestLogID,
+          url: response.url,
+          status: response.status,
+          headers: response.headers,
+          message: errMessage,
+          durationMs: Date.now() - startTime,
+        }),
       );
 
       const err = this.makeStatusError(response.status, errJSON, errMessage, response.headers);
       throw err;
     }
 
-    return { response, options, controller };
+    loggerFor(this).info(responseInfo);
+    loggerFor(this).debug(
+      `[${requestLogID}] response start`,
+      formatRequestDetails({
+        retryOfRequestLogID,
+        url: response.url,
+        status: response.status,
+        headers: response.headers,
+        durationMs: headersTime - startTime,
+      }),
+    );
+
+    return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
+  }
+
+  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: PromiseOrValue<RequestOptions>,
+  ): Pagination.PagePromise<PageClass, Item> {
+    return this.requestAPIList(
+      Page,
+      opts && 'then' in opts ?
+        opts.then((opts) => ({ method: 'get', path, ...opts }))
+      : { method: 'get', path, ...opts },
+    );
+  }
+
+  requestAPIList<
+    Item = unknown,
+    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
+  >(
+    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
+    options: PromiseOrValue<FinalRequestOptions>,
+  ): Pagination.PagePromise<PageClass, Item> {
+    const request = this.makeRequest(options, null, undefined);
+    return new Pagination.PagePromise<PageClass, Item>(this as any as HelloWorldTestingggg, request, Page);
   }
 
   async fetchWithTimeout(
@@ -419,11 +596,14 @@ export class HelloWorldTestingggg {
     controller: AbortController,
   ): Promise<Response> {
     const { signal, method, ...options } = init || {};
-    if (signal) signal.addEventListener('abort', () => controller.abort());
+    const abort = this._makeAbort(controller);
+    if (signal) signal.addEventListener('abort', abort, { once: true });
 
-    const timeout = setTimeout(() => controller.abort(), ms);
+    const timeout = setTimeout(abort, ms);
 
-    const isReadableBody = Shims.isReadableLike(options.body);
+    const isReadableBody =
+      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
+      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -437,15 +617,15 @@ export class HelloWorldTestingggg {
       fetchOptions.method = method.toUpperCase();
     }
 
-    return (
+    try {
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
-      this.fetch.call(undefined, url, fetchOptions).finally(() => {
-        clearTimeout(timeout);
-      })
-    );
+      return await this.fetch.call(undefined, url, fetchOptions);
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
-  private shouldRetry(response: Response): boolean {
+  private async shouldRetry(response: Response): Promise<boolean> {
     // Note this is not a standard header.
     const shouldRetryHeader = response.headers.get('x-should-retry');
 
@@ -471,6 +651,7 @@ export class HelloWorldTestingggg {
   private async retryRequest(
     options: FinalRequestOptions,
     retriesRemaining: number,
+    requestLogID: string,
     responseHeaders?: Headers | undefined,
   ): Promise<APIResponseProps> {
     let timeoutMillis: number | undefined;
@@ -495,15 +676,15 @@ export class HelloWorldTestingggg {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
     await sleep(timeoutMillis);
 
-    return this.makeRequest(options, retriesRemaining - 1);
+    return this.makeRequest(options, retriesRemaining - 1, requestLogID);
   }
 
   private calculateDefaultRetryTimeoutMillis(retriesRemaining: number, maxRetries: number): number {
@@ -521,18 +702,18 @@ export class HelloWorldTestingggg {
     return sleepSeconds * jitter * 1000;
   }
 
-  buildRequest(
-    options: FinalRequestOptions,
+  async buildRequest(
+    inputOptions: FinalRequestOptions,
     { retryCount = 0 }: { retryCount?: number } = {},
-  ): { req: FinalizedRequestInit; url: string; timeout: number } {
-    options = { ...options };
-    const { method, path, query } = options;
+  ): Promise<{ req: FinalizedRequestInit; url: string; timeout: number }> {
+    const options = { ...inputOptions };
+    const { method, path, query, defaultBaseURL } = options;
 
-    const url = this.buildURL(path!, query as Record<string, unknown>);
+    const url = this.buildURL(path!, query as Record<string, unknown>, defaultBaseURL);
     if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
     options.timeout = options.timeout ?? this.timeout;
     const { bodyHeaders, body } = this.buildBody({ options });
-    const reqHeaders = this.buildHeaders({ options, method, bodyHeaders, retryCount });
+    const reqHeaders = await this.buildHeaders({ options: inputOptions, method, bodyHeaders, retryCount });
 
     const req: FinalizedRequestInit = {
       method,
@@ -548,7 +729,7 @@ export class HelloWorldTestingggg {
     return { req, url, timeout: options.timeout };
   }
 
-  private buildHeaders({
+  private async buildHeaders({
     options,
     method,
     bodyHeaders,
@@ -558,7 +739,7 @@ export class HelloWorldTestingggg {
     method: HTTPMethod;
     bodyHeaders: HeadersLike;
     retryCount: number;
-  }): Headers {
+  }): Promise<Headers> {
     let idempotencyHeaders: HeadersLike = {};
     if (this.idempotencyHeader && method !== 'get') {
       if (!options.idempotencyKey) options.idempotencyKey = this.defaultIdempotencyKey();
@@ -571,10 +752,10 @@ export class HelloWorldTestingggg {
         Accept: 'application/json',
         'User-Agent': this.getUserAgent(),
         'X-Stainless-Retry-Count': String(retryCount),
-        ...(options.timeout ? { 'X-Stainless-Timeout': String(options.timeout) } : {}),
+        ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      this.authHeaders(options),
+      await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
@@ -585,11 +766,25 @@ export class HelloWorldTestingggg {
     return headers.values;
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private _makeAbort(controller: AbortController) {
+    // note: we can't just inline this method inside `fetchWithTimeout()` because then the closure
+    //       would capture all request options, and cause a memory leak.
+    return () => controller.abort();
+  }
+
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -602,7 +797,7 @@ export class HelloWorldTestingggg {
         // Preserve legacy string encoding behavior for now
         headers.values.has('content-type')) ||
       // `Blob` is superset of `File`
-      body instanceof Blob ||
+      ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
       body instanceof FormData ||
       // `URLSearchParams` -> `application/x-www-form-urlencoded`
@@ -617,6 +812,14 @@ export class HelloWorldTestingggg {
         (Symbol.iterator in body && 'next' in body && typeof body.next === 'function'))
     ) {
       return { bodyHeaders: undefined, body: Shims.ReadableStreamFrom(body as AsyncIterable<Uint8Array>) };
+    } else if (
+      typeof body === 'object' &&
+      headers.values.get('content-type') === 'application/x-www-form-urlencoded'
+    ) {
+      return {
+        bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: this.stringifyQuery(body),
+      };
     } else {
       return this.#encoder({ body, headers });
     }
@@ -641,35 +844,115 @@ export class HelloWorldTestingggg {
 
   static toFile = Uploads.toFile;
 
+  /**
+   * Everything about your Pets
+   */
   pet: API.PetResource = new API.PetResource(this);
+  /**
+   * File storage operations
+   */
+  files: API.Files = new API.Files(this);
+  /**
+   * Pet owner profile and compliance operations
+   */
+  profiles: API.Profiles = new API.Profiles(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
+  /**
+   * Access to Petstore orders
+   */
   store: API.Store = new API.Store(this);
-  user: API.UserResource = new API.UserResource(this);
+  /**
+   * Operations about user
+   */
+  user: API.User = new API.User(this);
 }
+
 HelloWorldTestingggg.PetResource = PetResource;
+HelloWorldTestingggg.Files = Files;
+HelloWorldTestingggg.Profiles = Profiles;
+HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
-HelloWorldTestingggg.UserResource = UserResource;
+HelloWorldTestingggg.User = User;
+
 export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
+
+  export import CustomCursorPage = Pagination.CustomCursorPage;
+  export {
+    type CustomCursorPageParams as CustomCursorPageParams,
+    type CustomCursorPageResponse as CustomCursorPageResponse,
+  };
+
+  export import XFakeSinglePage = Pagination.XFakeSinglePage;
+  export { type XFakeSinglePageResponse as XFakeSinglePageResponse };
+
+  export import ReportCursorPage = Pagination.ReportCursorPage;
+  export {
+    type ReportCursorPageParams as ReportCursorPageParams,
+    type ReportCursorPageResponse as ReportCursorPageResponse,
+  };
 
   export {
     PetResource as PetResource,
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
+    type PetListFakePageInferredResponse as PetListFakePageInferredResponse,
+    type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
+    type ConnectClientEvent as ConnectClientEvent,
+    type ConnectServerEvent as ConnectServerEvent,
+    type PetsCustomCursorPage as PetsCustomCursorPage,
+    type PetsXFakeSinglePage as PetsXFakeSinglePage,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
+    type PetListParams as PetListParams,
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
+    type PetListUnpaginatedParams as PetListUnpaginatedParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
+    type PetWatchStatusParams as PetWatchStatusParams,
+  };
+
+  export {
+    Files as Files,
+    type Archive as Archive,
+    type File as File,
+    type Fileslist as Fileslist,
+    type FileUpdateParams as FileUpdateParams,
+    type FileCreateArchiveParams as FileCreateArchiveParams,
+    type FileUploadParams as FileUploadParams,
+    type FileUploadDirectParams as FileUploadDirectParams,
+  };
+
+  export {
+    Profiles as Profiles,
+    type Profile as Profile,
+    type ProfileCreateRequest as ProfileCreateRequest,
+    type ProfileLegacySearchResponse as ProfileLegacySearchResponse,
+    type ProfileCreateParams as ProfileCreateParams,
+    type ProfileUpdateParams as ProfileUpdateParams,
+    type ProfileLegacySearchParams as ProfileLegacySearchParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
+    type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
+    type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
+    type PetModerationWebhookEvent as PetModerationWebhookEvent,
+    type StoreReportGeneratedWebhookEvent as StoreReportGeneratedWebhookEvent,
+    type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
 
   export {
-    UserResource as UserResource,
-    type User as User,
+    User as User,
+    type UserCreateResponse as UserCreateResponse,
+    type UserRetrieveResponse as UserRetrieveResponse,
+    type UserCreateWithListResponse as UserCreateWithListResponse,
     type UserLoginResponse as UserLoginResponse,
     type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,

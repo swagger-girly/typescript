@@ -8,7 +8,7 @@ const client = new HelloWorldTestingggg({
 });
 
 describe('resource order', () => {
-  // skipped: tests are disabled for the time being
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.store.order.create();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource order', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Mock server tests are disabled
   test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -31,14 +31,14 @@ describe('resource order', () => {
           petId: 198772,
           quantity: 7,
           shipDate: '2019-12-27T18:11:19.117Z',
-          status: 'placed',
+          status: 'approved',
         },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.store.order.retrieve(0);
     const rawResponse = await responsePromise.asResponse();
@@ -50,7 +50,7 @@ describe('resource order', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.store.order.delete(0);
     const rawResponse = await responsePromise.asResponse();
