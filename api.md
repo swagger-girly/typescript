@@ -32,6 +32,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/webhooks.ts">PetCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PetUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PetInventoryLowWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PetModerationWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ParsedWebhookEvent</a></code>
 
 Methods:

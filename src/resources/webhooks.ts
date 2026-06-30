@@ -25,15 +25,180 @@ export interface PetCreatedWebhookEvent {
   type: 'pet.created';
 }
 
-export interface ParsedWebhookEvent {
+export interface PetUpdatedWebhookEvent {
+  changed_fields: Array<'name' | 'status' | 'category' | 'tags'>;
+
   pet: PetAPI.Pet;
 
-  type: 'pet.created';
+  type: 'pet.updated';
+
+  metadata?: { [key: string]: string };
+
+  previous_status?: 'available' | 'pending' | 'sold' | null;
+}
+
+export interface PetInventoryLowWebhookEvent {
+  pet: PetAPI.Pet;
+
+  quantity: number;
+
+  threshold: number;
+
+  type: 'pet.inventory-low';
+
+  last_order?: PetInventoryLowWebhookEvent.LastOrder;
+
+  locations?: Array<PetInventoryLowWebhookEvent.Location>;
+}
+
+export namespace PetInventoryLowWebhookEvent {
+  export interface LastOrder {
+    id?: number;
+
+    complete?: boolean;
+
+    petId?: number;
+
+    quantity?: number;
+
+    shipDate?: string;
+
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+  }
+
+  export interface Location {
+    city?: string;
+
+    state?: string;
+
+    street?: string;
+
+    zip?: string;
+  }
+}
+
+export type PetModerationWebhookEvent =
+  | PetModerationWebhookEvent.PetModerationApprovedEvent
+  | PetModerationWebhookEvent.PetModerationRejectedEvent;
+
+export namespace PetModerationWebhookEvent {
+  export interface PetModerationApprovedEvent {
+    approved_at: string;
+
+    pet: PetAPI.Pet;
+
+    type: 'pet.moderation.approved';
+  }
+
+  export interface PetModerationRejectedEvent {
+    pet: PetAPI.Pet;
+
+    reason: 'policy_violation' | 'duplicate' | 'unsafe-content';
+
+    type: 'pet.moderation.rejected';
+
+    review_notes?: Array<PetModerationRejectedEvent.ReviewNote>;
+  }
+
+  export namespace PetModerationRejectedEvent {
+    export interface ReviewNote {
+      message: string;
+
+      reviewer?: ReviewNote.Reviewer;
+    }
+
+    export namespace ReviewNote {
+      export interface Reviewer {
+        id?: number;
+
+        email?: string;
+
+        firstName?: string;
+
+        lastName?: string;
+
+        password?: string;
+
+        phone?: string;
+
+        username?: string;
+
+        /**
+         * User Status
+         */
+        userStatus?: number;
+      }
+    }
+  }
+}
+
+export type ParsedWebhookEvent =
+  | PetCreatedWebhookEvent
+  | PetUpdatedWebhookEvent
+  | PetInventoryLowWebhookEvent
+  | ParsedWebhookEvent.PetModerationApprovedEvent
+  | ParsedWebhookEvent.PetModerationRejectedEvent;
+
+export namespace ParsedWebhookEvent {
+  export interface PetModerationApprovedEvent {
+    approved_at: string;
+
+    pet: PetAPI.Pet;
+
+    type: 'pet.moderation.approved';
+  }
+
+  export interface PetModerationRejectedEvent {
+    pet: PetAPI.Pet;
+
+    reason: 'policy_violation' | 'duplicate' | 'unsafe-content';
+
+    type: 'pet.moderation.rejected';
+
+    review_notes?: Array<PetModerationRejectedEvent.ReviewNote>;
+  }
+
+  export namespace PetModerationRejectedEvent {
+    export interface ReviewNote {
+      message: string;
+
+      reviewer?: ReviewNote.Reviewer;
+    }
+
+    export namespace ReviewNote {
+      export interface Reviewer {
+        id?: number;
+
+        email?: string;
+
+        firstName?: string;
+
+        lastName?: string;
+
+        password?: string;
+
+        phone?: string;
+
+        username?: string;
+
+        /**
+         * User Status
+         */
+        userStatus?: number;
+      }
+    }
+  }
 }
 
 export declare namespace Webhooks {
   export {
     type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
+    type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
+    type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
+    type PetModerationWebhookEvent as PetModerationWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 }
