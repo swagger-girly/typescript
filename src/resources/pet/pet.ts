@@ -228,7 +228,7 @@ export class PetResource extends APIResource {
     petID: number,
     params: PetWatchStatusParams | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<Stream<unknown>> {
+  ): APIPromise<Stream<Pet>> {
     const { 'Last-Event-ID': lastEventID } = params ?? {};
     return this._client.get(path`/pet/${petID}/status/stream`, {
       ...options,
@@ -240,7 +240,7 @@ export class PetResource extends APIResource {
         options?.headers,
       ]),
       stream: true,
-    }) as APIPromise<Stream<unknown>>;
+    }) as APIPromise<Stream<Pet>>;
   }
 }
 
