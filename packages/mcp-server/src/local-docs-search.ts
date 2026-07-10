@@ -89,6 +89,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpage, err := client.Pet.List(context.TODO(), helloworldtestingggg.PetListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
+      ruby: {
+        method: 'pet.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list\n\nputs(page)',
+      },
       http: {
         example: 'curl /api/v3/pet',
       },
@@ -133,6 +138,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tresponse, err := client.Pet.ListUnpaginated(context.TODO(), helloworldtestingggg.PetListUnpaginatedParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Items)\n}\n',
       },
+      ruby: {
+        method: 'pet.list_unpaginated',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_unpaginated\n\nputs(response)',
+      },
       http: {
         example: 'curl /api/v3/pet/unpaginated',
       },
@@ -175,6 +185,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.ListFakePage',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpage, err := client.Pet.ListFakePage(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'pet.list_fake_page',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list_fake_page\n\nputs(page)',
       },
       http: {
         example: 'curl /api/v3/pet/fake-page',
@@ -219,6 +234,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.ListFakePageInferred',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tresponse, err := client.Pet.ListFakePageInferred(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
+      },
+      ruby: {
+        method: 'pet.list_fake_page_inferred',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_fake_page_inferred\n\nputs(response)',
       },
       http: {
         example: 'curl /api/v3/pet/fake-page-inferred',
@@ -270,6 +290,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.Update',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpet, err := client.Pet.Update(context.TODO(), helloworldtestingggg.PetUpdateParams{\n\t\tPet: helloworldtestingggg.PetParam{\n\t\t\tName:      helloworldtestingggg.F("doggie"),\n\t\t\tPhotoURLs: helloworldtestingggg.F([]string{"string"}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", pet.ID)\n}\n',
+      },
+      ruby: {
+        method: 'pet.update',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
       },
       http: {
         example:
@@ -323,6 +348,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpet, err := client.Pet.New(context.TODO(), helloworldtestingggg.PetNewParams{\n\t\tPet: helloworldtestingggg.PetParam{\n\t\t\tName:      helloworldtestingggg.F("doggie"),\n\t\t\tPhotoURLs: helloworldtestingggg.F([]string{"string"}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", pet.ID)\n}\n',
       },
+      ruby: {
+        method: 'pet.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.create(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
+      },
       http: {
         example:
           'curl /api/v3/pet \\\n    -H \'Content-Type: application/json\' \\\n    -d \'{\n          "name": "doggie",\n          "photoUrls": [\n            "string"\n          ],\n          "id": 10\n        }\'',
@@ -367,6 +397,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.FindByStatus',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpets, err := client.Pet.FindByStatus(context.TODO(), helloworldtestingggg.PetFindByStatusParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", pets)\n}\n',
+      },
+      ruby: {
+        method: 'pet.find_by_status',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_status\n\nputs(pets)',
       },
       http: {
         example: 'curl /api/v3/pet/findByStatus',
@@ -413,6 +448,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpets, err := client.Pet.FindByTags(context.TODO(), helloworldtestingggg.PetFindByTagsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", pets)\n}\n',
       },
+      ruby: {
+        method: 'pet.find_by_tags',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_tags\n\nputs(pets)',
+      },
       http: {
         example: 'curl /api/v3/pet/findByTags',
       },
@@ -457,6 +497,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpet, err := client.Pet.Get(context.TODO(), int64(0))\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", pet.ID)\n}\n',
       },
+      ruby: {
+        method: 'pet.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.retrieve(0)\n\nputs(pet)',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -H "api_key: $API_KEY"',
       },
@@ -498,6 +543,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.UpdateWithForm',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\terr := client.Pet.UpdateWithForm(\n\t\tcontext.TODO(),\n\t\tint64(0),\n\t\thelloworldtestingggg.PetUpdateWithFormParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'pet.update_with_form',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.update_with_form(0)\n\nputs(result)',
       },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -X POST',
@@ -541,6 +591,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\terr := client.Pet.Delete(context.TODO(), int64(0))\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
+      ruby: {
+        method: 'pet.delete',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.delete(0)\n\nputs(result)',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -X DELETE',
       },
@@ -583,6 +638,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.UploadImage',
         example:
           'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tresponse, err := client.Pet.UploadImage(\n\t\tcontext.TODO(),\n\t\tint64(0),\n\t\tio.Reader(bytes.NewBuffer([]byte("Example data"))),\n\t\thelloworldtestingggg.PetUploadImageParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Code)\n}\n',
+      },
+      ruby: {
+        method: 'pet.upload_image',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.upload_image(0, body: StringIO.new("Example data"))\n\nputs(response)',
       },
       http: {
         example:
@@ -630,6 +690,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tstream := client.Pet.WatchStatusStreaming(\n\t\tcontext.TODO(),\n\t\tint64(0),\n\t\thelloworldtestingggg.PetWatchStatusParams{},\n\t)\n\tfor stream.Next() {\n\t\tfmt.Printf("%+v\\n", stream.Current())\n\t}\n\terr := stream.Err()\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
+      ruby: {
+        method: 'pet.watch_status',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.watch_status(0)\n\nputs(pet)',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID/status/stream \\\n    -H "api_key: $API_KEY"',
       },
@@ -666,6 +731,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Pet.Connect',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Pet.Connect(context.TODO(), "petId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'pet.connect',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.pet.connect\n\nputs(result)',
       },
     },
   },
@@ -705,6 +775,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Files.List',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfileslist, err := client.Files.List(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", fileslist.Data)\n}\n',
+      },
+      ruby: {
+        method: 'files.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfileslist = hello_world_testingggg.files.list\n\nputs(fileslist)',
       },
       http: {
         example: 'curl /api/v3/files \\\n    -H "api_key: $API_KEY"',
@@ -756,6 +831,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfile, err := client.Files.Upload(context.TODO(), helloworldtestingggg.FileUploadParams{\n\t\tFile: helloworldtestingggg.F(io.Reader(bytes.NewBuffer([]byte("Example data")))),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", file.LastModified)\n}\n',
       },
+      ruby: {
+        method: 'files.upload',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload(file: StringIO.new("Example data"))\n\nputs(file)',
+      },
       http: {
         example:
           "curl /api/v3/files \\\n    -H 'Content-Type: multipart/form-data' \\\n    -H \"api_key: $API_KEY\" \\\n    -F 'file=@/path/to/file'",
@@ -800,6 +880,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Files.Download(context.TODO(), "path")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
+      ruby: {
+        method: 'files.download',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.files.download("path")\n\nputs(response)',
+      },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -H "api_key: $API_KEY"',
       },
@@ -841,6 +926,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Files.Delete',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Files.Delete(context.TODO(), "path")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'files.delete',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.files.delete("path")\n\nputs(result)',
       },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -X DELETE \\\n    -H "api_key: $API_KEY"',
@@ -885,6 +975,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfile, err := client.Files.Update(\n\t\tcontext.TODO(),\n\t\t"path",\n\t\thelloworldtestingggg.FileUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", file.LastModified)\n}\n',
       },
+      ruby: {
+        method: 'files.update',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.update("path")\n\nputs(file)',
+      },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -X PUT \\\n    -H "api_key: $API_KEY"',
       },
@@ -927,6 +1022,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Files.UploadDirect',
         example:
           'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfile, err := client.Files.UploadDirect(\n\t\tcontext.TODO(),\n\t\tio.Reader(bytes.NewBuffer([]byte("Example data"))),\n\t\thelloworldtestingggg.FileUploadDirectParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", file.LastModified)\n}\n',
+      },
+      ruby: {
+        method: 'files.upload_direct',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload_direct(body: StringIO.new("Example data"))\n\nputs(file)',
       },
       http: {
         example:
@@ -971,6 +1071,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Files.NewArchive',
         example:
           'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tarchive, err := client.Files.NewArchive(context.TODO(), helloworldtestingggg.FileNewArchiveParams{\n\t\tFiles: helloworldtestingggg.F([]io.Reader{io.Reader(bytes.NewBuffer([]byte("Example data")))}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", archive.ID)\n}\n',
+      },
+      ruby: {
+        method: 'files.create_archive',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\narchive = hello_world_testingggg.files.create_archive(files: [StringIO.new("Example data")])\n\nputs(archive)',
       },
       http: {
         example:
@@ -1026,6 +1131,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tprofile, err := client.Profiles.New(context.TODO(), helloworldtestingggg.ProfileNewParams{\n\t\tProfileCreateRequest: helloworldtestingggg.ProfileCreateRequestParam{\n\t\t\tDisplayName: helloworldtestingggg.F("Ada Lovelace"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", profile.ID)\n}\n',
       },
+      ruby: {
+        method: 'profiles.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.create(display_name: "Ada Lovelace")\n\nputs(profile)',
+      },
       http: {
         example:
           'curl /api/v3/profiles \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "displayName": "Ada Lovelace",\n          "email": "ada@example.com",\n          "metadata": {\n            "crm_id": "crm_123"\n          },\n          "preferences": {\n            "alerts": {\n              "inventory": true\n            },\n            "newsletter": true\n          },\n          "secretNote": "verified manually"\n        }\'',
@@ -1070,6 +1180,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Profiles.Get',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tprofile, err := client.Profiles.Get(context.TODO(), "profileId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", profile.ID)\n}\n',
+      },
+      ruby: {
+        method: 'profiles.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.retrieve("profileId")\n\nputs(profile)',
       },
       http: {
         example: 'curl /api/v3/profiles/$PROFILE_ID \\\n    -H "api_key: $API_KEY"',
@@ -1117,6 +1232,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tprofile, err := client.Profiles.Update(\n\t\tcontext.TODO(),\n\t\t"profileId",\n\t\thelloworldtestingggg.ProfileUpdateParams{\n\t\t\tBody: helloworldtestingggg.ProfileUpdateParamsBodyProfileDetailsUpdate{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", profile.ID)\n}\n',
       },
+      ruby: {
+        method: 'profiles.update',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.update("profileId", body: {})\n\nputs(profile)',
+      },
       http: {
         example:
           "curl /api/v3/profiles/$PROFILE_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"api_key: $API_KEY\" \\\n    -d '{}'",
@@ -1162,6 +1282,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tprofiles, err := client.Profiles.LegacySearch(context.TODO(), helloworldtestingggg.ProfileLegacySearchParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", profiles)\n}\n',
       },
+      ruby: {
+        method: 'profiles.legacy_search',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofiles = hello_world_testingggg.profiles.legacy_search\n\nputs(profiles)',
+      },
       http: {
         example: 'curl /api/v3/profiles/legacy-search \\\n    -H "api_key: $API_KEY"',
       },
@@ -1198,6 +1323,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Webhooks.Parsed',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Webhooks.Parsed(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'webhooks.parsed',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.webhooks.parsed\n\nputs(result)',
       },
     },
   },
@@ -1237,6 +1367,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Store.ListInventory',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Store.ListInventory(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'store.list_inventory',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.list_inventory\n\nputs(response)',
       },
       http: {
         example: 'curl /api/v3/store/inventory \\\n    -H "api_key: $API_KEY"',
@@ -1289,6 +1424,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\torder, err := client.Store.Order.New(context.TODO(), helloworldtestingggg.StoreOrderNewParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", order.ID)\n}\n',
       },
+      ruby: {
+        method: 'store.order.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\norder = hello_world_testingggg.store.order.create\n\nputs(order)',
+      },
       http: {
         example: 'curl /api/v3/store/order \\\n    -X POST',
       },
@@ -1334,6 +1474,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\torder, err := client.Store.Order.Get(context.TODO(), int64(0))\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", order.ID)\n}\n',
       },
+      ruby: {
+        method: 'store.order.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\norder = hello_world_testingggg.store.order.retrieve(0)\n\nputs(order)',
+      },
       http: {
         example: 'curl /api/v3/store/order/$ORDER_ID',
       },
@@ -1376,6 +1521,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Store.Order.Delete',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Store.Order.Delete(context.TODO(), int64(0))\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'store.order.delete',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.store.order.delete(0)\n\nputs(result)',
       },
       http: {
         example: 'curl /api/v3/store/order/$ORDER_ID \\\n    -X DELETE',
@@ -1421,6 +1571,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpage, err := client.Store.Reports.List(context.TODO(), helloworldtestingggg.StoreReportListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
+      ruby: {
+        method: 'store.reports.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.store.reports.list\n\nputs(page)',
+      },
       http: {
         example: 'curl /api/v3/store/reports \\\n    -H "api_key: $API_KEY"',
       },
@@ -1465,6 +1620,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\treport, err := client.Store.Reports.Get(context.TODO(), "reportId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", report.ID)\n}\n',
       },
+      ruby: {
+        method: 'store.reports.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nreport = hello_world_testingggg.store.reports.retrieve("reportId")\n\nputs(report)',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID \\\n    -H "api_key: $API_KEY"',
       },
@@ -1508,6 +1668,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Store.Reports.Embed(context.TODO(), "reportId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
+      ruby: {
+        method: 'store.reports.embed',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.reports.embed("reportId")\n\nputs(response)',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/embed \\\n    -H "api_key: $API_KEY"',
       },
@@ -1549,6 +1714,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Store.Reports.Pause',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Store.Reports.Pause(\n\t\tcontext.TODO(),\n\t\t"reportId",\n\t\thelloworldtestingggg.StoreReportPauseParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'store.reports.pause',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.store.reports.pause("reportId")\n\nputs(result)',
       },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/pause \\\n    -X POST \\\n    -H "api_key: $API_KEY"',
@@ -1593,6 +1763,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tinventoryResponse, err := client.Store.Reports.Inventory.List(context.TODO(), "reportId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", inventoryResponse.Data)\n}\n',
       },
+      ruby: {
+        method: 'store.reports.inventory.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ninventory_response = hello_world_testingggg.store.reports.inventory.list("reportId")\n\nputs(inventory_response)',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/inventory \\\n    -H "api_key: $API_KEY"',
       },
@@ -1635,6 +1810,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.Store.Reports.Inventory.Daily.Get',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdailyInventory, err := client.Store.Reports.Inventory.Daily.Get(\n\t\tcontext.TODO(),\n\t\t"reportId",\n\t\ttime.Now(),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dailyInventory.Date)\n}\n',
+      },
+      ruby: {
+        method: 'store.reports.inventory.daily.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ndaily_inventory = hello_world_testingggg.store.reports.inventory.daily.retrieve("2019-12-27", report_id: "reportId")\n\nputs(daily_inventory)',
       },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/inventory/daily/$DATE \\\n    -H "api_key: $API_KEY"',
@@ -1689,6 +1869,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tuser, err := client.User.New(context.TODO(), helloworldtestingggg.UserNewParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", user.ID)\n}\n',
       },
+      ruby: {
+        method: 'user.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nuser = hello_world_testingggg.user.create\n\nputs(user)',
+      },
       http: {
         example: 'curl /api/v3/user \\\n    -X POST',
       },
@@ -1735,6 +1920,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.User.NewWithList(context.TODO(), helloworldtestingggg.UserNewWithListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
       },
+      ruby: {
+        method: 'user.create_with_list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.user.create_with_list\n\nputs(response)',
+      },
       http: {
         example: 'curl /api/v3/user/createWithList \\\n    -X POST',
       },
@@ -1778,6 +1968,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.User.Login(context.TODO(), helloworldtestingggg.UserLoginParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
+      ruby: {
+        method: 'user.login',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.user.login\n\nputs(response)',
+      },
       http: {
         example: 'curl /api/v3/user/login',
       },
@@ -1818,6 +2013,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.User.Logout',
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.User.Logout(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'user.logout',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.user.logout\n\nputs(result)',
       },
       http: {
         example: 'curl /api/v3/user/logout',
@@ -1862,6 +2062,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.User.Get',
         example:
           'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tuser, err := client.User.Get(context.TODO(), "username")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", user.ID)\n}\n',
+      },
+      ruby: {
+        method: 'user.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nuser = hello_world_testingggg.user.retrieve("username")\n\nputs(user)',
       },
       http: {
         example: 'curl /api/v3/user/$USERNAME',
@@ -1915,6 +2120,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.User.Update(\n\t\tcontext.TODO(),\n\t\t"username",\n\t\thelloworldtestingggg.UserUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
+      ruby: {
+        method: 'user.update',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.user.update("username")\n\nputs(result)',
+      },
       http: {
         example: 'curl /api/v3/user/$USERNAME \\\n    -X PUT',
       },
@@ -1957,6 +2167,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.User.Delete(context.TODO(), "username")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
+      ruby: {
+        method: 'user.delete',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.user.delete("username")\n\nputs(result)',
+      },
       http: {
         example: 'curl /api/v3/user/$USERNAME \\\n    -X DELETE',
       },
@@ -1984,6 +2199,11 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
     language: 'python',
     content:
       '# Hello World Testingggg Python API library\n\n<!-- prettier-ignore -->\n[![PyPI version](https://img.shields.io/pypi/v/hello_world_testingggg.svg?label=pypi%20(stable))](https://pypi.org/project/hello_world_testingggg/)\n\nThe Hello World Testingggg Python library provides convenient access to the Hello World Testingggg REST API from any Python 3.9+\napplication. The library includes type definitions for all request params and response fields,\nand offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).\n\n\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Hello World Testingggg MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nThe REST API documentation can be found on [swagger.io](http://swagger.io). The full API of this library can be found in [api.md](api.md).\n\n## Installation\n\n```sh\n# install from the production repo\npip install git+ssh://git@github.com/swagger-girly/python.git\n```\n> [!NOTE]\n> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install hello_world_testingggg`\n\n## Usage\n\nThe full API of this library can be found in [api.md](api.md).\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\npet = client.pet.update(\n    name="doggie",\n    photo_urls=["string"],\n)\nprint(pet.id)\n```\n\nWhile you can provide an `api_key` keyword argument,\nwe recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)\nto add `API_KEY="My API Key"` to your `.env` file\nso that your API Key is not stored in source control.\n\n## Async usage\n\nSimply import `AsyncHelloWorldTestingggg` instead of `HelloWorldTestingggg` and use `await` with each API call:\n\n```python\nimport asyncio\nfrom hello_world_testingggg import AsyncHelloWorldTestingggg\n\nclient = AsyncHelloWorldTestingggg()\n\nasync def main() -> None:\n  pet = await client.pet.update(\n      name="doggie",\n      photo_urls=["string"],\n  )\n  print(pet.id)\n\nasyncio.run(main())\n```\n\nFunctionality between the synchronous and asynchronous clients is otherwise identical.\n\n### With aiohttp\n\nBy default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.\n\nYou can enable this by installing `aiohttp`:\n\n```sh\n# install from the production repo\npip install \'hello_world_testingggg[aiohttp] @ git+ssh://git@github.com/swagger-girly/python.git\'\n```\n\nThen you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:\n\n```python\nimport asyncio\nfrom hello_world_testingggg import DefaultAioHttpClient\nfrom hello_world_testingggg import AsyncHelloWorldTestingggg\n\nasync def main() -> None:\n  async with AsyncHelloWorldTestingggg(\n    http_client=DefaultAioHttpClient(),\n) as client:\n    pet = await client.pet.update(\n        name="doggie",\n        photo_urls=["string"],\n    )\n    print(pet.id)\n\nasyncio.run(main())\n```\n\n## Streaming responses\n\nWe provide support for streaming responses using Server Side Events (SSE).\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\nstream = client.pet.watch_status(\n    pet_id=0,\n)\nfor pet in stream:\n  print(pet.id)\n```\n\nThe async client uses the exact same interface.\n\n```python\nfrom hello_world_testingggg import AsyncHelloWorldTestingggg\n\nclient = AsyncHelloWorldTestingggg()\n\nstream = await client.pet.watch_status(\n    pet_id=0,\n)\nasync for pet in stream:\n  print(pet.id)\n```\n\n## Using types\n\nNested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:\n\n- Serializing back into JSON, `model.to_json()`\n- Converting to a dictionary, `model.to_dict()`\n\nTyped requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.\n\n## Pagination\n\nList methods in the Hello World Testingggg API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\nall_pets = []\n# Automatically fetches more pages as needed.\nfor pet in client.pet.list():\n    # Do something with pet here\n    all_pets.append(pet)\nprint(all_pets)\n```\n\nOr, asynchronously:\n\n```python\nimport asyncio\nfrom hello_world_testingggg import AsyncHelloWorldTestingggg\n\nclient = AsyncHelloWorldTestingggg()\n\nasync def main() -> None:\n    all_pets = []\n    # Iterate through items across all pages, issuing requests as needed.\n    async for pet in client.pet.list():\n        all_pets.append(pet)\n    print(all_pets)\n\nasyncio.run(main())\n```\n\nAlternatively, you can use the `.has_next_page()`, `.next_page_info()`, or  `.get_next_page()` methods for more granular control working with pages:\n\n```python\nfirst_page = await client.pet.list()\nif first_page.has_next_page():\n    print(f"will fetch next page using these details: {first_page.next_page_info()}")\n    next_page = await first_page.get_next_page()\n    print(f"number of items we just fetched: {len(next_page.items)}")\n\n# Remove `await` for non-async usage.\n```\n\nOr just work directly with the returned data:\n\n```python\nfirst_page = await client.pet.list()\n\nprint(f"next page cursor: {first_page.next_cursor}") # => "next page cursor: ..."\nfor pet in first_page.items:\n    print(pet.id)\n\n# Remove `await` for non-async usage.\n```\n\n## Nested params\n\nNested parameters are dictionaries, typed using `TypedDict`, for example:\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\npet = client.pet.update(\n    name="doggie",\n    photo_urls=["string"],\n    category={},\n)\nprint(pet.category)\n```\n\n## File uploads\n\nRequest parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.\n\n```python\nfrom pathlib import Path\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\nclient.files.update(\n    path="path",\n    file=Path("/path/to/file"),\n)\n```\n\nThe async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.\n\n## Handling errors\n\nWhen the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `hello_world_testingggg.APIConnectionError` is raised.\n\nWhen the API returns a non-success status code (that is, 4xx or 5xx\nresponse), a subclass of `hello_world_testingggg.APIStatusError` is raised, containing `status_code` and `response` properties.\n\nAll errors inherit from `hello_world_testingggg.APIError`.\n\n```python\nimport hello_world_testingggg\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\n\ntry:\n    client.pet.update(\n        name="doggie",\n        photo_urls=["string"],\n    )\nexcept hello_world_testingggg.APIConnectionError as e:\n    print("The server could not be reached")\n    print(e.__cause__) # an underlying Exception, likely raised within httpx.\nexcept hello_world_testingggg.RateLimitError as e:\n    print("A 429 status code was received; we should back off a bit.")\nexcept hello_world_testingggg.APIStatusError as e:\n    print("Another non-200-range status code was received")\n    print(e.status_code)\n    print(e.response)\n```\n\nError codes are as follows:\n\n| Status Code | Error Type                 |\n| ----------- | -------------------------- |\n| 400         | `BadRequestError`          |\n| 401         | `AuthenticationError`      |\n| 403         | `PermissionDeniedError`    |\n| 404         | `NotFoundError`            |\n| 422         | `UnprocessableEntityError` |\n| 429         | `RateLimitError`           |\n| >=500       | `InternalServerError`      |\n| N/A         | `APIConnectionError`       |\n\n### Retries\n\nCertain errors are automatically retried 2 times by default, with a short exponential backoff.\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,\n429 Rate Limit, and >=500 Internal errors are all retried by default.\n\nYou can use the `max_retries` option to configure or disable retry settings:\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\n# Configure the default for all requests:\nclient = HelloWorldTestingggg(\n    # default is 2\n    max_retries=0,\n)\n\n# Or, configure per-request:\nclient.with_options(max_retries = 5).pet.update(\n    name="doggie",\n    photo_urls=["string"],\n)\n```\n\n### Timeouts\n\nBy default requests time out after 1 minute. You can configure this with a `timeout` option,\nwhich accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:\n\n```python\nfrom hello_world_testingggg import HelloWorldTestingggg\n\n# Configure the default for all requests:\nclient = HelloWorldTestingggg(\n    # 20 seconds (default is 1 minute)\n    timeout=20.0,\n)\n\n# More granular control:\nclient = HelloWorldTestingggg(\n    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),\n)\n\n# Override per-request:\nclient.with_options(timeout = 5.0).pet.update(\n    name="doggie",\n    photo_urls=["string"],\n)\n```\n\nOn timeout, an `APITimeoutError` is thrown.\n\nNote that requests that time out are [retried twice by default](#retries).\n\n\n\n## Advanced\n\n### Logging\n\nWe use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.\n\nYou can enable logging by setting the environment variable `HELLO_WORLD_TESTINGGGG_LOG` to `info`.\n\n```shell\n$ export HELLO_WORLD_TESTINGGGG_LOG=info\n```\n\nOr to `debug` for more verbose logging.\n\n### How to tell whether `None` means `null` or missing\n\nIn an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:\n\n```py\nif response.my_field is None:\n  if \'my_field\' not in response.model_fields_set:\n    print(\'Got json like {}, without a "my_field" key present at all.\')\n  else:\n    print(\'Got json like {"my_field": null}.\')\n```\n\n### Accessing raw response data (e.g. headers)\n\nThe "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,\n\n```py\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nresponse = client.pet.with_raw_response.update(\n    name="doggie",\n    photo_urls=["string"],\n)\nprint(response.headers.get(\'X-My-Header\'))\n\npet = response.parse()  # get the object that `pet.update()` would have returned\nprint(pet.id)\n```\n\nThese methods return an [`APIResponse`](https://github.com/swagger-girly/python/tree/main/src/hello_world_testingggg/_response.py) object.\n\nThe async client returns an [`AsyncAPIResponse`](https://github.com/swagger-girly/python/tree/main/src/hello_world_testingggg/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.\n\n#### `.with_streaming_response`\n\nThe above interface eagerly reads the full response body when you make the request, which may not always be what you want.\n\nTo stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.\n\n```python\nwith client.pet.with_streaming_response.update(\n    name="doggie",\n    photo_urls=["string"],\n) as response :\n    print(response.headers.get(\'X-My-Header\'))\n\n    for line in response.iter_lines():\n      print(line)\n```\n\nThe context manager is required so that the response will reliably be closed.\n\n### Making custom/undocumented requests\n\nThis library is typed for convenient access to the documented API.\n\nIf you need to access undocumented endpoints, params, or response properties, the library can still be used.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other\nhttp verbs. Options on the client will be respected (such as retries) when making this request.\n\n```py\nimport httpx\n\nresponse = client.post(\n    "/foo",\n    cast_to=httpx.Response,\n    body={"my_param": True},\n)\n\nprint(response.headers.get("x-foo"))\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request\noptions.\n\n#### Undocumented response properties\n\nTo access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You\ncan also get all the extra fields on the Pydantic model as a dict with\n[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).\n\n### Configuring the HTTP client\n\nYou can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:\n\n- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)\n- Custom [transports](https://www.python-httpx.org/advanced/transports/)\n- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality\n\n```python\nimport httpx\nfrom hello_world_testingggg import HelloWorldTestingggg, DefaultHttpxClient\n\nclient = HelloWorldTestingggg(\n    # Or use the `HELLO_WORLD_TESTINGGGG_BASE_URL` env var\n    base_url="http://my.test.server.example.com:8083",\n    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),\n)\n```\n\nYou can also customize the client on a per-request basis by using `with_options()`:\n\n```python\nclient.with_options(http_client=DefaultHttpxClient(...))\n```\n\n### Managing HTTP resources\n\nBy default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.\n\n```py\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nwith HelloWorldTestingggg() as client:\n  # make requests here\n  ...\n\n# HTTP client is now closed\n```\n\n## Versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes that only affect static types, without breaking runtime behavior.\n2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n3. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/swagger-girly/python/issues) with questions, bugs, or suggestions.\n\n### Determining the installed version\n\nIf you\'ve upgraded to the latest version but aren\'t seeing any new features you were expecting then your python environment is likely still using an older version.\n\nYou can determine the version that is being used at runtime with:\n\n```py\nimport hello_world_testingggg\nprint(hello_world_testingggg.__version__)\n```\n\n## Requirements\n\nPython 3.9 or higher.\n\n## Contributing\n\nSee [the contributing documentation](./CONTRIBUTING.md).\n',
+  },
+  {
+    language: 'ruby',
+    content:
+      '# Hello World Testingggg Ruby API library\n\nThe Hello World Testingggg Ruby library provides convenient access to the Hello World Testingggg REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/stainless-sdks/hello-world-testingggg-ruby#Sorbet) for usage with Sorbet. The standard library\'s `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.\n\n\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Hello World Testingggg MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nDocumentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/hello-world-testingggg).\n\nThe REST API documentation can be found on [swagger.io](http://swagger.io).\n\n## Installation\n\nTo use this gem, install via Bundler by adding the following to your application\'s `Gemfile`:\n\n```ruby\ngem "hello-world-testingggg", "~> 0.0.1"\n```\n\n## Usage\n\n```ruby\nrequire "bundler/setup"\nrequire "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet.id)\n```\n\n### Streaming\n\nWe provide support for streaming responses using Server-Sent Events (SSE).\n\n```ruby\nstream = hello_world_testingggg.pet.watch_status_streaming\n\nstream.each do |pet|\n  puts(pet.id)\nend\n```\n\n### Pagination\n\nList methods in the Hello World Testingggg API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```ruby\npage = hello_world_testingggg.pet.list\n\n# Fetch single item from page.\npet = page.items[0]\nputs(pet.id)\n\n# Automatically fetches more pages as needed.\npage.auto_paging_each do |pet|\n  puts(pet.id)\nend\n```\n\nAlternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.\n\n```ruby\nif page.next_page?\n  new_page = page.next_page\n  puts(new_page.items[0].id)\nend\n```\n\n### File uploads\n\nRequest parameters that correspond to file uploads can be passed as raw contents, a [`Pathname`](https://rubyapi.org/3.2/o/pathname) instance, [`StringIO`](https://rubyapi.org/3.2/o/stringio), or more.\n\n```ruby\nrequire "pathname"\n\n# Use `Pathname` to send the filename and/or avoid paging a large file into memory:\nfile = hello_world_testingggg.files.update(file: Pathname("/path/to/file"))\n\n# Alternatively, pass file contents or a `StringIO` directly:\nfile = hello_world_testingggg.files.update(file: File.read("/path/to/file"))\n\n# Or, to control the filename and/or content type:\nfile =\n  HelloWorldTestingggg::FilePart.new(\n    File.read("/path/to/file"),\n    filename: "/path/to/file",\n    content_type: "…"\n  )\nfile = hello_world_testingggg.files.update(file: file)\n\nputs(file.lastModified)\n```\n\nNote that you can also pass a raw `IO` descriptor, but this disables retries, as the library can\'t be sure if the descriptor is a file or pipe (which cannot be rewound).\n\n### Handling errors\n\nWhen the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `HelloWorldTestingggg::Errors::APIError` will be thrown:\n\n```ruby\nbegin\n  pet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\nrescue HelloWorldTestingggg::Errors::APIConnectionError => e\n  puts("The server could not be reached")\n  puts(e.cause)  # an underlying Exception, likely raised within `net/http`\nrescue HelloWorldTestingggg::Errors::RateLimitError => e\n  puts("A 429 status code was received; we should back off a bit.")\nrescue HelloWorldTestingggg::Errors::APIStatusError => e\n  puts("Another non-200-range status code was received")\n  puts(e.status)\nend\n```\n\nError codes are as follows:\n\n| Cause            | Error Type                 |\n| ---------------- | -------------------------- |\n| HTTP 400         | `BadRequestError`          |\n| HTTP 401         | `AuthenticationError`      |\n| HTTP 403         | `PermissionDeniedError`    |\n| HTTP 404         | `NotFoundError`            |\n| HTTP 409         | `ConflictError`            |\n| HTTP 422         | `UnprocessableEntityError` |\n| HTTP 429         | `RateLimitError`           |\n| HTTP >= 500      | `InternalServerError`      |\n| Other HTTP error | `APIStatusError`           |\n| Timeout          | `APITimeoutError`          |\n| Network error    | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\n\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.\n\nYou can use the `max_retries` option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  max_retries: 0 # default is 2\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(\n  name: "doggie",\n  photo_urls: ["string"],\n  request_options: {max_retries: 5}\n)\n```\n\n### Timeouts\n\nBy default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  timeout: nil # default is 60\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"], request_options: {timeout: 5})\n```\n\nOn timeout, `HelloWorldTestingggg::Errors::APITimeoutError` is raised.\n\nNote that requests that time out are retried by default.\n\n## Advanced concepts\n\n### BaseModel\n\nAll parameter and response objects inherit from `HelloWorldTestingggg::Internal::Type::BaseModel`, which provides several conveniences, including:\n\n1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.\n\n2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.\n\n3. Both instances and the classes themselves can be pretty-printed.\n\n4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.\n\n### Making custom or undocumented requests\n\n#### Undocumented properties\n\nYou can send undocumented parameters to any endpoint, and read undocumented response properties, like so:\n\nNote: the `extra_` parameters of the same name overrides the documented parameters.\n\n```ruby\npet =\n  hello_world_testingggg.pet.update(\n    name: "doggie",\n    photo_urls: ["string"],\n    request_options: {\n      extra_query: {my_query_parameter: value},\n      extra_body: {my_body_parameter: value},\n      extra_headers: {"my-header": value}\n    }\n  )\n\nputs(pet[:my_undocumented_property])\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:\n\n```ruby\nresponse = client.request(\n  method: :post,\n  path: \'/undocumented/endpoint\',\n  query: {"dog": "woof"},\n  headers: {"useful-header": "interesting-value"},\n  body: {"hello": "world"}\n)\n```\n\n### Concurrency & connection pooling\n\nThe `HelloWorldTestingggg::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.\n\nEach instance of `HelloWorldTestingggg::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.\n\nWhen all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.\n\nUnless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.\n\n## Sorbet\n\nThis library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.\n\nYou can provide typesafe request parameters like so:\n\n```ruby\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n```\n\nOr, equivalently:\n\n```ruby\n# Hashes work, but are not typesafe:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\n# You can also splat a full Params class:\nparams = HelloWorldTestingggg::PetUpdateParams.new(name: "doggie", photo_urls: ["string"])\nhello_world_testingggg.pet.update(**params)\n```\n\n### Enums\n\nSince this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:\n\n```ruby\n# :available\nputs(HelloWorldTestingggg::PetAPI::Status::AVAILABLE)\n\n# Revealed type: `T.all(HelloWorldTestingggg::PetAPI::Status, Symbol)`\nT.reveal_type(HelloWorldTestingggg::PetAPI::Status::AVAILABLE)\n```\n\nEnum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:\n\n```ruby\n# Using the enum constants preserves the tagged type information:\nhello_world_testingggg.pet.create(\n  status: HelloWorldTestingggg::PetAPI::Status::AVAILABLE,\n  # …\n)\n\n# Literal values are also permissible:\nhello_world_testingggg.pet.create(\n  status: :available,\n  # …\n)\n```\n\n## Versioning\n\nThis package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.\n\nThis package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.\n\n## Requirements\n\nRuby 3.2.0 or higher.\n\n## Contributing\n\nSee [the contributing documentation](https://github.com/stainless-sdks/hello-world-testingggg-ruby/tree/main/CONTRIBUTING.md).\n',
   },
   {
     language: 'typescript',
