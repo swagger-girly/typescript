@@ -558,7 +558,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       kotlin: {
         method: 'pet().watchStatusStreaming',
         example:
-          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.core.JsonValue\nimport com.hello_world_testingggg.api.core.http.StreamResponse\nimport com.hello_world_testingggg.api.models.pet.PetWatchStatusParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val pet: StreamResponse<JsonValue> = client.pet().watchStatusStreaming(0L)\n}',
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.core.http.StreamResponse\nimport com.hello_world_testingggg.api.models.pet.Pet\nimport com.hello_world_testingggg.api.models.pet.PetWatchStatusParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val pet: StreamResponse<Pet> = client.pet().watchStatusStreaming(0L)\n}',
       },
       go: {
         method: 'client.Pet.WatchStatus',
