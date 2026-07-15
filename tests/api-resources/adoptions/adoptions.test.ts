@@ -7,10 +7,10 @@ const client = new HelloWorldTestingggg({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource order', () => {
+describe('resource adoptions', () => {
   // Mock server tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.store.order.create();
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.adoptions.create({ applicant_type: 'individual', name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,27 +21,25 @@ describe('resource order', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('create: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.store.order.create(
-        {
-          id: 10,
-          complete: true,
-          petId: 198772,
-          quantity: 7,
-          shipDate: '2019-12-27T18:11:19.117Z',
-          status: 'approved',
-          total: { amount: 2500, currency: 'USD' },
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
+  test.skip('create: required and optional params', async () => {
+    const response = await client.adoptions.create({
+      applicant_type: 'individual',
+      name: 'name',
+      address: {
+        city: 'Palo Alto',
+        geo: { latitude: 37.4443, longitude: -122.1598 },
+        state: 'CA',
+        street: '437 Lytton',
+        zip: '94301',
+      },
+      age: 0,
+      email: 'email',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.store.order.retrieve(0);
+    const responsePromise = client.adoptions.retrieve('applicationId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,8 +50,8 @@ describe('resource order', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.store.order.delete(0);
+  test.skip('retrieveDecision', async () => {
+    const responsePromise = client.adoptions.retrieveDecision('applicationId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

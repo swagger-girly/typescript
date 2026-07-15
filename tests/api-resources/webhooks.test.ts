@@ -13,7 +13,7 @@ describe('resource webhooks', () => {
   test.skip('parsed', () => {
     const key = 'whsec_c2VjcmV0Cg==';
     const payload =
-      '{"pet":{"name":"doggie","photoUrls":["string"],"id":10,"category":{"id":1,"name":"Dogs"},"status":"available","tags":[{"id":0,"name":"name"}]},"type":"pet.created"}';
+      '{"pet":{"name":"doggie","photoUrls":["string"],"id":10,"category":{"id":1,"name":"Dogs","subcategories":[]},"microchipId":"string","status":"available","tags":[{"id":0,"name":"name"}]},"type":"pet.created"}';
     const msgID = '1';
     const timestamp = new Date();
     const wh = new Webhook('whsec_c2VjcmV0Cg==');

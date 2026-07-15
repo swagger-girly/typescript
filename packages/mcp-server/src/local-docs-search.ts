@@ -51,6 +51,101 @@ type SearchResult = {
 
 const EMBEDDED_METHODS: MethodEntry[] = [
   {
+    name: 'health',
+    endpoint: '/health',
+    httpMethod: 'get',
+    summary: 'Retrieve system health',
+    description: 'Returns the current API health, including per-service statuses.',
+    stainlessPath: '(resource) $client > (method) health',
+    qualified: 'client.health',
+    response: "{ checkedAt: string; status: 'ok' | 'degraded' | 'down'; services?: object; }",
+    markdown:
+      "## health\n\n`client.health(): { checkedAt: string; status: 'ok' | 'degraded' | 'down'; services?: object; }`\n\n**get** `/health`\n\nReturns the current API health, including per-service statuses.\n\n### Returns\n\n- `{ checkedAt: string; status: 'ok' | 'degraded' | 'down'; services?: object; }`\n\n  - `checkedAt: string`\n  - `status: 'ok' | 'degraded' | 'down'`\n  - `services?: object`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst systemHealth = await client.health();\n\nconsole.log(systemHealth);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.health',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst systemHealth = await client.health();\n\nconsole.log(systemHealth.checkedAt);",
+      },
+      python: {
+        method: 'health',
+        example:
+          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nsystem_health = client.health()\nprint(system_health.checked_at)',
+      },
+      java: {
+        method: 'health',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.ClientHealthParams;\nimport com.hello_world_testingggg.api.models.SystemHealth;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        SystemHealth systemHealth = client.health();\n    }\n}',
+      },
+      kotlin: {
+        method: 'health',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.ClientHealthParams\nimport com.hello_world_testingggg.api.models.SystemHealth\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val systemHealth: SystemHealth = client.health()\n}',
+      },
+      go: {
+        method: 'client.Health',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tsystemHealth, err := client.Health(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", systemHealth.CheckedAt)\n}\n',
+      },
+      ruby: {
+        method: 'health',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nsystem_health = hello_world_testingggg.health\n\nputs(system_health)',
+      },
+      http: {
+        example: 'curl /api/v3/health',
+      },
+    },
+  },
+  {
+    name: 'retrieve_rate_limits',
+    endpoint: '/rate_limits',
+    httpMethod: 'get',
+    summary: 'Retrieve rate limits',
+    description: "Returns the caller's current rate-limit budget.",
+    stainlessPath: '(resource) $client > (method) retrieve_rate_limits',
+    qualified: 'client.retrieveRateLimits',
+    response:
+      '{ remaining: number; resetAt: string; tiers?: { name: string; quota?: { requests?: number; window?: string; }; }[]; }',
+    markdown:
+      "## retrieve_rate_limits\n\n`client.retrieveRateLimits(): { remaining: number; resetAt: string; tiers?: object[]; }`\n\n**get** `/rate_limits`\n\nReturns the caller's current rate-limit budget.\n\n### Returns\n\n- `{ remaining: number; resetAt: string; tiers?: { name: string; quota?: { requests?: number; window?: string; }; }[]; }`\n\n  - `remaining: number`\n  - `resetAt: string`\n  - `tiers?: { name: string; quota?: { requests?: number; window?: string; }; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.retrieveRateLimits();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.retrieveRateLimits',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.retrieveRateLimits();\n\nconsole.log(response.remaining);",
+      },
+      python: {
+        method: 'retrieve_rate_limits',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.retrieve_rate_limits()\nprint(response.remaining)',
+      },
+      java: {
+        method: 'retrieveRateLimits',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.ClientRetrieveRateLimitsParams;\nimport com.hello_world_testingggg.api.models.ClientRetrieveRateLimitsResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        ClientRetrieveRateLimitsResponse response = client.retrieveRateLimits();\n    }\n}',
+      },
+      kotlin: {
+        method: 'retrieveRateLimits',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.ClientRetrieveRateLimitsParams\nimport com.hello_world_testingggg.api.models.ClientRetrieveRateLimitsResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: ClientRetrieveRateLimitsResponse = client.retrieveRateLimits()\n}',
+      },
+      go: {
+        method: 'client.GetRateLimits',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.GetRateLimits(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Remaining)\n}\n',
+      },
+      ruby: {
+        method: 'retrieve_rate_limits',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.retrieve_rate_limits\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/rate_limits \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/pet',
     httpMethod: 'get',
@@ -60,9 +155,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.list',
     params: ['cursor?: string;', 'limit?: number;'],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## list\n\n`client.pet.list(cursor?: string, limit?: number): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**get** `/pet`\n\nReturns a cursor-paginated list of pets.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of pets to return.\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.list()) {\n  console.log(pet);\n}\n```",
+      "## list\n\n`client.pet.list(cursor?: string, limit?: number): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**get** `/pet`\n\nReturns a cursor-paginated list of pets.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of pets to return.\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.list()) {\n  console.log(pet);\n}\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.list',
@@ -109,9 +204,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.listUnpaginated',
     params: ['cursor?: string;', 'limit?: number;'],
     response:
-      "{ items: { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }[]; next_cursor?: string; }",
+      '{ items: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }[]; next_cursor?: string; }',
     markdown:
-      "## list_unpaginated\n\n`client.pet.listUnpaginated(cursor?: string, limit?: number): { items: pet[]; next_cursor?: string; }`\n\n**get** `/pet/unpaginated`\n\nReturns the same cursor-shaped pet list response without enabling SDK pagination helpers.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of pets to return.\n\n### Returns\n\n- `{ items: { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }[]; next_cursor?: string; }`\n\n  - `items: { name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n  - `next_cursor?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listUnpaginated();\n\nconsole.log(response);\n```",
+      "## list_unpaginated\n\n`client.pet.listUnpaginated(cursor?: string, limit?: number): { items: pet[]; next_cursor?: string; }`\n\n**get** `/pet/unpaginated`\n\nReturns the same cursor-shaped pet list response without enabling SDK pagination helpers.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of pets to return.\n\n### Returns\n\n- `{ items: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }[]; next_cursor?: string; }`\n\n  - `items: { name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n  - `next_cursor?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listUnpaginated();\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.listUnpaginated',
@@ -157,39 +252,39 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     stainlessPath: '(resource) pet > (method) list_fake_page',
     qualified: 'client.pet.listFakePage',
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      '{ data: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }[]; has_more: boolean; }',
     markdown:
-      "## list_fake_page\n\n`client.pet.listFakePage(): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**get** `/pet/fake-page`\n\nReturns a single page-shaped pet response without SDK pagination helpers.\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.listFakePage()) {\n  console.log(pet);\n}\n```",
+      "## list_fake_page\n\n`client.pet.listFakePage(): { data: pet[]; has_more: boolean; }`\n\n**get** `/pet/fake-page`\n\nReturns a single page-shaped pet response without SDK pagination helpers.\n\n### Returns\n\n- `{ data: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }[]; has_more: boolean; }`\n\n  - `data: { name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n  - `has_more: boolean`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listFakePage();\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.listFakePage',
         example:
-          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.listFakePage()) {\n  console.log(pet.id);\n}",
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listFakePage();\n\nconsole.log(response.data);",
       },
       python: {
         method: 'pet.list_fake_page',
         example:
-          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\npage = client.pet.list_fake_page()\npage = page.data[0]\nprint(page.id)',
+          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nresponse = client.pet.list_fake_page()\nprint(response.data)',
       },
       java: {
         method: 'pet().listFakePage',
         example:
-          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePagePage;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PetListFakePagePage page = client.pet().listFakePage();\n    }\n}',
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageParams;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PetListFakePageResponse response = client.pet().listFakePage();\n    }\n}',
       },
       kotlin: {
         method: 'pet().listFakePage',
         example:
-          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetListFakePagePage\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val page: PetListFakePagePage = client.pet().listFakePage()\n}',
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageParams\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: PetListFakePageResponse = client.pet().listFakePage()\n}',
       },
       go: {
         method: 'client.Pet.ListFakePage',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpage, err := client.Pet.ListFakePage(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tresponse, err := client.Pet.ListFakePage(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
       },
       ruby: {
         method: 'pet.list_fake_page',
         example:
-          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list_fake_page\n\nputs(page)',
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_fake_page\n\nputs(response)',
       },
       http: {
         example: 'curl /api/v3/pet/fake-page',
@@ -202,43 +297,43 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     httpMethod: 'get',
     summary: 'List pets as an inferred fake page',
     description:
-      'Returns a single page-shaped pet response whose fake pagination behavior is inferred from the Stainless config scheme.',
+      'Returns a single page-shaped pet response whose fake pagination behavior is inferred from the config scheme.',
     stainlessPath: '(resource) pet > (method) list_fake_page_inferred',
     qualified: 'client.pet.listFakePageInferred',
     response:
-      "{ data: { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }[]; has_more: boolean; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## list_fake_page_inferred\n\n`client.pet.listFakePageInferred(): { data: pet[]; has_more: boolean; }`\n\n**get** `/pet/fake-page-inferred`\n\nReturns a single page-shaped pet response whose fake pagination behavior is inferred from the Stainless config scheme.\n\n### Returns\n\n- `{ data: { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }[]; has_more: boolean; }`\n\n  - `data: { name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n  - `has_more: boolean`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listFakePageInferred();\n\nconsole.log(response);\n```",
+      "## list_fake_page_inferred\n\n`client.pet.listFakePageInferred(): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**get** `/pet/fake-page-inferred`\n\nReturns a single page-shaped pet response whose fake pagination behavior is inferred from the config scheme.\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.listFakePageInferred()) {\n  console.log(pet);\n}\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.listFakePageInferred',
         example:
-          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listFakePageInferred();\n\nconsole.log(response.data);",
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const pet of client.pet.listFakePageInferred()) {\n  console.log(pet.id);\n}",
       },
       python: {
         method: 'pet.list_fake_page_inferred',
         example:
-          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nresponse = client.pet.list_fake_page_inferred()\nprint(response.data)',
+          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\npage = client.pet.list_fake_page_inferred()\npage = page.data[0]\nprint(page.id)',
       },
       java: {
         method: 'pet().listFakePageInferred',
         example:
-          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredParams;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PetListFakePageInferredResponse response = client.pet().listFakePageInferred();\n    }\n}',
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredPage;\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PetListFakePageInferredPage page = client.pet().listFakePageInferred();\n    }\n}',
       },
       kotlin: {
         method: 'pet().listFakePageInferred',
         example:
-          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredParams\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: PetListFakePageInferredResponse = client.pet().listFakePageInferred()\n}',
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredPage\nimport com.hello_world_testingggg.api.models.pet.PetListFakePageInferredParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val page: PetListFakePageInferredPage = client.pet().listFakePageInferred()\n}',
       },
       go: {
         method: 'client.Pet.ListFakePageInferred',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tresponse, err := client.Pet.ListFakePageInferred(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient()\n\tpage, err := client.Pet.ListFakePageInferred(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'pet.list_fake_page_inferred',
         example:
-          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_fake_page_inferred\n\nputs(response)',
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list_fake_page_inferred\n\nputs(page)',
       },
       http: {
         example: 'curl /api/v3/pet/fake-page-inferred',
@@ -257,14 +352,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'name: string;',
       'photoUrls: string[];',
       'id?: number;',
-      'category?: { id?: number; name?: string; };',
+      'category?: { id?: number; name?: string; subcategories?: object[]; };',
+      'microchipId?: string | number;',
       "status?: 'available' | 'pending' | 'sold';",
       'tags?: { id?: number; name?: string; }[];',
     ],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## update\n\n`client.pet.update(name: string, photoUrls: string[], id?: number, category?: { id?: number; name?: string; }, status?: 'available' | 'pending' | 'sold', tags?: { id?: number; name?: string; }[]): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**put** `/pet`\n\nUpdate an existing pet by Id\n\n### Parameters\n\n- `name: string`\n\n- `photoUrls: string[]`\n\n- `id?: number`\n\n- `category?: { id?: number; name?: string; }`\n  - `id?: number`\n  - `name?: string`\n\n- `status?: 'available' | 'pending' | 'sold'`\n  pet status in the store\n\n- `tags?: { id?: number; name?: string; }[]`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });\n\nconsole.log(pet);\n```",
+      "## update\n\n`client.pet.update(name: string, photoUrls: string[], id?: number, category?: { id?: number; name?: string; subcategories?: object[]; }, microchipId?: string | number, status?: 'available' | 'pending' | 'sold', tags?: { id?: number; name?: string; }[]): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**put** `/pet`\n\nUpdate an existing pet by Id\n\n### Parameters\n\n- `name: string`\n\n- `photoUrls: string[]`\n\n- `id?: number`\n\n- `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `id?: number`\n  - `name?: string`\n  - `subcategories?: object[]`\n    Nested subcategories; the tree can recurse arbitrarily deep.\n\n- `microchipId?: string | number`\n  Microchip identifier; legacy chips used numeric identifiers.\n\n- `status?: 'available' | 'pending' | 'sold'`\n  pet status in the store\n\n- `tags?: { id?: number; name?: string; }[]`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });\n\nconsole.log(pet);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.update',
@@ -314,14 +410,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'name: string;',
       'photoUrls: string[];',
       'id?: number;',
-      'category?: { id?: number; name?: string; };',
+      'category?: { id?: number; name?: string; subcategories?: object[]; };',
+      'microchipId?: string | number;',
       "status?: 'available' | 'pending' | 'sold';",
       'tags?: { id?: number; name?: string; }[];',
     ],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## create\n\n`client.pet.create(name: string, photoUrls: string[], id?: number, category?: { id?: number; name?: string; }, status?: 'available' | 'pending' | 'sold', tags?: { id?: number; name?: string; }[]): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**post** `/pet`\n\nAdd a new pet to the store\n\n### Parameters\n\n- `name: string`\n\n- `photoUrls: string[]`\n\n- `id?: number`\n\n- `category?: { id?: number; name?: string; }`\n  - `id?: number`\n  - `name?: string`\n\n- `status?: 'available' | 'pending' | 'sold'`\n  pet status in the store\n\n- `tags?: { id?: number; name?: string; }[]`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.create({ name: 'doggie', photoUrls: ['string'] });\n\nconsole.log(pet);\n```",
+      "## create\n\n`client.pet.create(name: string, photoUrls: string[], id?: number, category?: { id?: number; name?: string; subcategories?: object[]; }, microchipId?: string | number, status?: 'available' | 'pending' | 'sold', tags?: { id?: number; name?: string; }[]): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**post** `/pet`\n\nAdd a new pet to the store\n\n### Parameters\n\n- `name: string`\n\n- `photoUrls: string[]`\n\n- `id?: number`\n\n- `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `id?: number`\n  - `name?: string`\n  - `subcategories?: object[]`\n    Nested subcategories; the tree can recurse arbitrarily deep.\n\n- `microchipId?: string | number`\n  Microchip identifier; legacy chips used numeric identifiers.\n\n- `status?: 'available' | 'pending' | 'sold'`\n  pet status in the store\n\n- `tags?: { id?: number; name?: string; }[]`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.create({ name: 'doggie', photoUrls: ['string'] });\n\nconsole.log(pet);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.create',
@@ -369,9 +466,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.findByStatus',
     params: ["status?: 'available' | 'pending' | 'sold';"],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]",
     markdown:
-      "## find_by_status\n\n`client.pet.findByStatus(status?: 'available' | 'pending' | 'sold'): object[]`\n\n**get** `/pet/findByStatus`\n\nMultiple status values can be provided with comma separated strings\n\n### Parameters\n\n- `status?: 'available' | 'pending' | 'sold'`\n  Status values that need to be considered for filter\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pets = await client.pet.findByStatus();\n\nconsole.log(pets);\n```",
+      "## find_by_status\n\n`client.pet.findByStatus(status?: 'available' | 'pending' | 'sold'): object[]`\n\n**get** `/pet/findByStatus`\n\nMultiple status values can be provided with comma separated strings\n\n### Parameters\n\n- `status?: 'available' | 'pending' | 'sold'`\n  Status values that need to be considered for filter\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pets = await client.pet.findByStatus();\n\nconsole.log(pets);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.findByStatus',
@@ -419,9 +516,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.findByTags',
     params: ['tags?: string[];'],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]",
     markdown:
-      "## find_by_tags\n\n`client.pet.findByTags(tags?: string[]): object[]`\n\n**get** `/pet/findByTags`\n\nMultiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.\n\n### Parameters\n\n- `tags?: string[]`\n  Tags to filter by\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pets = await client.pet.findByTags();\n\nconsole.log(pets);\n```",
+      "## find_by_tags\n\n`client.pet.findByTags(tags?: string[]): object[]`\n\n**get** `/pet/findByTags`\n\nMultiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.\n\n### Parameters\n\n- `tags?: string[]`\n  Tags to filter by\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pets = await client.pet.findByTags();\n\nconsole.log(pets);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.findByTags',
@@ -468,9 +565,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.retrieve',
     params: ['petId: number;'],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## retrieve\n\n`client.pet.retrieve(petId: number): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**get** `/pet/{petId}`\n\nReturns a single pet\n\n### Parameters\n\n- `petId: number`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.retrieve(0);\n\nconsole.log(pet);\n```",
+      "## retrieve\n\n`client.pet.retrieve(petId: number): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**get** `/pet/{petId}`\n\nReturns a single pet\n\n### Parameters\n\n- `petId: number`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst pet = await client.pet.retrieve(0);\n\nconsole.log(pet);\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.retrieve',
@@ -651,6 +748,56 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'retrieve_premium',
+    endpoint: '/pet/{petId}/premium',
+    httpMethod: 'get',
+    summary: 'Retrieve a premium pet profile',
+    description:
+      'Returns the premium profile for a pet, extending the base pet with pedigree and insurance details.',
+    stainlessPath: '(resource) pet > (method) retrieve_premium',
+    qualified: 'client.pet.retrievePremium',
+    params: ['petId: number;'],
+    response:
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+    markdown:
+      "## retrieve_premium\n\n`client.pet.retrievePremium(petId: number): object`\n\n**get** `/pet/{petId}/premium`\n\nReturns the premium profile for a pet, extending the base pet with pedigree and insurance details.\n\n### Parameters\n\n- `petId: number`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n  A pet extended with premium-tier pedigree and insurance details.\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.retrievePremium(0);\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.pet.retrievePremium',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.pet.retrievePremium(0);\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'pet.retrieve_premium',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.pet.retrieve_premium(\n    0,\n)\nprint(response)',
+      },
+      java: {
+        method: 'pet().retrievePremium',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetRetrievePremiumParams;\nimport com.hello_world_testingggg.api.models.pet.PetRetrievePremiumResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PetRetrievePremiumResponse response = client.pet().retrievePremium(0L);\n    }\n}',
+      },
+      kotlin: {
+        method: 'pet().retrievePremium',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetRetrievePremiumParams\nimport com.hello_world_testingggg.api.models.pet.PetRetrievePremiumResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: PetRetrievePremiumResponse = client.pet().retrievePremium(0L)\n}',
+      },
+      go: {
+        method: 'client.Pet.GetPremium',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Pet.GetPremium(context.TODO(), int64(0))\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'pet.retrieve_premium',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.pet.retrieve_premium(0)\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/pet/$PET_ID/premium \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
     name: 'watch_status',
     endpoint: '/pet/{petId}/status/stream',
     httpMethod: 'get',
@@ -661,9 +808,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.pet.watchStatus',
     params: ['petId: number;', 'Last-Event-ID?: string;'],
     response:
-      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
+      "{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }",
     markdown:
-      "## watch_status\n\n`client.pet.watchStatus(petId: number, Last-Event-ID?: string): { name: string; photoUrls: string[]; id?: number; category?: object; status?: 'available' | 'pending' | 'sold'; tags?: object[]; }`\n\n**get** `/pet/{petId}/status/stream`\n\nStreams pet status updates over Server-Sent Events. Each `status` event contains a full `Pet` payload.\n\n### Parameters\n\n- `petId: number`\n\n- `Last-Event-ID?: string`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; }; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; }`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst stream = await client.pet.watchStatus(0);\nfor await (const pet of stream) {\n  console.log(pet);\n}\n```",
+      "## watch_status\n\n`client.pet.watchStatus(petId: number, Last-Event-ID?: string): { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }`\n\n**get** `/pet/{petId}/status/stream`\n\nStreams pet status updates over Server-Sent Events. Each `status` event contains a full `Pet` payload.\n\n### Parameters\n\n- `petId: number`\n\n- `Last-Event-ID?: string`\n\n### Returns\n\n- `{ name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n  - `name: string`\n  - `photoUrls: string[]`\n  - `id?: number`\n  - `category?: { id?: number; name?: string; subcategories?: object[]; }`\n  - `microchipId?: string | number`\n  - `status?: 'available' | 'pending' | 'sold'`\n  - `tags?: { id?: number; name?: string; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst stream = await client.pet.watchStatus(0);\nfor await (const pet of stream) {\n  console.log(pet);\n}\n```",
     perLanguage: {
       typescript: {
         method: 'client.pet.watchStatus',
@@ -1293,6 +1440,567 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'create',
+    endpoint: '/adoptions/applications',
+    httpMethod: 'post',
+    summary: 'Submit an adoption application',
+    description: 'Submits an adoption application for an individual or an organization applicant.',
+    stainlessPath: '(resource) adoptions > (method) create',
+    qualified: 'client.adoptions.create',
+    params: [
+      "{ applicant_type: 'individual'; name: string; address?: { city?: string; geo?: { latitude: number; longitude: number; }; state?: string; street?: string; zip?: string; }; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: { city?: string; geo?: object; state?: string; street?: string; zip?: string; }; contact?: { primary?: { availability?: object; name?: string; phone?: string; }; }; location?: { latitude: number; longitude: number; }; }; taxId?: string; };",
+    ],
+    response:
+      "{ id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.create',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst application = await client.adoptions.create({ applicant_type: 'individual', name: 'name' });\n\nconsole.log(application.id);",
+      },
+      python: {
+        method: 'adoptions.create',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\napplication = client.adoptions.create(\n    applicant_type="individual",\n    name="name",\n)\nprint(application.id)',
+      },
+      java: {
+        method: 'adoptions().create',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionCreateParams;\nimport com.hello_world_testingggg.api.models.adoptions.Application;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        AdoptionCreateParams.Body.Individual params = AdoptionCreateParams.Body.Individual.builder()\n            .name("name")\n            .build();\n        Application application = client.adoptions().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().create',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionCreateParams\nimport com.hello_world_testingggg.api.models.adoptions.Application\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: AdoptionCreateParams.Body.Individual = AdoptionCreateParams.Body.Individual.builder()\n        .name("name")\n        .build()\n    val application: Application = client.adoptions().create(params)\n}',
+      },
+      go: {
+        method: 'client.Adoptions.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tapplication, err := client.Adoptions.New(context.TODO(), helloworldtestingggg.AdoptionNewParams{\n\t\tBody: helloworldtestingggg.AdoptionNewParamsBodyIndividualApplicant{\n\t\t\tApplicantType: helloworldtestingggg.F(helloworldtestingggg.AdoptionNewParamsBodyIndividualApplicantApplicantTypeIndividual),\n\t\t\tName:          helloworldtestingggg.F("name"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", application.ID)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.create(body: {applicant_type: :individual, name: "name"})\n\nputs(application)',
+      },
+      http: {
+        example:
+          'curl /api/v3/adoptions/applications \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "applicant_type": "individual",\n          "name": "name"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/adoptions/applications/{applicationId}',
+    httpMethod: 'get',
+    summary: 'Retrieve an adoption application',
+    description: 'Returns a single adoption application.',
+    stainlessPath: '(resource) adoptions > (method) retrieve',
+    qualified: 'client.adoptions.retrieve',
+    params: ['applicationId: string;'],
+    response:
+      "{ id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }",
+    markdown:
+      "## retrieve\n\n`client.adoptions.retrieve(applicationId: string): { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }`\n\n**get** `/adoptions/applications/{applicationId}`\n\nReturns a single adoption application.\n\n### Parameters\n\n- `applicationId: string`\n\n### Returns\n\n- `{ id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }`\n\n  - `id: string`\n  - `applicant: { applicant_type: 'individual'; name: string; address?: { city?: string; geo?: { latitude: number; longitude: number; }; state?: string; street?: string; zip?: string; }; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: { city?: string; geo?: object; state?: string; street?: string; zip?: string; }; contact?: { primary?: { availability?: object; name?: string; phone?: string; }; }; location?: { latitude: number; longitude: number; }; }; taxId?: string; }`\n  - `status: 'received' | 'under_review' | 'approved' | 'rejected'`\n  - `submittedAt: string`\n  - `decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: { email?: string; hours?: string; }; }; outcome: 'escalated'; reviewAfter?: string; }`\n  - `fee?: { amount: number; currency: string; }`\n  - `history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]`\n  - `latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }`\n  - `pet?: { name: string; photoUrls: string[]; id?: number; category?: { id?: number; name?: string; subcategories?: object[]; }; microchipId?: string | number; status?: 'available' | 'pending' | 'sold'; tags?: { id?: number; name?: string; }[]; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst application = await client.adoptions.retrieve('applicationId');\n\nconsole.log(application);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.retrieve',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst application = await client.adoptions.retrieve('applicationId');\n\nconsole.log(application.id);",
+      },
+      python: {
+        method: 'adoptions.retrieve',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\napplication = client.adoptions.retrieve(\n    "applicationId",\n)\nprint(application.id)',
+      },
+      java: {
+        method: 'adoptions().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveParams;\nimport com.hello_world_testingggg.api.models.adoptions.Application;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        Application application = client.adoptions().retrieve("applicationId");\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveParams\nimport com.hello_world_testingggg.api.models.adoptions.Application\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val application: Application = client.adoptions().retrieve("applicationId")\n}',
+      },
+      go: {
+        method: 'client.Adoptions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tapplication, err := client.Adoptions.Get(context.TODO(), "applicationId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", application.ID)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.retrieve("applicationId")\n\nputs(application)',
+      },
+      http: {
+        example: 'curl /api/v3/adoptions/applications/$APPLICATION_ID \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve_decision',
+    endpoint: '/adoptions/applications/{applicationId}/decision',
+    httpMethod: 'get',
+    summary: 'Retrieve an application decision',
+    description:
+      'Returns the decision for an application. The decision shape depends on the outcome and carries no discriminator mapping.',
+    stainlessPath: '(resource) adoptions > (method) retrieve_decision',
+    qualified: 'client.adoptions.retrieveDecision',
+    params: ['applicationId: string;'],
+    response:
+      "{ approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: { email?: string; hours?: string; }; }; outcome: 'escalated'; reviewAfter?: string; }",
+    markdown:
+      "## retrieve_decision\n\n`client.adoptions.retrieveDecision(applicationId: string): { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: object; outcome: 'escalated'; reviewAfter?: string; }`\n\n**get** `/adoptions/applications/{applicationId}/decision`\n\nReturns the decision for an application. The decision shape depends on the outcome and carries no discriminator mapping.\n\n### Parameters\n\n- `applicationId: string`\n\n### Returns\n\n- `{ approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: { email?: string; hours?: string; }; }; outcome: 'escalated'; reviewAfter?: string; }`\n  The decision for an application; the shape depends on the outcome.\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.adoptions.retrieveDecision('applicationId');\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.retrieveDecision',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.adoptions.retrieveDecision('applicationId');\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'adoptions.retrieve_decision',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.adoptions.retrieve_decision(\n    "applicationId",\n)\nprint(response)',
+      },
+      java: {
+        method: 'adoptions().retrieveDecision',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveDecisionParams;\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveDecisionResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        AdoptionRetrieveDecisionResponse response = client.adoptions().retrieveDecision("applicationId");\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().retrieveDecision',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveDecisionParams\nimport com.hello_world_testingggg.api.models.adoptions.AdoptionRetrieveDecisionResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: AdoptionRetrieveDecisionResponse = client.adoptions().retrieveDecision("applicationId")\n}',
+      },
+      go: {
+        method: 'client.Adoptions.GetDecision',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Adoptions.GetDecision(context.TODO(), "applicationId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.retrieve_decision',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.adoptions.retrieve_decision("applicationId")\n\nputs(response)',
+      },
+      http: {
+        example:
+          'curl /api/v3/adoptions/applications/$APPLICATION_ID/decision \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/adoptions/policies',
+    httpMethod: 'get',
+    summary: 'List adoption policies',
+    description: 'Returns a cursor-paginated list of adoption policies.',
+    stainlessPath: '(resource) adoptions.policies > (method) list',
+    qualified: 'client.adoptions.policies.list',
+    params: ['cursor?: string;', 'limit?: number;'],
+    response:
+      "{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }",
+    markdown:
+      "## list\n\n`client.adoptions.policies.list(cursor?: string, limit?: number): { id: string; createdAt: string; name: string; rules: adoption_rule[]; status: 'draft' | 'active' | 'archived'; escalation?: object; feeCap?: money; notificationTarget?: string | object; regionalOverrides?: object; }`\n\n**get** `/adoptions/policies`\n\nReturns a cursor-paginated list of adoption policies.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of policies to return.\n\n### Returns\n\n- `{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }`\n\n  - `id: string`\n  - `createdAt: string`\n  - `name: string`\n  - `rules: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]`\n  - `status: 'draft' | 'active' | 'archived'`\n  - `escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]; }`\n  - `feeCap?: { amount: number; currency: string; }`\n  - `notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }`\n  - `regionalOverrides?: object`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const policy of client.adoptions.policies.list()) {\n  console.log(policy);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.policies.list',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const policy of client.adoptions.policies.list()) {\n  console.log(policy.id);\n}",
+      },
+      python: {
+        method: 'adoptions.policies.list',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\npage = client.adoptions.policies.list()\npage = page.items[0]\nprint(page.id)',
+      },
+      java: {
+        method: 'adoptions().policies().list',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyListPage;\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PolicyListPage page = client.adoptions().policies().list();\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().policies().list',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyListPage\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyListParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val page: PolicyListPage = client.adoptions().policies().list()\n}',
+      },
+      go: {
+        method: 'client.Adoptions.Policies.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpage, err := client.Adoptions.Policies.List(context.TODO(), helloworldtestingggg.AdoptionPolicyListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.policies.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.adoptions.policies.list\n\nputs(page)',
+      },
+      http: {
+        example: 'curl /api/v3/adoptions/policies \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/adoptions/policies',
+    httpMethod: 'post',
+    summary: 'Create an adoption policy',
+    description:
+      'Creates an adoption policy from a set of eligibility rules, regional overrides, and an optional escalation rule group.',
+    stainlessPath: '(resource) adoptions.policies > (method) create',
+    qualified: 'client.adoptions.policies.create',
+    params: [
+      'name: string;',
+      "rules: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[];",
+      "escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]; };",
+      'feeCap?: { amount: number; currency: string; };',
+      "notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; };",
+      'regionalOverrides?: object;',
+    ],
+    response:
+      "{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }",
+    markdown:
+      "## create\n\n`client.adoptions.policies.create(name: string, rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[], escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }, feeCap?: { amount: number; currency: string; }, notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }, regionalOverrides?: object): { id: string; createdAt: string; name: string; rules: adoption_rule[]; status: 'draft' | 'active' | 'archived'; escalation?: object; feeCap?: money; notificationTarget?: string | object; regionalOverrides?: object; }`\n\n**post** `/adoptions/policies`\n\nCreates an adoption policy from a set of eligibility rules, regional overrides, and an optional escalation rule group.\n\n### Parameters\n\n- `name: string`\n\n- `rules: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]`\n\n- `escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]; }`\n  - `operator: 'ALL' | 'ANY'`\n  - `groups?: object[]`\n    Nested rule groups; groups can recurse arbitrarily deep.\n  - `rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]`\n\n- `feeCap?: { amount: number; currency: string; }`\n  - `amount: number`\n    Amount in minor currency units (e.g. cents).\n  - `currency: string`\n    ISO 4217 currency code.\n\n- `notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }`\n  Where policy decisions are delivered: a plain email address or a webhook sink.\n\n- `regionalOverrides?: object`\n\n### Returns\n\n- `{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }`\n\n  - `id: string`\n  - `createdAt: string`\n  - `name: string`\n  - `rules: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]`\n  - `status: 'draft' | 'active' | 'archived'`\n  - `escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]; }`\n  - `feeCap?: { amount: number; currency: string; }`\n  - `notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }`\n  - `regionalOverrides?: object`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst policy = await client.adoptions.policies.create({ name: 'name', rules: [{ attribute: 'PET_STATUS', operation: 'IS_ONE_OF' }] });\n\nconsole.log(policy);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.policies.create',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst policy = await client.adoptions.policies.create({\n  name: 'name',\n  rules: [{ attribute: 'PET_STATUS', operation: 'IS_ONE_OF' }],\n});\n\nconsole.log(policy.id);",
+      },
+      python: {
+        method: 'adoptions.policies.create',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\npolicy = client.adoptions.policies.create(\n    name="name",\n    rules=[{\n        "attribute": "PET_STATUS",\n        "operation": "IS_ONE_OF",\n    }],\n)\nprint(policy.id)',
+      },
+      java: {
+        method: 'adoptions().policies().create',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.policies.AdoptionRule;\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy;\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyCreateParams;\nimport com.hello_world_testingggg.api.models.adoptions.policies.RuleAttribute;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PolicyCreateParams params = PolicyCreateParams.builder()\n            .name("name")\n            .addRule(AdoptionRule.builder()\n                .attribute(RuleAttribute.PET_STATUS)\n                .operation(AdoptionRule.Operation.IS_ONE_OF)\n                .build())\n            .build();\n        Policy policy = client.adoptions().policies().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().policies().create',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.policies.AdoptionRule\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyCreateParams\nimport com.hello_world_testingggg.api.models.adoptions.policies.RuleAttribute\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: PolicyCreateParams = PolicyCreateParams.builder()\n        .name("name")\n        .addRule(AdoptionRule.builder()\n            .attribute(RuleAttribute.PET_STATUS)\n            .operation(AdoptionRule.Operation.IS_ONE_OF)\n            .build())\n        .build()\n    val policy: Policy = client.adoptions().policies().create(params)\n}',
+      },
+      go: {
+        method: 'client.Adoptions.Policies.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpolicy, err := client.Adoptions.Policies.New(context.TODO(), helloworldtestingggg.AdoptionPolicyNewParams{\n\t\tName: helloworldtestingggg.F("name"),\n\t\tRules: helloworldtestingggg.F([]helloworldtestingggg.AdoptionRuleParam{{\n\t\t\tAttribute: helloworldtestingggg.F(helloworldtestingggg.RuleAttributePetStatus),\n\t\t\tOperation: helloworldtestingggg.F(helloworldtestingggg.AdoptionRuleOperationIsOneOf),\n\t\t}}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", policy.ID)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.policies.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.create(\n  name: "name",\n  rules: [{attribute: :PET_STATUS, operation: :IS_ONE_OF}]\n)\n\nputs(policy)',
+      },
+      http: {
+        example:
+          'curl /api/v3/adoptions/policies \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "name": "name",\n          "rules": [\n            {\n              "attribute": "PET_STATUS",\n              "operation": "IS_ONE_OF"\n            }\n          ]\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/adoptions/policies/{policyId}',
+    httpMethod: 'get',
+    summary: 'Retrieve an adoption policy',
+    description: 'Returns a single adoption policy.',
+    stainlessPath: '(resource) adoptions.policies > (method) retrieve',
+    qualified: 'client.adoptions.policies.retrieve',
+    params: ['policyId: string;'],
+    response:
+      "{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }",
+    markdown:
+      "## retrieve\n\n`client.adoptions.policies.retrieve(policyId: string): { id: string; createdAt: string; name: string; rules: adoption_rule[]; status: 'draft' | 'active' | 'archived'; escalation?: object; feeCap?: money; notificationTarget?: string | object; regionalOverrides?: object; }`\n\n**get** `/adoptions/policies/{policyId}`\n\nReturns a single adoption policy.\n\n### Parameters\n\n- `policyId: string`\n\n### Returns\n\n- `{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }`\n\n  - `id: string`\n  - `createdAt: string`\n  - `name: string`\n  - `rules: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]`\n  - `status: 'draft' | 'active' | 'archived'`\n  - `escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: 'PET_STATUS' | 'SPECIES' | 'ADOPTER_AGE' | 'REGION' | 'PRIOR_ADOPTIONS' | 'APPLICATION_DATE'; operation: string; value?: string | number | number | string[] | string; }[]; }`\n  - `feeCap?: { amount: number; currency: string; }`\n  - `notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }`\n  - `regionalOverrides?: object`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst policy = await client.adoptions.policies.retrieve('policyId');\n\nconsole.log(policy);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.policies.retrieve',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst policy = await client.adoptions.policies.retrieve('policyId');\n\nconsole.log(policy.id);",
+      },
+      python: {
+        method: 'adoptions.policies.retrieve',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\npolicy = client.adoptions.policies.retrieve(\n    "policyId",\n)\nprint(policy.id)',
+      },
+      java: {
+        method: 'adoptions().policies().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy;\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        Policy policy = client.adoptions().policies().retrieve("policyId");\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().policies().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyRetrieveParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val policy: Policy = client.adoptions().policies().retrieve("policyId")\n}',
+      },
+      go: {
+        method: 'client.Adoptions.Policies.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpolicy, err := client.Adoptions.Policies.Get(context.TODO(), "policyId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", policy.ID)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.policies.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.retrieve("policyId")\n\nputs(policy)',
+      },
+      http: {
+        example: 'curl /api/v3/adoptions/policies/$POLICY_ID \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/adoptions/policies/{policyId}',
+    httpMethod: 'patch',
+    summary: 'Update an adoption policy',
+    description: 'Updates either the policy details or its lifecycle state.',
+    stainlessPath: '(resource) adoptions.policies > (method) update',
+    qualified: 'client.adoptions.policies.update',
+    params: [
+      'policyId: string;',
+      "body: { escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; }; name?: string; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; } | { actor: string; status: 'active' | 'archived'; actedAt?: string; reason?: string; };",
+    ],
+    response:
+      "{ id: string; createdAt: string; name: string; rules: { attribute: rule_attribute; operation: string; value?: condition_value; }[]; status: 'draft' | 'active' | 'archived'; escalation?: { operator: 'ALL' | 'ANY'; groups?: object[]; rules?: object[]; }; feeCap?: { amount: number; currency: string; }; notificationTarget?: string | { url: string; events?: 'approved' | 'rejected' | 'escalated'[]; secret?: string; }; regionalOverrides?: object; }",
+    perLanguage: {
+      typescript: {
+        method: 'client.adoptions.policies.update',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst policy = await client.adoptions.policies.update('policyId');\n\nconsole.log(policy.id);",
+      },
+      python: {
+        method: 'adoptions.policies.update',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\npolicy = client.adoptions.policies.update(\n    policy_id="policyId",\n)\nprint(policy.id)',
+      },
+      java: {
+        method: 'adoptions().policies().update',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy;\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyUpdateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PolicyUpdateParams params = PolicyUpdateParams.builder()\n            .policyId("policyId")\n            .body(PolicyUpdateParams.Body.AdoptionPolicyDetailsUpdate.builder().build())\n            .build();\n        Policy policy = client.adoptions().policies().update(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'adoptions().policies().update',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.adoptions.policies.Policy\nimport com.hello_world_testingggg.api.models.adoptions.policies.PolicyUpdateParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: PolicyUpdateParams = PolicyUpdateParams.builder()\n        .policyId("policyId")\n        .body(PolicyUpdateParams.Body.AdoptionPolicyDetailsUpdate.builder().build())\n        .build()\n    val policy: Policy = client.adoptions().policies().update(params)\n}',
+      },
+      go: {
+        method: 'client.Adoptions.Policies.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpolicy, err := client.Adoptions.Policies.Update(\n\t\tcontext.TODO(),\n\t\t"policyId",\n\t\thelloworldtestingggg.AdoptionPolicyUpdateParams{\n\t\t\tBody: helloworldtestingggg.AdoptionPolicyUpdateParamsBodyAdoptionPolicyDetailsUpdate{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", policy.ID)\n}\n',
+      },
+      ruby: {
+        method: 'adoptions.policies.update',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.update("policyId", body: {})\n\nputs(policy)',
+      },
+      http: {
+        example:
+          "curl /api/v3/adoptions/policies/$POLICY_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"api_key: $API_KEY\" \\\n    -d '{}'",
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/placements',
+    httpMethod: 'get',
+    summary: 'List placements',
+    description: 'Returns a cursor-paginated list of placements.',
+    stainlessPath: '(resource) placements > (method) list',
+    qualified: 'client.placements.list',
+    params: ['cursor?: string;', 'limit?: number;'],
+    response:
+      "{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }",
+    markdown:
+      "## list\n\n`client.placements.list(cursor?: string, limit?: number): { id: string; application: application; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: placement_event[]; followUpAfter?: string; logistics?: object; medicalClearance?: medical_summary; }`\n\n**get** `/placements`\n\nReturns a cursor-paginated list of placements.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor from a previous response used to fetch the next page.\n\n- `limit?: number`\n  Maximum number of placements to return.\n\n### Returns\n\n- `{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }`\n  A post-adoption placement tracking the pet's transition to its new home.\n\n  - `id: string`\n  - `application: { id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }`\n  - `createdAt: string`\n  - `status: 'pending' | 'active' | 'completed' | 'disrupted'`\n  - `events?: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; }[]`\n  - `followUpAfter?: string`\n  - `logistics?: { delivery?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }; pickup?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; }`\n  - `medicalClearance?: { petId: number; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; conditions?: { code: string; severity?: 'mild' | 'moderate' | 'severe'; treatment?: { medications?: object[]; plan?: string; }; }[]; vaccinations?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }[]; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\n// Automatically fetches more pages as needed.\nfor await (const placement of client.placements.list()) {\n  console.log(placement);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.placements.list',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const placement of client.placements.list()) {\n  console.log(placement.id);\n}",
+      },
+      python: {
+        method: 'placements.list',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\npage = client.placements.list()\npage = page.items[0]\nprint(page.id)',
+      },
+      java: {
+        method: 'placements().list',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.placements.PlacementListPage;\nimport com.hello_world_testingggg.api.models.placements.PlacementListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PlacementListPage page = client.placements().list();\n    }\n}',
+      },
+      kotlin: {
+        method: 'placements().list',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.placements.PlacementListPage\nimport com.hello_world_testingggg.api.models.placements.PlacementListParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val page: PlacementListPage = client.placements().list()\n}',
+      },
+      go: {
+        method: 'client.Placements.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tpage, err := client.Placements.List(context.TODO(), helloworldtestingggg.PlacementListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'placements.list',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.placements.list\n\nputs(page)',
+      },
+      http: {
+        example: 'curl /api/v3/placements \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/placements',
+    httpMethod: 'post',
+    summary: 'Create a placement',
+    description: 'Creates a placement for an approved adoption application.',
+    stainlessPath: '(resource) placements > (method) create',
+    qualified: 'client.placements.create',
+    params: [
+      'applicationId: string;',
+      "initialEvent?: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; };",
+      "logistics?: { delivery?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }; pickup?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; };",
+      'scheduledFor?: string;',
+    ],
+    response:
+      "{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }",
+    markdown:
+      "## create\n\n`client.placements.create(applicationId: string, initialEvent?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }, logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }, scheduledFor?: string): { id: string; application: application; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: placement_event[]; followUpAfter?: string; logistics?: object; medicalClearance?: medical_summary; }`\n\n**post** `/placements`\n\nCreates a placement for an approved adoption application.\n\n### Parameters\n\n- `applicationId: string`\n\n- `initialEvent?: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; }`\n  A placement history entry; the shape depends on the event kind and carries no discriminator mapping.\n\n- `logistics?: { delivery?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }; pickup?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; }`\n  Transport plan for a placement; pickup and delivery share the transfer-leg shape.\n  - `delivery?: { location: { city?: string; geo?: object; state?: string; street?: string; zip?: string; }; contact?: { name?: string; phone?: string; }; cost?: { amount: number; currency: string; }; window?: { end?: string; start?: string; }; }`\n  - `handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }`\n  - `pickup?: { location: { city?: string; geo?: object; state?: string; street?: string; zip?: string; }; contact?: { name?: string; phone?: string; }; cost?: { amount: number; currency: string; }; window?: { end?: string; start?: string; }; }`\n\n- `scheduledFor?: string`\n\n### Returns\n\n- `{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }`\n  A post-adoption placement tracking the pet's transition to its new home.\n\n  - `id: string`\n  - `application: { id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }`\n  - `createdAt: string`\n  - `status: 'pending' | 'active' | 'completed' | 'disrupted'`\n  - `events?: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; }[]`\n  - `followUpAfter?: string`\n  - `logistics?: { delivery?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }; pickup?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; }`\n  - `medicalClearance?: { petId: number; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; conditions?: { code: string; severity?: 'mild' | 'moderate' | 'severe'; treatment?: { medications?: object[]; plan?: string; }; }[]; vaccinations?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }[]; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst placement = await client.placements.create({ applicationId: 'applicationId' });\n\nconsole.log(placement);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.placements.create',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst placement = await client.placements.create({ applicationId: 'applicationId' });\n\nconsole.log(placement.id);",
+      },
+      python: {
+        method: 'placements.create',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nplacement = client.placements.create(\n    application_id="applicationId",\n)\nprint(placement.id)',
+      },
+      java: {
+        method: 'placements().create',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.placements.Placement;\nimport com.hello_world_testingggg.api.models.placements.PlacementCreateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PlacementCreateParams params = PlacementCreateParams.builder()\n            .applicationId("applicationId")\n            .build();\n        Placement placement = client.placements().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'placements().create',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.placements.Placement\nimport com.hello_world_testingggg.api.models.placements.PlacementCreateParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: PlacementCreateParams = PlacementCreateParams.builder()\n        .applicationId("applicationId")\n        .build()\n    val placement: Placement = client.placements().create(params)\n}',
+      },
+      go: {
+        method: 'client.Placements.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tplacement, err := client.Placements.New(context.TODO(), helloworldtestingggg.PlacementNewParams{\n\t\tApplicationID: helloworldtestingggg.F("applicationId"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", placement.ID)\n}\n',
+      },
+      ruby: {
+        method: 'placements.create',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.create(application_id: "applicationId")\n\nputs(placement)',
+      },
+      http: {
+        example:
+          'curl /api/v3/placements \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "applicationId": "applicationId"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/placements/{placementId}',
+    httpMethod: 'get',
+    summary: 'Retrieve a placement',
+    description: 'Returns a single placement, including its adoption application and event history.',
+    stainlessPath: '(resource) placements > (method) retrieve',
+    qualified: 'client.placements.retrieve',
+    params: ['placementId: string;'],
+    response:
+      "{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }",
+    markdown:
+      "## retrieve\n\n`client.placements.retrieve(placementId: string): { id: string; application: application; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: placement_event[]; followUpAfter?: string; logistics?: object; medicalClearance?: medical_summary; }`\n\n**get** `/placements/{placementId}`\n\nReturns a single placement, including its adoption application and event history.\n\n### Parameters\n\n- `placementId: string`\n\n### Returns\n\n- `{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }`\n  A post-adoption placement tracking the pet's transition to its new home.\n\n  - `id: string`\n  - `application: { id: string; applicant: { applicant_type: 'individual'; name: string; address?: object; age?: number; email?: string; } | { applicant_type: 'organization'; name: string; shelter?: { name: string; address?: address; contact?: object; location?: object; }; taxId?: string; }; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: { approvedAt: string; outcome: 'approved'; conditions?: string[]; } | { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; } | { escalatedTo: { team: string; contact?: object; }; outcome: 'escalated'; reviewAfter?: string; }; fee?: { amount: number; currency: string; }; history?: { changedAt: string; status: 'received' | 'under_review' | 'approved' | 'rejected'; note?: string; }[]; latestRejection?: { outcome: 'rejected'; reason: 'policy' | 'capacity' | 'incomplete'; appealDeadline?: string; }; pet?: { name: string; photoUrls: string[]; id?: number; category?: object; microchipId?: string | number; status?: pet_status; tags?: object[]; }; }`\n  - `createdAt: string`\n  - `status: 'pending' | 'active' | 'completed' | 'disrupted'`\n  - `events?: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; }[]`\n  - `followUpAfter?: string`\n  - `logistics?: { delivery?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; handler?: { certification?: { level: 'standard' | 'advanced' | 'specialist'; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; issuedBy?: string; }; name?: string; }; pickup?: { location: object; contact?: { name?: string; phone?: string; }; cost?: object; window?: { end?: string; start?: string; }; }; }`\n  - `medicalClearance?: { petId: number; audit?: { recordedAt: string; recordedBy?: string; source?: 'manual' | 'import' | 'system'; }; conditions?: { code: string; severity?: 'mild' | 'moderate' | 'severe'; treatment?: { medications?: object[]; plan?: string; }; }[]; vaccinations?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }[]; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst placement = await client.placements.retrieve('placementId');\n\nconsole.log(placement);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.placements.retrieve',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst placement = await client.placements.retrieve('placementId');\n\nconsole.log(placement.id);",
+      },
+      python: {
+        method: 'placements.retrieve',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nplacement = client.placements.retrieve(\n    "placementId",\n)\nprint(placement.id)',
+      },
+      java: {
+        method: 'placements().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.placements.Placement;\nimport com.hello_world_testingggg.api.models.placements.PlacementRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        Placement placement = client.placements().retrieve("placementId");\n    }\n}',
+      },
+      kotlin: {
+        method: 'placements().retrieve',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.placements.Placement\nimport com.hello_world_testingggg.api.models.placements.PlacementRetrieveParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val placement: Placement = client.placements().retrieve("placementId")\n}',
+      },
+      go: {
+        method: 'client.Placements.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tplacement, err := client.Placements.Get(context.TODO(), "placementId")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", placement.ID)\n}\n',
+      },
+      ruby: {
+        method: 'placements.retrieve',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.retrieve("placementId")\n\nputs(placement)',
+      },
+      http: {
+        example: 'curl /api/v3/placements/$PLACEMENT_ID \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'record_event',
+    endpoint: '/placements/{placementId}/events',
+    httpMethod: 'post',
+    summary: 'Record a placement event',
+    description: "Appends a transfer, checkup, or disruption event to a placement's history.",
+    stainlessPath: '(resource) placements > (method) record_event',
+    qualified: 'client.placements.recordEvent',
+    params: [
+      'placementId: string;',
+      "placement_event: { id: string; leg: { location: address; contact?: object; cost?: money; window?: object; }; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: { due?: string; reason?: string; }; note?: string; record?: { id: string; administeredAt: string; vaccine: string; audit?: object; boosterSchedule?: object[]; veterinarian?: object; }; } | { id: string; occurredAt: string; severity: number | { level: 'low' | 'high' | 'critical'; reviewer?: string; }; type: 'disruption'; note?: string; };",
+    ],
+    response:
+      "{ id: string; application: { id: string; applicant: object | object; status: 'received' | 'under_review' | 'approved' | 'rejected'; submittedAt: string; decision?: object | object | object; fee?: money; history?: object[]; latestRejection?: object; pet?: pet; }; createdAt: string; status: 'pending' | 'active' | 'completed' | 'disrupted'; events?: { id: string; leg: transfer_leg; occurredAt: string; type: 'transfer'; note?: string; } | { id: string; occurredAt: string; type: 'checkup'; followUp?: object; note?: string; record?: vaccination_record; } | { id: string; occurredAt: string; severity: number | object; type: 'disruption'; note?: string; }[]; followUpAfter?: string; logistics?: { delivery?: object; handler?: { certification?: object; name?: string; }; pickup?: object; }; medicalClearance?: { petId: number; audit?: object; conditions?: object[]; vaccinations?: vaccination_record[]; }; }",
+    perLanguage: {
+      typescript: {
+        method: 'client.placements.recordEvent',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst placement = await client.placements.recordEvent('placementId', {\n  id: 'id',\n  leg: { location: {} },\n  occurredAt: '2019-12-27T18:11:19.117Z',\n  type: 'transfer',\n});\n\nconsole.log(placement.id);",
+      },
+      python: {
+        method: 'placements.record_event',
+        example:
+          'import os\nfrom datetime import datetime\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nplacement = client.placements.record_event(\n    placement_id="placementId",\n    id="id",\n    leg={\n        "location": {}\n    },\n    occurred_at=datetime.fromisoformat("2019-12-27T18:11:19.117"),\n    type="transfer",\n)\nprint(placement.id)',
+      },
+      java: {
+        method: 'placements().recordEvent',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.Address;\nimport com.hello_world_testingggg.api.models.placements.Placement;\nimport com.hello_world_testingggg.api.models.placements.PlacementEvent;\nimport com.hello_world_testingggg.api.models.placements.PlacementRecordEventParams;\nimport com.hello_world_testingggg.api.models.placements.TransferLeg;\nimport java.time.OffsetDateTime;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        PlacementRecordEventParams params = PlacementRecordEventParams.builder()\n            .placementId("placementId")\n            .placementEvent(PlacementEvent.PlacementTransferEvent.builder()\n                .id("id")\n                .leg(TransferLeg.builder()\n                    .location(Address.builder().build())\n                    .build())\n                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))\n                .type(PlacementEvent.PlacementTransferEvent.Type.TRANSFER)\n                .build())\n            .build();\n        Placement placement = client.placements().recordEvent(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'placements().recordEvent',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.Address\nimport com.hello_world_testingggg.api.models.placements.Placement\nimport com.hello_world_testingggg.api.models.placements.PlacementEvent\nimport com.hello_world_testingggg.api.models.placements.PlacementRecordEventParams\nimport com.hello_world_testingggg.api.models.placements.TransferLeg\nimport java.time.OffsetDateTime\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: PlacementRecordEventParams = PlacementRecordEventParams.builder()\n        .placementId("placementId")\n        .placementEvent(PlacementEvent.PlacementTransferEvent.builder()\n            .id("id")\n            .leg(TransferLeg.builder()\n                .location(Address.builder().build())\n                .build())\n            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))\n            .type(PlacementEvent.PlacementTransferEvent.Type.TRANSFER)\n            .build())\n        .build()\n    val placement: Placement = client.placements().recordEvent(params)\n}',
+      },
+      go: {
+        method: 'client.Placements.RecordEvent',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n\t"github.com/swagger-girly/go/shared"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tplacement, err := client.Placements.RecordEvent(\n\t\tcontext.TODO(),\n\t\t"placementId",\n\t\thelloworldtestingggg.PlacementRecordEventParams{\n\t\t\tPlacementEvent: helloworldtestingggg.PlacementEventPlacementTransferEventParam{\n\t\t\t\tID: helloworldtestingggg.F("id"),\n\t\t\t\tLeg: helloworldtestingggg.F(helloworldtestingggg.TransferLegParam{\n\t\t\t\t\tLocation: helloworldtestingggg.F(shared.AddressParam{}),\n\t\t\t\t}),\n\t\t\t\tOccurredAt: helloworldtestingggg.F(time.Now()),\n\t\t\t\tType:       helloworldtestingggg.F(helloworldtestingggg.PlacementEventPlacementTransferEventTypeTransfer),\n\t\t\t},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", placement.ID)\n}\n',
+      },
+      ruby: {
+        method: 'placements.record_event',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.record_event(\n  "placementId",\n  placement_event: {id: "id", leg: {location: {}}, occurredAt: "2019-12-27T18:11:19.117Z", type: :transfer}\n)\n\nputs(placement)',
+      },
+      http: {
+        example:
+          'curl /api/v3/placements/$PLACEMENT_ID/events \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "id": "id",\n          "leg": {\n            "location": {}\n          },\n          "occurredAt": "2019-12-27T18:11:19.117Z",\n          "type": "transfer"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'parsed',
     endpoint: '',
     httpMethod: '',
@@ -1393,11 +2101,12 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'quantity?: number;',
       'shipDate?: string;',
       "status?: 'placed' | 'approved' | 'delivered';",
+      'total?: { amount: number; currency: string; };',
     ],
     response:
-      "{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }",
+      "{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: { amount: number; currency: string; }; }",
     markdown:
-      "## create\n\n`client.store.order.create(id?: number, complete?: boolean, petId?: number, quantity?: number, shipDate?: string, status?: 'placed' | 'approved' | 'delivered'): { id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }`\n\n**post** `/store/order`\n\nPlace a new order in the store\n\n### Parameters\n\n- `id?: number`\n\n- `complete?: boolean`\n\n- `petId?: number`\n\n- `quantity?: number`\n\n- `shipDate?: string`\n\n- `status?: 'placed' | 'approved' | 'delivered'`\n  Order Status\n\n### Returns\n\n- `{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }`\n\n  - `id?: number`\n  - `complete?: boolean`\n  - `petId?: number`\n  - `quantity?: number`\n  - `shipDate?: string`\n  - `status?: 'placed' | 'approved' | 'delivered'`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst order = await client.store.order.create();\n\nconsole.log(order);\n```",
+      "## create\n\n`client.store.order.create(id?: number, complete?: boolean, petId?: number, quantity?: number, shipDate?: string, status?: 'placed' | 'approved' | 'delivered', total?: { amount: number; currency: string; }): { id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: money; }`\n\n**post** `/store/order`\n\nPlace a new order in the store\n\n### Parameters\n\n- `id?: number`\n\n- `complete?: boolean`\n\n- `petId?: number`\n\n- `quantity?: number`\n\n- `shipDate?: string`\n\n- `status?: 'placed' | 'approved' | 'delivered'`\n  Order Status\n\n- `total?: { amount: number; currency: string; }`\n  - `amount: number`\n    Amount in minor currency units (e.g. cents).\n  - `currency: string`\n    ISO 4217 currency code.\n\n### Returns\n\n- `{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: { amount: number; currency: string; }; }`\n\n  - `id?: number`\n  - `complete?: boolean`\n  - `petId?: number`\n  - `quantity?: number`\n  - `shipDate?: string`\n  - `status?: 'placed' | 'approved' | 'delivered'`\n  - `total?: { amount: number; currency: string; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst order = await client.store.order.create();\n\nconsole.log(order);\n```",
     perLanguage: {
       typescript: {
         method: 'client.store.order.create',
@@ -1445,9 +2154,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.store.order.retrieve',
     params: ['orderId: number;'],
     response:
-      "{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }",
+      "{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: { amount: number; currency: string; }; }",
     markdown:
-      "## retrieve\n\n`client.store.order.retrieve(orderId: number): { id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }`\n\n**get** `/store/order/{orderId}`\n\nFor valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.\n\n### Parameters\n\n- `orderId: number`\n\n### Returns\n\n- `{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; }`\n\n  - `id?: number`\n  - `complete?: boolean`\n  - `petId?: number`\n  - `quantity?: number`\n  - `shipDate?: string`\n  - `status?: 'placed' | 'approved' | 'delivered'`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst order = await client.store.order.retrieve(0);\n\nconsole.log(order);\n```",
+      "## retrieve\n\n`client.store.order.retrieve(orderId: number): { id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: money; }`\n\n**get** `/store/order/{orderId}`\n\nFor valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.\n\n### Parameters\n\n- `orderId: number`\n\n### Returns\n\n- `{ id?: number; complete?: boolean; petId?: number; quantity?: number; shipDate?: string; status?: 'placed' | 'approved' | 'delivered'; total?: { amount: number; currency: string; }; }`\n\n  - `id?: number`\n  - `complete?: boolean`\n  - `petId?: number`\n  - `quantity?: number`\n  - `shipDate?: string`\n  - `status?: 'placed' | 'approved' | 'delivered'`\n  - `total?: { amount: number; currency: string; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst order = await client.store.order.retrieve(0);\n\nconsole.log(order);\n```",
     perLanguage: {
       typescript: {
         method: 'client.store.order.retrieve',
@@ -2203,7 +2912,7 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
   {
     language: 'ruby',
     content:
-      '# Hello World Testingggg Ruby API library\n\nThe Hello World Testingggg Ruby library provides convenient access to the Hello World Testingggg REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/swagger-girly/ruby#Sorbet) for usage with Sorbet. The standard library\'s `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.\n\n\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Hello World Testingggg MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nDocumentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/hello-world-testingggg).\n\nThe REST API documentation can be found on [swagger.io](http://swagger.io).\n\n## Installation\n\nTo use this gem, install via Bundler by adding the following to your application\'s `Gemfile`:\n\n<!-- x-release-please-start-version -->\n\n```ruby\ngem "hello-world-testingggg", "~> 0.0.1"\n```\n\n<!-- x-release-please-end -->\n\n## Usage\n\n```ruby\nrequire "bundler/setup"\nrequire "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet.id)\n```\n\n### Streaming\n\nWe provide support for streaming responses using Server-Sent Events (SSE).\n\n```ruby\nstream = hello_world_testingggg.pet.watch_status_streaming\n\nstream.each do |pet|\n  puts(pet.id)\nend\n```\n\n### Pagination\n\nList methods in the Hello World Testingggg API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```ruby\npage = hello_world_testingggg.pet.list\n\n# Fetch single item from page.\npet = page.items[0]\nputs(pet.id)\n\n# Automatically fetches more pages as needed.\npage.auto_paging_each do |pet|\n  puts(pet.id)\nend\n```\n\nAlternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.\n\n```ruby\nif page.next_page?\n  new_page = page.next_page\n  puts(new_page.items[0].id)\nend\n```\n\n### File uploads\n\nRequest parameters that correspond to file uploads can be passed as raw contents, a [`Pathname`](https://rubyapi.org/3.2/o/pathname) instance, [`StringIO`](https://rubyapi.org/3.2/o/stringio), or more.\n\n```ruby\nrequire "pathname"\n\n# Use `Pathname` to send the filename and/or avoid paging a large file into memory:\nfile = hello_world_testingggg.files.update(file: Pathname("/path/to/file"))\n\n# Alternatively, pass file contents or a `StringIO` directly:\nfile = hello_world_testingggg.files.update(file: File.read("/path/to/file"))\n\n# Or, to control the filename and/or content type:\nfile =\n  HelloWorldTestingggg::FilePart.new(\n    File.read("/path/to/file"),\n    filename: "/path/to/file",\n    content_type: "…"\n  )\nfile = hello_world_testingggg.files.update(file: file)\n\nputs(file.lastModified)\n```\n\nNote that you can also pass a raw `IO` descriptor, but this disables retries, as the library can\'t be sure if the descriptor is a file or pipe (which cannot be rewound).\n\n### Handling errors\n\nWhen the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `HelloWorldTestingggg::Errors::APIError` will be thrown:\n\n```ruby\nbegin\n  pet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\nrescue HelloWorldTestingggg::Errors::APIConnectionError => e\n  puts("The server could not be reached")\n  puts(e.cause)  # an underlying Exception, likely raised within `net/http`\nrescue HelloWorldTestingggg::Errors::RateLimitError => e\n  puts("A 429 status code was received; we should back off a bit.")\nrescue HelloWorldTestingggg::Errors::APIStatusError => e\n  puts("Another non-200-range status code was received")\n  puts(e.status)\nend\n```\n\nError codes are as follows:\n\n| Cause            | Error Type                 |\n| ---------------- | -------------------------- |\n| HTTP 400         | `BadRequestError`          |\n| HTTP 401         | `AuthenticationError`      |\n| HTTP 403         | `PermissionDeniedError`    |\n| HTTP 404         | `NotFoundError`            |\n| HTTP 409         | `ConflictError`            |\n| HTTP 422         | `UnprocessableEntityError` |\n| HTTP 429         | `RateLimitError`           |\n| HTTP >= 500      | `InternalServerError`      |\n| Other HTTP error | `APIStatusError`           |\n| Timeout          | `APITimeoutError`          |\n| Network error    | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\n\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.\n\nYou can use the `max_retries` option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  max_retries: 0 # default is 2\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(\n  name: "doggie",\n  photo_urls: ["string"],\n  request_options: {max_retries: 5}\n)\n```\n\n### Timeouts\n\nBy default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  timeout: nil # default is 60\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"], request_options: {timeout: 5})\n```\n\nOn timeout, `HelloWorldTestingggg::Errors::APITimeoutError` is raised.\n\nNote that requests that time out are retried by default.\n\n## Advanced concepts\n\n### BaseModel\n\nAll parameter and response objects inherit from `HelloWorldTestingggg::Internal::Type::BaseModel`, which provides several conveniences, including:\n\n1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.\n\n2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.\n\n3. Both instances and the classes themselves can be pretty-printed.\n\n4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.\n\n### Making custom or undocumented requests\n\n#### Undocumented properties\n\nYou can send undocumented parameters to any endpoint, and read undocumented response properties, like so:\n\nNote: the `extra_` parameters of the same name overrides the documented parameters.\n\n```ruby\npet =\n  hello_world_testingggg.pet.update(\n    name: "doggie",\n    photo_urls: ["string"],\n    request_options: {\n      extra_query: {my_query_parameter: value},\n      extra_body: {my_body_parameter: value},\n      extra_headers: {"my-header": value}\n    }\n  )\n\nputs(pet[:my_undocumented_property])\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:\n\n```ruby\nresponse = client.request(\n  method: :post,\n  path: \'/undocumented/endpoint\',\n  query: {"dog": "woof"},\n  headers: {"useful-header": "interesting-value"},\n  body: {"hello": "world"}\n)\n```\n\n### Concurrency & connection pooling\n\nThe `HelloWorldTestingggg::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.\n\nEach instance of `HelloWorldTestingggg::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.\n\nWhen all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.\n\nUnless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.\n\n## Sorbet\n\nThis library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.\n\nYou can provide typesafe request parameters like so:\n\n```ruby\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n```\n\nOr, equivalently:\n\n```ruby\n# Hashes work, but are not typesafe:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\n# You can also splat a full Params class:\nparams = HelloWorldTestingggg::PetUpdateParams.new(name: "doggie", photo_urls: ["string"])\nhello_world_testingggg.pet.update(**params)\n```\n\n### Enums\n\nSince this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:\n\n```ruby\n# :available\nputs(HelloWorldTestingggg::PetAPI::Status::AVAILABLE)\n\n# Revealed type: `T.all(HelloWorldTestingggg::PetAPI::Status, Symbol)`\nT.reveal_type(HelloWorldTestingggg::PetAPI::Status::AVAILABLE)\n```\n\nEnum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:\n\n```ruby\n# Using the enum constants preserves the tagged type information:\nhello_world_testingggg.pet.create(\n  status: HelloWorldTestingggg::PetAPI::Status::AVAILABLE,\n  # …\n)\n\n# Literal values are also permissible:\nhello_world_testingggg.pet.create(\n  status: :available,\n  # …\n)\n```\n\n## Versioning\n\nThis package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.\n\nThis package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.\n\n## Requirements\n\nRuby 3.2.0 or higher.\n\n## Contributing\n\nSee [the contributing documentation](https://github.com/swagger-girly/ruby/tree/main/CONTRIBUTING.md).\n',
+      '# Hello World Testingggg Ruby API library\n\nThe Hello World Testingggg Ruby library provides convenient access to the Hello World Testingggg REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/swagger-girly/ruby#Sorbet) for usage with Sorbet. The standard library\'s `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.\n\n\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Hello World Testingggg MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nDocumentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/hello-world-testingggg).\n\nThe REST API documentation can be found on [swagger.io](http://swagger.io).\n\n## Installation\n\nTo use this gem, install via Bundler by adding the following to your application\'s `Gemfile`:\n\n<!-- x-release-please-start-version -->\n\n```ruby\ngem "hello-world-testingggg", "~> 0.0.1"\n```\n\n<!-- x-release-please-end -->\n\n## Usage\n\n```ruby\nrequire "bundler/setup"\nrequire "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet.id)\n```\n\n### Streaming\n\nWe provide support for streaming responses using Server-Sent Events (SSE).\n\n```ruby\nstream = hello_world_testingggg.pet.watch_status_streaming\n\nstream.each do |pet|\n  puts(pet.id)\nend\n```\n\n### Pagination\n\nList methods in the Hello World Testingggg API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```ruby\npage = hello_world_testingggg.pet.list\n\n# Fetch single item from page.\npet = page.items[0]\nputs(pet.id)\n\n# Automatically fetches more pages as needed.\npage.auto_paging_each do |pet|\n  puts(pet.id)\nend\n```\n\nAlternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.\n\n```ruby\nif page.next_page?\n  new_page = page.next_page\n  puts(new_page.items[0].id)\nend\n```\n\n### File uploads\n\nRequest parameters that correspond to file uploads can be passed as raw contents, a [`Pathname`](https://rubyapi.org/3.2/o/pathname) instance, [`StringIO`](https://rubyapi.org/3.2/o/stringio), or more.\n\n```ruby\nrequire "pathname"\n\n# Use `Pathname` to send the filename and/or avoid paging a large file into memory:\nfile = hello_world_testingggg.files.update(file: Pathname("/path/to/file"))\n\n# Alternatively, pass file contents or a `StringIO` directly:\nfile = hello_world_testingggg.files.update(file: File.read("/path/to/file"))\n\n# Or, to control the filename and/or content type:\nfile =\n  HelloWorldTestingggg::FilePart.new(\n    File.read("/path/to/file"),\n    filename: "/path/to/file",\n    content_type: "…"\n  )\nfile = hello_world_testingggg.files.update(file: file)\n\nputs(file.lastModified)\n```\n\nNote that you can also pass a raw `IO` descriptor, but this disables retries, as the library can\'t be sure if the descriptor is a file or pipe (which cannot be rewound).\n\n### Handling errors\n\nWhen the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `HelloWorldTestingggg::Errors::APIError` will be thrown:\n\n```ruby\nbegin\n  pet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\nrescue HelloWorldTestingggg::Errors::APIConnectionError => e\n  puts("The server could not be reached")\n  puts(e.cause)  # an underlying Exception, likely raised within `net/http`\nrescue HelloWorldTestingggg::Errors::RateLimitError => e\n  puts("A 429 status code was received; we should back off a bit.")\nrescue HelloWorldTestingggg::Errors::APIStatusError => e\n  puts("Another non-200-range status code was received")\n  puts(e.status)\nend\n```\n\nError codes are as follows:\n\n| Cause            | Error Type                 |\n| ---------------- | -------------------------- |\n| HTTP 400         | `BadRequestError`          |\n| HTTP 401         | `AuthenticationError`      |\n| HTTP 403         | `PermissionDeniedError`    |\n| HTTP 404         | `NotFoundError`            |\n| HTTP 409         | `ConflictError`            |\n| HTTP 422         | `UnprocessableEntityError` |\n| HTTP 429         | `RateLimitError`           |\n| HTTP >= 500      | `InternalServerError`      |\n| Other HTTP error | `APIStatusError`           |\n| Timeout          | `APITimeoutError`          |\n| Network error    | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\n\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.\n\nYou can use the `max_retries` option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  max_retries: 0 # default is 2\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(\n  name: "doggie",\n  photo_urls: ["string"],\n  request_options: {max_retries: 5}\n)\n```\n\n### Timeouts\n\nBy default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  timeout: nil # default is 60\n)\n\n# Or, configure per-request:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"], request_options: {timeout: 5})\n```\n\nOn timeout, `HelloWorldTestingggg::Errors::APITimeoutError` is raised.\n\nNote that requests that time out are retried by default.\n\n## Advanced concepts\n\n### BaseModel\n\nAll parameter and response objects inherit from `HelloWorldTestingggg::Internal::Type::BaseModel`, which provides several conveniences, including:\n\n1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.\n\n2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.\n\n3. Both instances and the classes themselves can be pretty-printed.\n\n4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.\n\n### Making custom or undocumented requests\n\n#### Undocumented properties\n\nYou can send undocumented parameters to any endpoint, and read undocumented response properties, like so:\n\nNote: the `extra_` parameters of the same name overrides the documented parameters.\n\n```ruby\npet =\n  hello_world_testingggg.pet.update(\n    name: "doggie",\n    photo_urls: ["string"],\n    request_options: {\n      extra_query: {my_query_parameter: value},\n      extra_body: {my_body_parameter: value},\n      extra_headers: {"my-header": value}\n    }\n  )\n\nputs(pet[:my_undocumented_property])\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:\n\n```ruby\nresponse = client.request(\n  method: :post,\n  path: \'/undocumented/endpoint\',\n  query: {"dog": "woof"},\n  headers: {"useful-header": "interesting-value"},\n  body: {"hello": "world"}\n)\n```\n\n### Concurrency & connection pooling\n\nThe `HelloWorldTestingggg::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.\n\nEach instance of `HelloWorldTestingggg::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.\n\nWhen all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.\n\nUnless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.\n\n## Sorbet\n\nThis library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.\n\nYou can provide typesafe request parameters like so:\n\n```ruby\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n```\n\nOr, equivalently:\n\n```ruby\n# Hashes work, but are not typesafe:\nhello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\n# You can also splat a full Params class:\nparams = HelloWorldTestingggg::PetUpdateParams.new(name: "doggie", photo_urls: ["string"])\nhello_world_testingggg.pet.update(**params)\n```\n\n### Enums\n\nSince this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:\n\n```ruby\n# :available\nputs(HelloWorldTestingggg::PetStatus::AVAILABLE)\n\n# Revealed type: `T.all(HelloWorldTestingggg::PetStatus, Symbol)`\nT.reveal_type(HelloWorldTestingggg::PetStatus::AVAILABLE)\n```\n\nEnum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:\n\n```ruby\n# Using the enum constants preserves the tagged type information:\nhello_world_testingggg.pet.create(\n  status: HelloWorldTestingggg::PetStatus::AVAILABLE,\n  # …\n)\n\n# Literal values are also permissible:\nhello_world_testingggg.pet.create(\n  status: :available,\n  # …\n)\n```\n\n## Versioning\n\nThis package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.\n\nThis package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.\n\n## Requirements\n\nRuby 3.2.0 or higher.\n\n## Contributing\n\nSee [the contributing documentation](https://github.com/swagger-girly/ruby/tree/main/CONTRIBUTING.md).\n',
   },
   {
     language: 'typescript',

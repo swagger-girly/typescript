@@ -11,6 +11,18 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
+    clientCallName: 'client.health',
+    fullyQualifiedName: 'health',
+    httpMethod: 'get',
+    httpPath: '/health',
+  },
+  {
+    clientCallName: 'client.retrieveRateLimits',
+    fullyQualifiedName: 'retrieveRateLimits',
+    httpMethod: 'get',
+    httpPath: '/rate_limits',
+  },
+  {
     clientCallName: 'client.pet.create',
     fullyQualifiedName: 'pet.create',
     httpMethod: 'post',
@@ -70,6 +82,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'pet.listUnpaginated',
     httpMethod: 'get',
     httpPath: '/pet/unpaginated',
+  },
+  {
+    clientCallName: 'client.pet.retrievePremium',
+    fullyQualifiedName: 'pet.retrievePremium',
+    httpMethod: 'get',
+    httpPath: '/pet/{petId}/premium',
   },
   {
     clientCallName: 'client.pet.updateWithForm',
@@ -154,6 +172,72 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'profiles.legacySearch',
     httpMethod: 'get',
     httpPath: '/profiles/legacy-search',
+  },
+  {
+    clientCallName: 'client.adoptions.create',
+    fullyQualifiedName: 'adoptions.create',
+    httpMethod: 'post',
+    httpPath: '/adoptions/applications',
+  },
+  {
+    clientCallName: 'client.adoptions.retrieve',
+    fullyQualifiedName: 'adoptions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/adoptions/applications/{applicationId}',
+  },
+  {
+    clientCallName: 'client.adoptions.retrieveDecision',
+    fullyQualifiedName: 'adoptions.retrieveDecision',
+    httpMethod: 'get',
+    httpPath: '/adoptions/applications/{applicationId}/decision',
+  },
+  {
+    clientCallName: 'client.adoptions.policies.create',
+    fullyQualifiedName: 'adoptions.policies.create',
+    httpMethod: 'post',
+    httpPath: '/adoptions/policies',
+  },
+  {
+    clientCallName: 'client.adoptions.policies.retrieve',
+    fullyQualifiedName: 'adoptions.policies.retrieve',
+    httpMethod: 'get',
+    httpPath: '/adoptions/policies/{policyId}',
+  },
+  {
+    clientCallName: 'client.adoptions.policies.update',
+    fullyQualifiedName: 'adoptions.policies.update',
+    httpMethod: 'patch',
+    httpPath: '/adoptions/policies/{policyId}',
+  },
+  {
+    clientCallName: 'client.adoptions.policies.list',
+    fullyQualifiedName: 'adoptions.policies.list',
+    httpMethod: 'get',
+    httpPath: '/adoptions/policies',
+  },
+  {
+    clientCallName: 'client.placements.create',
+    fullyQualifiedName: 'placements.create',
+    httpMethod: 'post',
+    httpPath: '/placements',
+  },
+  {
+    clientCallName: 'client.placements.retrieve',
+    fullyQualifiedName: 'placements.retrieve',
+    httpMethod: 'get',
+    httpPath: '/placements/{placementId}',
+  },
+  {
+    clientCallName: 'client.placements.list',
+    fullyQualifiedName: 'placements.list',
+    httpMethod: 'get',
+    httpPath: '/placements',
+  },
+  {
+    clientCallName: 'client.placements.recordEvent',
+    fullyQualifiedName: 'placements.recordEvent',
+    httpMethod: 'post',
+    httpPath: '/placements/{placementId}/events',
   },
   { clientCallName: 'client.webhooks.parsed', fullyQualifiedName: 'webhooks.parsed' },
   {

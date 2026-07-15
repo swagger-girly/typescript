@@ -3,10 +3,12 @@
 export {
   PetResource,
   type Pet,
+  type PetStatus,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
-  type PetListFakePageInferredResponse,
+  type PetListFakePageResponse,
   type PetListUnpaginatedResponse,
+  type PetRetrievePremiumResponse,
   type PetUploadImageResponse,
   type ConnectClientEvent,
   type ConnectServerEvent,

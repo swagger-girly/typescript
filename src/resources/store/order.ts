@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -70,6 +71,8 @@ export interface OrderCreateResponse {
    * Order Status
    */
   status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
 }
 
 export interface OrderRetrieveResponse {
@@ -87,6 +90,8 @@ export interface OrderRetrieveResponse {
    * Order Status
    */
   status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
 }
 
 export interface OrderCreateParams {
@@ -104,6 +109,8 @@ export interface OrderCreateParams {
    * Order Status
    */
   status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
 }
 
 export declare namespace Order {
