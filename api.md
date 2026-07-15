@@ -1,12 +1,33 @@
+# HelloWorldTestingggg
+
+Types:
+
+- <code><a href="./src/resources/top-level.ts">SystemHealth</a></code>
+- <code><a href="./src/resources/top-level.ts">RetrieveRateLimitsResponse</a></code>
+
+Methods:
+
+- <code title="get /health">client.<a href="./src/index.ts">health</a>() -> SystemHealth</code>
+- <code title="get /rate_limits">client.<a href="./src/index.ts">retrieveRateLimits</a>() -> RetrieveRateLimitsResponse</code>
+
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">Address</a></code>
+- <code><a href="./src/resources/shared.ts">Money</a></code>
+
 # Pet
 
 Types:
 
 - <code><a href="./src/resources/pet.ts">Pet</a></code>
+- <code><a href="./src/resources/pet.ts">PetStatus</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetListFakePageInferredResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetListFakePageResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetListUnpaginatedResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetRetrievePremiumResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectClientEvent</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectServerEvent</a></code>
@@ -20,9 +41,10 @@ Methods:
 - <code title="delete /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">delete</a>(petID) -> void</code>
 - <code title="get /pet/findByStatus">client.pet.<a href="./src/resources/pet.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
 - <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
-- <code title="get /pet/fake-page">client.pet.<a href="./src/resources/pet.ts">listFakePage</a>() -> PetsXFakeSinglePage</code>
-- <code title="get /pet/fake-page-inferred">client.pet.<a href="./src/resources/pet.ts">listFakePageInferred</a>() -> PetListFakePageInferredResponse</code>
+- <code title="get /pet/fake-page">client.pet.<a href="./src/resources/pet.ts">listFakePage</a>() -> PetListFakePageResponse</code>
+- <code title="get /pet/fake-page-inferred">client.pet.<a href="./src/resources/pet.ts">listFakePageInferred</a>() -> PetsXFakeSinglePage</code>
 - <code title="get /pet/unpaginated">client.pet.<a href="./src/resources/pet.ts">listUnpaginated</a>({ ...params }) -> PetListUnpaginatedResponse</code>
+- <code title="get /pet/{petId}/premium">client.pet.<a href="./src/resources/pet.ts">retrievePremium</a>(petID) -> PetRetrievePremiumResponse</code>
 - <code title="post /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">updateWithForm</a>(petID, { ...params }) -> void</code>
 - <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">uploadImage</a>(petID, body, { ...params }) -> PetUploadImageResponse</code>
 - <code title="get /pet/{petId}/status/stream">client.pet.<a href="./src/resources/pet.ts">watchStatus</a>(petID, { ...params }) -> Pet</code>
@@ -60,6 +82,57 @@ Methods:
 - <code title="patch /profiles/{profileId}">client.profiles.<a href="./src/resources/profiles.ts">update</a>(profileID, { ...params }) -> Profile</code>
 - <code title="get /profiles/legacy-search">client.profiles.<a href="./src/resources/profiles.ts">legacySearch</a>({ ...params }) -> ProfileLegacySearchResponse</code>
 
+# Adoptions
+
+Types:
+
+- <code><a href="./src/resources/adoptions/adoptions.ts">Application</a></code>
+- <code><a href="./src/resources/adoptions/adoptions.ts">AdoptionRetrieveDecisionResponse</a></code>
+
+Methods:
+
+- <code title="post /adoptions/applications">client.adoptions.<a href="./src/resources/adoptions/adoptions.ts">create</a>({ ...params }) -> Application</code>
+- <code title="get /adoptions/applications/{applicationId}">client.adoptions.<a href="./src/resources/adoptions/adoptions.ts">retrieve</a>(applicationID) -> Application</code>
+- <code title="get /adoptions/applications/{applicationId}/decision">client.adoptions.<a href="./src/resources/adoptions/adoptions.ts">retrieveDecision</a>(applicationID) -> AdoptionRetrieveDecisionResponse</code>
+
+## Policies
+
+Types:
+
+- <code><a href="./src/resources/adoptions/policies.ts">AdoptionRule</a></code>
+- <code><a href="./src/resources/adoptions/policies.ts">ConditionValue</a></code>
+- <code><a href="./src/resources/adoptions/policies.ts">Policy</a></code>
+- <code><a href="./src/resources/adoptions/policies.ts">RuleAttribute</a></code>
+
+Methods:
+
+- <code title="post /adoptions/policies">client.adoptions.policies.<a href="./src/resources/adoptions/policies.ts">create</a>({ ...params }) -> Policy</code>
+- <code title="get /adoptions/policies/{policyId}">client.adoptions.policies.<a href="./src/resources/adoptions/policies.ts">retrieve</a>(policyID) -> Policy</code>
+- <code title="patch /adoptions/policies/{policyId}">client.adoptions.policies.<a href="./src/resources/adoptions/policies.ts">update</a>(policyID, { ...params }) -> Policy</code>
+- <code title="get /adoptions/policies">client.adoptions.policies.<a href="./src/resources/adoptions/policies.ts">list</a>({ ...params }) -> PoliciesCustomCursorPage</code>
+
+# Placements
+
+Types:
+
+- <code><a href="./src/resources/placements.ts">Placement</a></code>
+- <code><a href="./src/resources/placements.ts">PlacementEvent</a></code>
+- <code><a href="./src/resources/placements.ts">TransferLeg</a></code>
+
+Methods:
+
+- <code title="post /placements">client.placements.<a href="./src/resources/placements.ts">create</a>({ ...params }) -> Placement</code>
+- <code title="get /placements/{placementId}">client.placements.<a href="./src/resources/placements.ts">retrieve</a>(placementID) -> Placement</code>
+- <code title="get /placements">client.placements.<a href="./src/resources/placements.ts">list</a>({ ...params }) -> PlacementsCustomCursorPage</code>
+- <code title="post /placements/{placementId}/events">client.placements.<a href="./src/resources/placements.ts">recordEvent</a>(placementID, { ...params }) -> Placement</code>
+
+# Veterinary
+
+Types:
+
+- <code><a href="./src/resources/veterinary.ts">MedicalSummary</a></code>
+- <code><a href="./src/resources/veterinary.ts">VaccinationRecord</a></code>
+
 # Webhooks
 
 Types:
@@ -69,6 +142,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">PetInventoryLowWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">PetModerationWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">StoreReportGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AdoptionsPolicyChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PlacementEventRecordedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ParsedWebhookEvent</a></code>
 
 Methods:

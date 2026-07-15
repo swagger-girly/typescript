@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PetAPI from './pet';
+import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import {
   CustomCursorPage,
@@ -129,27 +130,27 @@ export class PetResource extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const pet of client.pet.listFakePage()) {
-   *   // ...
-   * }
+   * const response = await client.pet.listFakePage();
    * ```
    */
-  listFakePage(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
-    return this._client.getAPIList('/pet/fake-page', XFakeSinglePage<Pet>, options);
+  listFakePage(options?: RequestOptions): APIPromise<PetListFakePageResponse> {
+    return this._client.get('/pet/fake-page', options);
   }
 
   /**
    * Returns a single page-shaped pet response whose fake pagination behavior is
-   * inferred from the Stainless config scheme.
+   * inferred from the config scheme.
    *
    * @example
    * ```ts
-   * const response = await client.pet.listFakePageInferred();
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.listFakePageInferred()) {
+   *   // ...
+   * }
    * ```
    */
-  listFakePageInferred(options?: RequestOptions): APIPromise<PetListFakePageInferredResponse> {
-    return this._client.get('/pet/fake-page-inferred', options);
+  listFakePageInferred(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
+    return this._client.getAPIList('/pet/fake-page-inferred', XFakeSinglePage<Pet>, options);
   }
 
   /**
@@ -166,6 +167,19 @@ export class PetResource extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PetListUnpaginatedResponse> {
     return this._client.get('/pet/unpaginated', { query, ...options });
+  }
+
+  /**
+   * Returns the premium profile for a pet, extending the base pet with pedigree and
+   * insurance details.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.retrievePremium(0);
+   * ```
+   */
+  retrievePremium(petID: number, options?: RequestOptions): APIPromise<PetRetrievePremiumResponse> {
+    return this._client.get(path`/pet/${petID}/premium`, options);
   }
 
   /**
@@ -258,9 +272,14 @@ export interface Pet {
   category?: Pet.Category;
 
   /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  /**
    * pet status in the store
    */
-  status?: 'available' | 'pending' | 'sold';
+  status?: PetStatus;
 
   tags?: Array<Pet.Tag>;
 }
@@ -270,6 +289,11 @@ export namespace Pet {
     id?: number;
 
     name?: string;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
   }
 
   export interface Tag {
@@ -279,11 +303,16 @@ export namespace Pet {
   }
 }
 
+/**
+ * pet status in the store
+ */
+export type PetStatus = 'available' | 'pending' | 'sold';
+
 export type PetFindByStatusResponse = Array<Pet>;
 
 export type PetFindByTagsResponse = Array<Pet>;
 
-export interface PetListFakePageInferredResponse {
+export interface PetListFakePageResponse {
   data: Array<Pet>;
 
   has_more: boolean;
@@ -293,6 +322,52 @@ export interface PetListUnpaginatedResponse {
   items: Array<Pet>;
 
   next_cursor?: string | null;
+}
+
+/**
+ * A pet extended with premium-tier pedigree and insurance details.
+ */
+export interface PetRetrievePremiumResponse extends Pet {
+  premiumSince: string;
+
+  /**
+   * Coverage limit in minor units, or a negotiated custom limit.
+   */
+  coverageLimit?: number | PetRetrievePremiumResponse.CustomLimit;
+
+  insurance?: PetRetrievePremiumResponse.Insurance;
+
+  pedigree?: PetRetrievePremiumResponse.Pedigree;
+}
+
+export namespace PetRetrievePremiumResponse {
+  export interface CustomLimit {
+    amount: number;
+
+    currency?: string;
+
+    negotiated?: boolean;
+  }
+
+  export interface Insurance {
+    planId: string;
+
+    provider: string;
+
+    deductible?: number;
+
+    premium?: Shared.Money;
+
+    tier?: 'basic' | 'plus' | 'platinum';
+  }
+
+  export interface Pedigree {
+    certified?: boolean;
+
+    lineage?: Array<string>;
+
+    registry?: string;
+  }
 }
 
 export interface PetUploadImageResponse {
@@ -313,7 +388,10 @@ export namespace ConnectClientEvent {
   }
 
   export interface PetClientSubscribeEvent {
-    status: 'available' | 'pending' | 'sold';
+    /**
+     * pet status in the store
+     */
+    status: PetAPI.PetStatus;
 
     type: 'subscribe';
   }
@@ -345,9 +423,14 @@ export interface PetCreateParams {
   category?: PetCreateParams.Category;
 
   /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  /**
    * pet status in the store
    */
-  status?: 'available' | 'pending' | 'sold';
+  status?: PetStatus;
 
   tags?: Array<PetCreateParams.Tag>;
 }
@@ -357,6 +440,11 @@ export namespace PetCreateParams {
     id?: number;
 
     name?: string;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
   }
 
   export interface Tag {
@@ -376,9 +464,14 @@ export interface PetUpdateParams {
   category?: PetUpdateParams.Category;
 
   /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  /**
    * pet status in the store
    */
-  status?: 'available' | 'pending' | 'sold';
+  status?: PetStatus;
 
   tags?: Array<PetUpdateParams.Tag>;
 }
@@ -388,6 +481,11 @@ export namespace PetUpdateParams {
     id?: number;
 
     name?: string;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
   }
 
   export interface Tag {
@@ -454,10 +552,12 @@ export interface PetWatchStatusParams {
 export declare namespace PetResource {
   export {
     type Pet as Pet,
+    type PetStatus as PetStatus,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetListFakePageInferredResponse as PetListFakePageInferredResponse,
+    type PetListFakePageResponse as PetListFakePageResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
+    type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,

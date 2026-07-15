@@ -25,6 +25,8 @@ import {
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
+import * as TopLevelAPI from './resources/top-level';
+import { RetrieveRateLimitsResponse, SystemHealth } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   Archive,
@@ -36,6 +38,16 @@ import {
   Files,
   Fileslist,
 } from './resources/files';
+import {
+  Placement,
+  PlacementCreateParams,
+  PlacementEvent,
+  PlacementListParams,
+  PlacementRecordEventParams,
+  Placements,
+  PlacementsCustomCursorPage,
+  TransferLeg,
+} from './resources/placements';
 import {
   Profile,
   ProfileCreateParams,
@@ -56,15 +68,24 @@ import {
   UserRetrieveResponse,
   UserUpdateParams,
 } from './resources/user';
+import { MedicalSummary, VaccinationRecord, Veterinary } from './resources/veterinary';
 import {
+  AdoptionsPolicyChangedWebhookEvent,
   ParsedWebhookEvent,
   PetCreatedWebhookEvent,
   PetInventoryLowWebhookEvent,
   PetModerationWebhookEvent,
   PetUpdatedWebhookEvent,
+  PlacementEventRecordedWebhookEvent,
   StoreReportGeneratedWebhookEvent,
   Webhooks,
 } from './resources/webhooks';
+import {
+  AdoptionCreateParams,
+  AdoptionRetrieveDecisionResponse,
+  Adoptions,
+  Application,
+} from './resources/adoptions/adoptions';
 import {
   ConnectClientEvent,
   ConnectServerEvent,
@@ -74,11 +95,13 @@ import {
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetListFakePageInferredResponse,
+  PetListFakePageResponse,
   PetListParams,
   PetListUnpaginatedParams,
   PetListUnpaginatedResponse,
   PetResource,
+  PetRetrievePremiumResponse,
+  PetStatus,
   PetUpdateParams,
   PetUpdateWithFormParams,
   PetUploadImageParams,
@@ -294,6 +317,20 @@ export class HelloWorldTestingggg {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== '/api/v3';
+  }
+
+  /**
+   * Returns the current API health, including per-service statuses.
+   */
+  health(options?: RequestOptions): APIPromise<TopLevelAPI.SystemHealth> {
+    return this.get('/health', options);
+  }
+
+  /**
+   * Returns the caller's current rate-limit budget.
+   */
+  retrieveRateLimits(options?: RequestOptions): APIPromise<TopLevelAPI.RetrieveRateLimitsResponse> {
+    return this.get('/rate_limits', options);
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -856,6 +893,15 @@ export class HelloWorldTestingggg {
    * Pet owner profile and compliance operations
    */
   profiles: API.Profiles = new API.Profiles(this);
+  /**
+   * Adoption policies and applications
+   */
+  adoptions: API.Adoptions = new API.Adoptions(this);
+  /**
+   * Post-adoption placement tracking
+   */
+  placements: API.Placements = new API.Placements(this);
+  veterinary: API.Veterinary = new API.Veterinary(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
   /**
    * Access to Petstore orders
@@ -870,6 +916,9 @@ export class HelloWorldTestingggg {
 HelloWorldTestingggg.PetResource = PetResource;
 HelloWorldTestingggg.Files = Files;
 HelloWorldTestingggg.Profiles = Profiles;
+HelloWorldTestingggg.Adoptions = Adoptions;
+HelloWorldTestingggg.Placements = Placements;
+HelloWorldTestingggg.Veterinary = Veterinary;
 HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
@@ -892,13 +941,17 @@ export declare namespace HelloWorldTestingggg {
     type ReportCursorPageResponse as ReportCursorPageResponse,
   };
 
+  export { type SystemHealth as SystemHealth, type RetrieveRateLimitsResponse as RetrieveRateLimitsResponse };
+
   export {
     PetResource as PetResource,
     type Pet as Pet,
+    type PetStatus as PetStatus,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetListFakePageInferredResponse as PetListFakePageInferredResponse,
+    type PetListFakePageResponse as PetListFakePageResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
+    type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
@@ -937,12 +990,38 @@ export declare namespace HelloWorldTestingggg {
   };
 
   export {
+    Adoptions as Adoptions,
+    type Application as Application,
+    type AdoptionRetrieveDecisionResponse as AdoptionRetrieveDecisionResponse,
+    type AdoptionCreateParams as AdoptionCreateParams,
+  };
+
+  export {
+    Placements as Placements,
+    type Placement as Placement,
+    type PlacementEvent as PlacementEvent,
+    type TransferLeg as TransferLeg,
+    type PlacementsCustomCursorPage as PlacementsCustomCursorPage,
+    type PlacementCreateParams as PlacementCreateParams,
+    type PlacementListParams as PlacementListParams,
+    type PlacementRecordEventParams as PlacementRecordEventParams,
+  };
+
+  export {
+    Veterinary as Veterinary,
+    type MedicalSummary as MedicalSummary,
+    type VaccinationRecord as VaccinationRecord,
+  };
+
+  export {
     Webhooks as Webhooks,
     type PetCreatedWebhookEvent as PetCreatedWebhookEvent,
     type PetUpdatedWebhookEvent as PetUpdatedWebhookEvent,
     type PetInventoryLowWebhookEvent as PetInventoryLowWebhookEvent,
     type PetModerationWebhookEvent as PetModerationWebhookEvent,
     type StoreReportGeneratedWebhookEvent as StoreReportGeneratedWebhookEvent,
+    type AdoptionsPolicyChangedWebhookEvent as AdoptionsPolicyChangedWebhookEvent,
+    type PlacementEventRecordedWebhookEvent as PlacementEventRecordedWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 
@@ -959,4 +1038,7 @@ export declare namespace HelloWorldTestingggg {
     type UserCreateWithListParams as UserCreateWithListParams,
     type UserLoginParams as UserLoginParams,
   };
+
+  export type Address = API.Address;
+  export type Money = API.Money;
 }

@@ -1,5 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
+export {
+  Adoptions,
+  type Application,
+  type AdoptionRetrieveDecisionResponse,
+  type AdoptionCreateParams,
+} from './adoptions/adoptions';
 export {
   Files,
   type Archive,
@@ -13,10 +20,12 @@ export {
 export {
   PetResource,
   type Pet,
+  type PetStatus,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
-  type PetListFakePageInferredResponse,
+  type PetListFakePageResponse,
   type PetListUnpaginatedResponse,
+  type PetRetrievePremiumResponse,
   type PetUploadImageResponse,
   type ConnectClientEvent,
   type ConnectServerEvent,
@@ -32,6 +41,16 @@ export {
   type PetsCustomCursorPage,
   type PetsXFakeSinglePage,
 } from './pet';
+export {
+  Placements,
+  type Placement,
+  type PlacementEvent,
+  type TransferLeg,
+  type PlacementCreateParams,
+  type PlacementListParams,
+  type PlacementRecordEventParams,
+  type PlacementsCustomCursorPage,
+} from './placements';
 export {
   Profiles,
   type Profile,
@@ -53,6 +72,7 @@ export {
   type UserCreateWithListParams,
   type UserLoginParams,
 } from './user';
+export { Veterinary, type MedicalSummary, type VaccinationRecord } from './veterinary';
 export {
   Webhooks,
   type PetCreatedWebhookEvent,
@@ -60,5 +80,8 @@ export {
   type PetInventoryLowWebhookEvent,
   type PetModerationWebhookEvent,
   type StoreReportGeneratedWebhookEvent,
+  type AdoptionsPolicyChangedWebhookEvent,
+  type PlacementEventRecordedWebhookEvent,
   type ParsedWebhookEvent,
 } from './webhooks';
+export { type SystemHealth, type RetrieveRateLimitsResponse } from './top-level';

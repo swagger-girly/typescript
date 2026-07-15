@@ -26,7 +26,12 @@ describe('resource pet', () => {
       name: 'doggie',
       photoUrls: ['string'],
       id: 10,
-      category: { id: 1, name: 'Dogs' },
+      category: {
+        id: 1,
+        name: 'Dogs',
+        subcategories: [],
+      },
+      microchipId: 'string',
       status: 'available',
       tags: [{ id: 0, name: 'name' }],
     });
@@ -62,7 +67,12 @@ describe('resource pet', () => {
       name: 'doggie',
       photoUrls: ['string'],
       id: 10,
-      category: { id: 1, name: 'Dogs' },
+      category: {
+        id: 1,
+        name: 'Dogs',
+        subcategories: [],
+      },
+      microchipId: 'string',
       status: 'available',
       tags: [{ id: 0, name: 'name' }],
     });
@@ -182,6 +192,18 @@ describe('resource pet', () => {
     await expect(
       client.pet.listUnpaginated({ cursor: 'cursor', limit: 0 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrievePremium', async () => {
+    const responsePromise = client.pet.retrievePremium(0);
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
