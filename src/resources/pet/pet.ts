@@ -269,6 +269,12 @@ export interface Pet {
 
   id?: number;
 
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
+
   category?: Pet.Category;
 
   /**
@@ -420,6 +426,12 @@ export interface PetCreateParams {
 
   id?: number;
 
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
+
   category?: PetCreateParams.Category;
 
   /**
@@ -460,6 +472,12 @@ export interface PetUpdateParams {
   photoUrls: Array<string>;
 
   id?: number;
+
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
 
   category?: PetUpdateParams.Category;
 
