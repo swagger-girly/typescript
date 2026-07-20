@@ -65,6 +65,18 @@ export interface Placement {
 
   status: 'pending' | 'active' | 'completed' | 'disrupted';
 
+  /**
+   * Unified activity feed mixing event, milestone, and note entries.
+   */
+  activity?: Array<
+    | Placement.PlacementTransferEvent
+    | Placement.PlacementCheckupEvent
+    | Placement.PlacementDisruptionEvent
+    | Placement.PlacementNote
+    | Placement.PlacementAdoptedMilestone
+    | Placement.PlacementReturnedMilestone
+  >;
+
   events?: Array<PlacementEvent>;
 
   followUpAfter?: string | null;
@@ -79,6 +91,81 @@ export interface Placement {
 }
 
 export namespace Placement {
+  export interface PlacementTransferEvent {
+    id: string;
+
+    leg: PlacementsAPI.TransferLeg;
+
+    occurredAt: string;
+
+    type: 'transfer';
+
+    note?: string | null;
+  }
+
+  export interface PlacementCheckupEvent {
+    id: string;
+
+    occurredAt: string;
+
+    type: 'checkup';
+
+    followUp?: PlacementCheckupEvent.FollowUp;
+
+    note?: string | null;
+
+    record?: VeterinaryAPI.VaccinationRecord;
+  }
+
+  export namespace PlacementCheckupEvent {
+    export interface FollowUp {
+      due?: string;
+
+      reason?: string;
+    }
+  }
+
+  export interface PlacementDisruptionEvent {
+    id: string;
+
+    occurredAt: string;
+
+    /**
+     * A numeric severity score or a structured assessment.
+     */
+    severity: number | PlacementDisruptionEvent.Assessment;
+
+    type: 'disruption';
+
+    note?: string | null;
+  }
+
+  export namespace PlacementDisruptionEvent {
+    export interface Assessment {
+      level: 'low' | 'high' | 'critical';
+
+      reviewer?: string;
+    }
+  }
+
+  export interface PlacementNote {
+    body: string;
+
+    kind: 'note';
+  }
+
+  export interface PlacementAdoptedMilestone {
+    adoptedAt: string;
+
+    kind: 'adopted';
+  }
+
+  export interface PlacementReturnedMilestone {
+    kind: 'returned';
+
+    reason: string;
+  }
+
   /**
    * Transport plan for a placement; pickup and delivery share the transfer-leg
    * shape.

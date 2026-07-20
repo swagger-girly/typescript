@@ -63,7 +63,11 @@ export interface Application {
   /**
    * The decision for an application; the shape depends on the outcome.
    */
-  decision?: Application.DecisionApproved | Application.DecisionRejected | Application.DecisionEscalated;
+  decision?:
+    | Application.DecisionApproved
+    | Application.DecisionRejected
+    | Application.DecisionEscalated
+    | Application.DecisionWithdrawn;
 
   fee?: Shared.Money;
 
@@ -193,6 +197,17 @@ export namespace Application {
     }
   }
 
+  /**
+   * The applicant or shelter withdrew before a decision was finalized.
+   */
+  export interface DecisionWithdrawn {
+    outcome: 'withdrawn' | 'expired';
+
+    withdrawnBy: 'applicant' | 'shelter' | 'system';
+
+    withdrawnAt?: string;
+  }
+
   export interface History {
     changedAt: string;
 
@@ -216,7 +231,8 @@ export namespace Application {
 export type AdoptionRetrieveDecisionResponse =
   | AdoptionRetrieveDecisionResponse.DecisionApproved
   | AdoptionRetrieveDecisionResponse.DecisionRejected
-  | AdoptionRetrieveDecisionResponse.DecisionEscalated;
+  | AdoptionRetrieveDecisionResponse.DecisionEscalated
+  | AdoptionRetrieveDecisionResponse.DecisionWithdrawn;
 
 export namespace AdoptionRetrieveDecisionResponse {
   export interface DecisionApproved {
@@ -257,6 +273,17 @@ export namespace AdoptionRetrieveDecisionResponse {
         hours?: string;
       }
     }
+  }
+
+  /**
+   * The applicant or shelter withdrew before a decision was finalized.
+   */
+  export interface DecisionWithdrawn {
+    outcome: 'withdrawn' | 'expired';
+
+    withdrawnBy: 'applicant' | 'shelter' | 'system';
+
+    withdrawnAt?: string;
   }
 }
 

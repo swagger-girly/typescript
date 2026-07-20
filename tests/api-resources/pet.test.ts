@@ -26,6 +26,7 @@ describe('resource pet', () => {
       name: 'doggie',
       photoUrls: ['string'],
       id: 10,
+      acquisitionChannel: 'breeder',
       category: {
         id: 1,
         name: 'Dogs',
@@ -67,6 +68,7 @@ describe('resource pet', () => {
       name: 'doggie',
       photoUrls: ['string'],
       id: 10,
+      acquisitionChannel: 'breeder',
       category: {
         id: 1,
         name: 'Dogs',
