@@ -18,6 +18,16 @@ export {
   type FileUploadDirectParams,
 } from './files';
 export {
+  Media,
+  type MediaBinaryAndJsonResponse,
+  type MediaJsonAndXmlResponse,
+  type MediaJsonFirstResponse,
+  type MediaSchemaOnJsonResponse,
+  type MediaTextFirstResponse,
+  type MediaTextOnlyResponse,
+  type MediaVendorJsonResponse,
+} from './media';
+export {
   PetResource,
   type Pet,
   type PetStatus,

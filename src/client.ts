@@ -39,6 +39,16 @@ import {
   Fileslist,
 } from './resources/files';
 import {
+  Media,
+  MediaBinaryAndJsonResponse,
+  MediaJsonAndXmlResponse,
+  MediaJsonFirstResponse,
+  MediaSchemaOnJsonResponse,
+  MediaTextFirstResponse,
+  MediaTextOnlyResponse,
+  MediaVendorJsonResponse,
+} from './resources/media';
+import {
   Placement,
   PlacementCreateParams,
   PlacementEvent,
@@ -911,6 +921,7 @@ export class HelloWorldTestingggg {
    * Operations about user
    */
   user: API.User = new API.User(this);
+  media: API.Media = new API.Media(this);
 }
 
 HelloWorldTestingggg.PetResource = PetResource;
@@ -922,6 +933,7 @@ HelloWorldTestingggg.Veterinary = Veterinary;
 HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
+HelloWorldTestingggg.Media = Media;
 
 export declare namespace HelloWorldTestingggg {
   export type RequestOptions = Opts.RequestOptions;
@@ -1037,6 +1049,17 @@ export declare namespace HelloWorldTestingggg {
     type UserUpdateParams as UserUpdateParams,
     type UserCreateWithListParams as UserCreateWithListParams,
     type UserLoginParams as UserLoginParams,
+  };
+
+  export {
+    Media as Media,
+    type MediaBinaryAndJsonResponse as MediaBinaryAndJsonResponse,
+    type MediaJsonAndXmlResponse as MediaJsonAndXmlResponse,
+    type MediaJsonFirstResponse as MediaJsonFirstResponse,
+    type MediaSchemaOnJsonResponse as MediaSchemaOnJsonResponse,
+    type MediaTextFirstResponse as MediaTextFirstResponse,
+    type MediaTextOnlyResponse as MediaTextOnlyResponse,
+    type MediaVendorJsonResponse as MediaVendorJsonResponse,
   };
 
   export type Address = API.Address;

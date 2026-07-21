@@ -220,3 +220,26 @@ Methods:
 - <code title="post /user/createWithList">client.user.<a href="./src/resources/user.ts">createWithList</a>([ ...body ]) -> UserCreateWithListResponse</code>
 - <code title="get /user/login">client.user.<a href="./src/resources/user.ts">login</a>({ ...params }) -> string</code>
 - <code title="get /user/logout">client.user.<a href="./src/resources/user.ts">logout</a>() -> void</code>
+
+# Media
+
+Types:
+
+- <code><a href="./src/resources/media.ts">MediaBinaryAndJsonResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaJsonAndXmlResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaJsonFirstResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaSchemaOnJsonResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaTextFirstResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaTextOnlyResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaVendorJsonResponse</a></code>
+
+Methods:
+
+- <code title="get /media/binary-and-json">client.media.<a href="./src/resources/media.ts">binaryAndJson</a>() -> MediaBinaryAndJsonResponse</code>
+- <code title="get /media/json-and-xml">client.media.<a href="./src/resources/media.ts">jsonAndXml</a>() -> MediaJsonAndXmlResponse</code>
+- <code title="get /media/json-first">client.media.<a href="./src/resources/media.ts">jsonFirst</a>() -> MediaJsonFirstResponse</code>
+- <code title="get /media/schema-on-json">client.media.<a href="./src/resources/media.ts">schemaOnJson</a>() -> MediaSchemaOnJsonResponse</code>
+- <code title="get /media/schema-on-text">client.media.<a href="./src/resources/media.ts">schemaOnText</a>() -> void</code>
+- <code title="get /media/text-first">client.media.<a href="./src/resources/media.ts">textFirst</a>() -> MediaTextFirstResponse</code>
+- <code title="get /media/text-only">client.media.<a href="./src/resources/media.ts">textOnly</a>() -> string</code>
+- <code title="get /media/vendor-json">client.media.<a href="./src/resources/media.ts">vendorJson</a>() -> MediaVendorJsonResponse</code>

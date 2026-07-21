@@ -342,6 +342,54 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/user/logout',
   },
+  {
+    clientCallName: 'client.media.binaryAndJson',
+    fullyQualifiedName: 'media.binaryAndJson',
+    httpMethod: 'get',
+    httpPath: '/media/binary-and-json',
+  },
+  {
+    clientCallName: 'client.media.jsonAndXml',
+    fullyQualifiedName: 'media.jsonAndXml',
+    httpMethod: 'get',
+    httpPath: '/media/json-and-xml',
+  },
+  {
+    clientCallName: 'client.media.jsonFirst',
+    fullyQualifiedName: 'media.jsonFirst',
+    httpMethod: 'get',
+    httpPath: '/media/json-first',
+  },
+  {
+    clientCallName: 'client.media.schemaOnJson',
+    fullyQualifiedName: 'media.schemaOnJson',
+    httpMethod: 'get',
+    httpPath: '/media/schema-on-json',
+  },
+  {
+    clientCallName: 'client.media.schemaOnText',
+    fullyQualifiedName: 'media.schemaOnText',
+    httpMethod: 'get',
+    httpPath: '/media/schema-on-text',
+  },
+  {
+    clientCallName: 'client.media.textFirst',
+    fullyQualifiedName: 'media.textFirst',
+    httpMethod: 'get',
+    httpPath: '/media/text-first',
+  },
+  {
+    clientCallName: 'client.media.textOnly',
+    fullyQualifiedName: 'media.textOnly',
+    httpMethod: 'get',
+    httpPath: '/media/text-only',
+  },
+  {
+    clientCallName: 'client.media.vendorJson',
+    fullyQualifiedName: 'media.vendorJson',
+    httpMethod: 'get',
+    httpPath: '/media/vendor-json',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
