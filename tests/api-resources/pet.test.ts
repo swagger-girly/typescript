@@ -96,7 +96,19 @@ describe('resource pet', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.pet.list({ cursor: 'cursor', limit: 0 }, { path: '/_stainless_unknown_path' }),
+      client.pet.list(
+        {
+          created_at: {
+            gt: '2019-12-27T18:11:19.117Z',
+            gte: '2019-12-27T18:11:19.117Z',
+            lt: '2019-12-27T18:11:19.117Z',
+            lte: '2019-12-27T18:11:19.117Z',
+          },
+          cursor: 'cursor',
+          limit: 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 

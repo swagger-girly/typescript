@@ -513,7 +513,39 @@ export namespace PetUpdateParams {
   }
 }
 
-export interface PetListParams extends CustomCursorPageParams {}
+export interface PetListParams extends CustomCursorPageParams {
+  /**
+   * Filter by created_at timestamp range in UTC. Accepts gt/gte/lt/lte.
+   */
+  created_at?: PetListParams.CreatedAt;
+}
+
+export namespace PetListParams {
+  /**
+   * Filter by created_at timestamp range in UTC. Accepts gt/gte/lt/lte.
+   */
+  export interface CreatedAt {
+    /**
+     * Minimum value to filter by (exclusive).
+     */
+    gt?: string;
+
+    /**
+     * Minimum value to filter by (inclusive).
+     */
+    gte?: string;
+
+    /**
+     * Maximum value to filter by (exclusive).
+     */
+    lt?: string;
+
+    /**
+     * Maximum value to filter by (inclusive).
+     */
+    lte?: string;
+  }
+}
 
 export interface PetFindByStatusParams {
   /**
