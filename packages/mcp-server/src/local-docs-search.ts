@@ -2892,6 +2892,381 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
     },
   },
+  {
+    name: 'text_first',
+    endpoint: '/media/text-first',
+    httpMethod: 'get',
+    summary: 'Text media type listed before JSON (both with a schema).',
+    description: 'Text media type listed before JSON (both with a schema).',
+    stainlessPath: '(resource) media > (method) text_first',
+    qualified: 'client.media.textFirst',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## text_first\n\n`client.media.textFirst(): { id: string; label?: string; }`\n\n**get** `/media/text-first`\n\nText media type listed before JSON (both with a schema).\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.textFirst();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.textFirst',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.textFirst();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.text_first',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.text_first()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().textFirst',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaTextFirstParams;\nimport com.hello_world_testingggg.api.models.media.MediaTextFirstResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaTextFirstResponse response = client.media().textFirst();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().textFirst',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaTextFirstParams\nimport com.hello_world_testingggg.api.models.media.MediaTextFirstResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaTextFirstResponse = client.media().textFirst()\n}',
+      },
+      go: {
+        method: 'client.Media.TextFirst',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.TextFirst(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.text_first',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_first\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/text-first \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'json_first',
+    endpoint: '/media/json-first',
+    httpMethod: 'get',
+    summary: 'JSON listed before a text media type.',
+    description: 'JSON listed before a text media type.',
+    stainlessPath: '(resource) media > (method) json_first',
+    qualified: 'client.media.jsonFirst',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## json_first\n\n`client.media.jsonFirst(): { id: string; label?: string; }`\n\n**get** `/media/json-first`\n\nJSON listed before a text media type.\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.jsonFirst();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.jsonFirst',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.jsonFirst();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.json_first',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.json_first()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().jsonFirst',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaJsonFirstParams;\nimport com.hello_world_testingggg.api.models.media.MediaJsonFirstResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaJsonFirstResponse response = client.media().jsonFirst();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().jsonFirst',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaJsonFirstParams\nimport com.hello_world_testingggg.api.models.media.MediaJsonFirstResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaJsonFirstResponse = client.media().jsonFirst()\n}',
+      },
+      go: {
+        method: 'client.Media.JsonFirst',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.JsonFirst(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.json_first',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_first\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/json-first \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'json_and_xml',
+    endpoint: '/media/json-and-xml',
+    httpMethod: 'get',
+    summary: 'JSON alongside an XML media type.',
+    description: 'JSON alongside an XML media type.',
+    stainlessPath: '(resource) media > (method) json_and_xml',
+    qualified: 'client.media.jsonAndXml',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## json_and_xml\n\n`client.media.jsonAndXml(): { id: string; label?: string; }`\n\n**get** `/media/json-and-xml`\n\nJSON alongside an XML media type.\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.jsonAndXml();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.jsonAndXml',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.jsonAndXml();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.json_and_xml',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.json_and_xml()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().jsonAndXml',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaJsonAndXmlParams;\nimport com.hello_world_testingggg.api.models.media.MediaJsonAndXmlResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaJsonAndXmlResponse response = client.media().jsonAndXml();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().jsonAndXml',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaJsonAndXmlParams\nimport com.hello_world_testingggg.api.models.media.MediaJsonAndXmlResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaJsonAndXmlResponse = client.media().jsonAndXml()\n}',
+      },
+      go: {
+        method: 'client.Media.JsonAndXml',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.JsonAndXml(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.json_and_xml',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_and_xml\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/json-and-xml \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'text_only',
+    endpoint: '/media/text-only',
+    httpMethod: 'get',
+    summary: 'A single text/plain body.',
+    description: 'A single text/plain body.',
+    stainlessPath: '(resource) media > (method) text_only',
+    qualified: 'client.media.textOnly',
+    response: 'string',
+    markdown:
+      "## text_only\n\n`client.media.textOnly(): string`\n\n**get** `/media/text-only`\n\nA single text/plain body.\n\n### Returns\n\n- `string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.textOnly();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.textOnly',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.textOnly();\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'media.text_only',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.text_only()\nprint(response)',
+      },
+      java: {
+        method: 'media().textOnly',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaTextOnlyParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        String response = client.media().textOnly();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().textOnly',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaTextOnlyParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: String = client.media().textOnly()\n}',
+      },
+      go: {
+        method: 'client.Media.TextOnly',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.TextOnly(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'media.text_only',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_only\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/text-only \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'schema_on_text',
+    endpoint: '/media/schema-on-text',
+    httpMethod: 'get',
+    summary: 'Schema present on text/plain but absent on application/json.',
+    description: 'Schema present on text/plain but absent on application/json.',
+    stainlessPath: '(resource) media > (method) schema_on_text',
+    qualified: 'client.media.schemaOnText',
+    markdown:
+      "## schema_on_text\n\n`client.media.schemaOnText(): void`\n\n**get** `/media/schema-on-text`\n\nSchema present on text/plain but absent on application/json.\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nawait client.media.schemaOnText()\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.schemaOnText',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nawait client.media.schemaOnText();",
+      },
+      python: {
+        method: 'media.schema_on_text',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nclient.media.schema_on_text()',
+      },
+      java: {
+        method: 'media().schemaOnText',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnTextParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        client.media().schemaOnText();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().schemaOnText',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnTextParams\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    client.media().schemaOnText()\n}',
+      },
+      go: {
+        method: 'client.Media.SchemaOnText',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Media.SchemaOnText(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'media.schema_on_text',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.media.schema_on_text\n\nputs(result)',
+      },
+      http: {
+        example: 'curl /api/v3/media/schema-on-text \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'schema_on_json',
+    endpoint: '/media/schema-on-json',
+    httpMethod: 'get',
+    summary: 'Schema present on application/json but absent on a text/plain listed first.',
+    description: 'Schema present on application/json but absent on a text/plain listed first.',
+    stainlessPath: '(resource) media > (method) schema_on_json',
+    qualified: 'client.media.schemaOnJson',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## schema_on_json\n\n`client.media.schemaOnJson(): { id: string; label?: string; }`\n\n**get** `/media/schema-on-json`\n\nSchema present on application/json but absent on a text/plain listed first.\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.schemaOnJson();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.schemaOnJson',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.schemaOnJson();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.schema_on_json',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.schema_on_json()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().schemaOnJson',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnJsonParams;\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnJsonResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaSchemaOnJsonResponse response = client.media().schemaOnJson();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().schemaOnJson',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnJsonParams\nimport com.hello_world_testingggg.api.models.media.MediaSchemaOnJsonResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaSchemaOnJsonResponse = client.media().schemaOnJson()\n}',
+      },
+      go: {
+        method: 'client.Media.SchemaOnJson',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.SchemaOnJson(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.schema_on_json',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.schema_on_json\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/schema-on-json \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'vendor_json',
+    endpoint: '/media/vendor-json',
+    httpMethod: 'get',
+    summary: 'A vendor application/vnd.pet.v2+json media type.',
+    description: 'A vendor application/vnd.pet.v2+json media type.',
+    stainlessPath: '(resource) media > (method) vendor_json',
+    qualified: 'client.media.vendorJson',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## vendor_json\n\n`client.media.vendorJson(): { id: string; label?: string; }`\n\n**get** `/media/vendor-json`\n\nA vendor application/vnd.pet.v2+json media type.\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.vendorJson();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.vendorJson',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.vendorJson();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.vendor_json',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.vendor_json()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().vendorJson',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaVendorJsonParams;\nimport com.hello_world_testingggg.api.models.media.MediaVendorJsonResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaVendorJsonResponse response = client.media().vendorJson();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().vendorJson',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaVendorJsonParams\nimport com.hello_world_testingggg.api.models.media.MediaVendorJsonResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaVendorJsonResponse = client.media().vendorJson()\n}',
+      },
+      go: {
+        method: 'client.Media.VendorJson',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.VendorJson(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.vendor_json',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.vendor_json\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/vendor-json \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'binary_and_json',
+    endpoint: '/media/binary-and-json',
+    httpMethod: 'get',
+    summary: 'A binary body alongside a JSON media type.',
+    description: 'A binary body alongside a JSON media type.',
+    stainlessPath: '(resource) media > (method) binary_and_json',
+    qualified: 'client.media.binaryAndJson',
+    response: '{ id: string; label?: string; }',
+    markdown:
+      "## binary_and_json\n\n`client.media.binaryAndJson(): { id: string; label?: string; }`\n\n**get** `/media/binary-and-json`\n\nA binary body alongside a JSON media type.\n\n### Returns\n\n- `{ id: string; label?: string; }`\n\n  - `id: string`\n  - `label?: string`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.media.binaryAndJson();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.binaryAndJson',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.binaryAndJson();\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'media.binary_and_json',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.binary_and_json()\nprint(response.id)',
+      },
+      java: {
+        method: 'media().binaryAndJson',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.media.MediaBinaryAndJsonParams;\nimport com.hello_world_testingggg.api.models.media.MediaBinaryAndJsonResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        MediaBinaryAndJsonResponse response = client.media().binaryAndJson();\n    }\n}',
+      },
+      kotlin: {
+        method: 'media().binaryAndJson',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.media.MediaBinaryAndJsonParams\nimport com.hello_world_testingggg.api.models.media.MediaBinaryAndJsonResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: MediaBinaryAndJsonResponse = client.media().binaryAndJson()\n}',
+      },
+      go: {
+        method: 'client.Media.BinaryAndJson',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.BinaryAndJson(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      ruby: {
+        method: 'media.binary_and_json',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.binary_and_json\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/media/binary-and-json \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
