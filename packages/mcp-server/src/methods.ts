@@ -90,6 +90,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/pet/{petId}/premium',
   },
   {
+    clientCallName: 'client.pet.search',
+    fullyQualifiedName: 'pet.search',
+    httpMethod: 'get',
+    httpPath: '/pet/search',
+  },
+  {
     clientCallName: 'client.pet.updateWithForm',
     fullyQualifiedName: 'pet.updateWithForm',
     httpMethod: 'post',
@@ -240,6 +246,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/placements/{placementId}/events',
   },
   { clientCallName: 'client.webhooks.parsed', fullyQualifiedName: 'webhooks.parsed' },
+  {
+    clientCallName: 'client.notifications.webhooks.parsePet',
+    fullyQualifiedName: 'notifications.webhooks.parsePet',
+  },
   {
     clientCallName: 'client.store.listInventory',
     fullyQualifiedName: 'store.listInventory',

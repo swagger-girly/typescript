@@ -4,6 +4,8 @@ import HelloWorldTestingggg, { toFile } from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg({
   apiKey: 'My API Key',
+  basicAuthUsername: 'My Basic Auth Username',
+  basicAuthPassword: 'My Basic Auth Password',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -218,6 +220,34 @@ describe('resource pet', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('search', async () => {
+    const responsePromise = client.pet.search();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('search: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.pet.search(
+        {
+          filters: { color: 'color', size: 0 },
+          max_results: 0,
+          raw_filter: {},
+          tag_filters: [{ key: 'key', match: 'exact' }],
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(HelloWorldTestingggg.NotFoundError);
   });
 
   // Mock server tests are disabled

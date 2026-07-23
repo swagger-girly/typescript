@@ -4,6 +4,8 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg({
   apiKey: 'My API Key',
+  basicAuthUsername: 'My Basic Auth Username',
+  basicAuthPassword: 'My Basic Auth Password',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 

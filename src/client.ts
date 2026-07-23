@@ -98,6 +98,7 @@ import {
   Adoptions,
   Application,
 } from './resources/adoptions/adoptions';
+import { Notifications } from './resources/notifications/notifications';
 import {
   ConnectClientEvent,
   ConnectServerEvent,
@@ -113,6 +114,8 @@ import {
   PetListUnpaginatedResponse,
   PetResource,
   PetRetrievePremiumResponse,
+  PetSearchParams,
+  PetSearchResponse,
   PetStatus,
   PetUpdateParams,
   PetUpdateWithFormParams,
@@ -126,6 +129,7 @@ import { Store, StoreListInventoryResponse } from './resources/store/store';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { toBase64 } from './internal/utils/base64';
 import { readEnv } from './internal/utils/env';
 import {
   type LogLevel,
@@ -143,7 +147,17 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
-   * Defaults to process.env['PETSTORE_WEBHOOK_SECRET'].
+   * Username for HTTP Basic authentication.
+   */
+  basicAuthUsername?: string | undefined;
+
+  /**
+   * Password for HTTP Basic authentication.
+   */
+  basicAuthPassword?: string | undefined;
+
+  /**
+   * Secret used to verify incoming webhook signatures.
    */
   webhookSecret?: string | null | undefined;
 
@@ -221,6 +235,8 @@ export interface ClientOptions {
  */
 export class HelloWorldTestingggg {
   apiKey: string;
+  basicAuthUsername: string;
+  basicAuthPassword: string;
   webhookSecret: string | null;
 
   baseURL: string;
@@ -239,6 +255,8 @@ export class HelloWorldTestingggg {
    * API Client for interfacing with the Hello World Testingggg API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.basicAuthUsername=process.env['BASIC_AUTH_USERNAME'] ?? undefined]
+   * @param {string | undefined} [opts.basicAuthPassword=process.env['BASIC_AUTH_PASSWORD'] ?? undefined]
    * @param {string | null | undefined} [opts.webhookSecret=process.env['PETSTORE_WEBHOOK_SECRET'] ?? null]
    * @param {string} [opts.baseURL=process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] ?? /api/v3] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -251,6 +269,8 @@ export class HelloWorldTestingggg {
   constructor({
     baseURL = readEnv('HELLO_WORLD_TESTINGGGG_BASE_URL'),
     apiKey = readEnv('API_KEY'),
+    basicAuthUsername = readEnv('BASIC_AUTH_USERNAME'),
+    basicAuthPassword = readEnv('BASIC_AUTH_PASSWORD'),
     webhookSecret = readEnv('PETSTORE_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
@@ -259,9 +279,21 @@ export class HelloWorldTestingggg {
         "The API_KEY environment variable is missing or empty; either provide it, or instantiate the HelloWorldTestingggg client with an apiKey option, like new HelloWorldTestingggg({ apiKey: 'My API Key' }).",
       );
     }
+    if (basicAuthUsername === undefined) {
+      throw new Errors.HelloWorldTestinggggError(
+        "The BASIC_AUTH_USERNAME environment variable is missing or empty; either provide it, or instantiate the HelloWorldTestingggg client with an basicAuthUsername option, like new HelloWorldTestingggg({ basicAuthUsername: 'My Basic Auth Username' }).",
+      );
+    }
+    if (basicAuthPassword === undefined) {
+      throw new Errors.HelloWorldTestinggggError(
+        "The BASIC_AUTH_PASSWORD environment variable is missing or empty; either provide it, or instantiate the HelloWorldTestingggg client with an basicAuthPassword option, like new HelloWorldTestingggg({ basicAuthPassword: 'My Basic Auth Password' }).",
+      );
+    }
 
     const options: ClientOptions = {
       apiKey,
+      basicAuthUsername,
+      basicAuthPassword,
       webhookSecret,
       ...opts,
       baseURL: baseURL || `/api/v3`,
@@ -301,6 +333,8 @@ export class HelloWorldTestingggg {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.basicAuthUsername = basicAuthUsername;
+    this.basicAuthPassword = basicAuthPassword;
     this.webhookSecret = webhookSecret;
   }
 
@@ -318,6 +352,8 @@ export class HelloWorldTestingggg {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      basicAuthUsername: this.basicAuthUsername,
+      basicAuthPassword: this.basicAuthPassword,
       webhookSecret: this.webhookSecret,
       ...options,
     });
@@ -354,7 +390,25 @@ export class HelloWorldTestingggg {
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([await this.apiKeyAuth(opts), await this.basicAuth(opts)]);
+  }
+
+  protected async apiKeyAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
     return buildHeaders([{ api_key: this.apiKey }]);
+  }
+
+  protected async basicAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (!this.basicAuthUsername) {
+      return undefined;
+    }
+
+    if (!this.basicAuthPassword) {
+      return undefined;
+    }
+
+    const credentials = `${this.basicAuthUsername}:${this.basicAuthPassword}`;
+    const Authorization = `Basic ${toBase64(credentials)}`;
+    return buildHeaders([{ Authorization }]);
   }
 
   protected stringifyQuery(query: object | Record<string, unknown>): string {
@@ -915,6 +969,7 @@ export class HelloWorldTestingggg {
   placements: API.Placements = new API.Placements(this);
   veterinary: API.Veterinary = new API.Veterinary(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  notifications: API.Notifications = new API.Notifications(this);
   /**
    * Access to Petstore orders
    */
@@ -934,6 +989,7 @@ HelloWorldTestingggg.Adoptions = Adoptions;
 HelloWorldTestingggg.Placements = Placements;
 HelloWorldTestingggg.Veterinary = Veterinary;
 HelloWorldTestingggg.Webhooks = Webhooks;
+HelloWorldTestingggg.Notifications = Notifications;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
 HelloWorldTestingggg.AI = AI;
@@ -968,6 +1024,7 @@ export declare namespace HelloWorldTestingggg {
     type PetListFakePageResponse as PetListFakePageResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
+    type PetSearchResponse as PetSearchResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
@@ -979,6 +1036,7 @@ export declare namespace HelloWorldTestingggg {
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetListUnpaginatedParams as PetListUnpaginatedParams,
+    type PetSearchParams as PetSearchParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
     type PetWatchStatusParams as PetWatchStatusParams,
@@ -1040,6 +1098,8 @@ export declare namespace HelloWorldTestingggg {
     type PlacementEventRecordedWebhookEvent as PlacementEventRecordedWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
   };
+
+  export { Notifications as Notifications };
 
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
 

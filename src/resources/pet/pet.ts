@@ -183,6 +183,25 @@ export class PetResource extends APIResource {
   }
 
   /**
+   * Typed query-parameter probe matrix: an object-schema query param mints a typed
+   * params model, an array-of-object query param mints a singularized element type,
+   * an empty object (additionalProperties:false) stays a bare object, and a scalar
+   * stays scalar. Isolates the emitter query-parameter type-resolution branches so
+   * object/array-of-object/empty-object params are each exercised.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.search();
+   * ```
+   */
+  search(
+    query: PetSearchParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetSearchResponse> {
+    return this._client.get('/pet/search', { query, ...options });
+  }
+
+  /**
    * Updates a pet in the store with form data
    *
    * @example
@@ -375,6 +394,8 @@ export namespace PetRetrievePremiumResponse {
     registry?: string;
   }
 }
+
+export type PetSearchResponse = Array<Pet>;
 
 export interface PetUploadImageResponse {
   code?: number;
@@ -573,6 +594,49 @@ export interface PetListUnpaginatedParams {
   limit?: number;
 }
 
+export interface PetSearchParams {
+  /**
+   * Object-schema query parameter: mints a typed params model instead of collapsing
+   * to a bare object.
+   */
+  filters?: PetSearchParams.Filters;
+
+  /**
+   * Scalar query parameter: stays a plain scalar (control probe).
+   */
+  max_results?: number;
+
+  /**
+   * Empty-object query parameter (additionalProperties:false): stays a bare object,
+   * exercising the empty-object branch.
+   */
+  raw_filter?: unknown;
+
+  /**
+   * Array-of-object query parameter: emitters mint a singularized element type for
+   * each item.
+   */
+  tag_filters?: Array<PetSearchParams.TagFilter>;
+}
+
+export namespace PetSearchParams {
+  /**
+   * Object-schema query parameter: mints a typed params model instead of collapsing
+   * to a bare object.
+   */
+  export interface Filters {
+    color?: string;
+
+    size?: number;
+  }
+
+  export interface TagFilter {
+    key?: string;
+
+    match?: 'exact' | 'prefix';
+  }
+}
+
 export interface PetUpdateWithFormParams {
   /**
    * Name of pet that needs to be updated
@@ -608,6 +672,7 @@ export declare namespace PetResource {
     type PetListFakePageResponse as PetListFakePageResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
+    type PetSearchResponse as PetSearchResponse,
     type PetUploadImageResponse as PetUploadImageResponse,
     type ConnectClientEvent as ConnectClientEvent,
     type ConnectServerEvent as ConnectServerEvent,
@@ -619,6 +684,7 @@ export declare namespace PetResource {
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetListUnpaginatedParams as PetListUnpaginatedParams,
+    type PetSearchParams as PetSearchParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
     type PetUploadImageParams as PetUploadImageParams,
     type PetWatchStatusParams as PetWatchStatusParams,
