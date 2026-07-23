@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
+export { AI, type AIAIQueryResponse, type AIAIQueryParams } from './ai';
 export {
   Adoptions,
   type Application,
@@ -77,6 +78,7 @@ export {
   type UserRetrieveResponse,
   type UserCreateWithListResponse,
   type UserLoginResponse,
+  type UserVerifyIdentityResponse,
   type UserCreateParams,
   type UserUpdateParams,
   type UserCreateWithListParams,

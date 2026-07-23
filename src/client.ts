@@ -28,6 +28,7 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { RetrieveRateLimitsResponse, SystemHealth } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
+import { AI, AIAIQueryParams, AIAIQueryResponse } from './resources/ai';
 import {
   Archive,
   File,
@@ -77,6 +78,7 @@ import {
   UserLoginResponse,
   UserRetrieveResponse,
   UserUpdateParams,
+  UserVerifyIdentityResponse,
 } from './resources/user';
 import { MedicalSummary, VaccinationRecord, Veterinary } from './resources/veterinary';
 import {
@@ -921,6 +923,7 @@ export class HelloWorldTestingggg {
    * Operations about user
    */
   user: API.User = new API.User(this);
+  ai: API.AI = new API.AI(this);
   media: API.Media = new API.Media(this);
 }
 
@@ -933,6 +936,7 @@ HelloWorldTestingggg.Veterinary = Veterinary;
 HelloWorldTestingggg.Webhooks = Webhooks;
 HelloWorldTestingggg.Store = Store;
 HelloWorldTestingggg.User = User;
+HelloWorldTestingggg.AI = AI;
 HelloWorldTestingggg.Media = Media;
 
 export declare namespace HelloWorldTestingggg {
@@ -1045,11 +1049,14 @@ export declare namespace HelloWorldTestingggg {
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserCreateWithListResponse as UserCreateWithListResponse,
     type UserLoginResponse as UserLoginResponse,
+    type UserVerifyIdentityResponse as UserVerifyIdentityResponse,
     type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,
     type UserCreateWithListParams as UserCreateWithListParams,
     type UserLoginParams as UserLoginParams,
   };
+
+  export { AI as AI, type AIAIQueryResponse as AIAIQueryResponse, type AIAIQueryParams as AIAIQueryParams };
 
   export {
     Media as Media,

@@ -2893,6 +2893,113 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'verify_identity',
+    endpoint: '/user/{username}/verifyIdentity',
+    httpMethod: 'post',
+    summary: "Verify a user's identity",
+    description:
+      'Casing probe replicating lithic: inline oneOf response whose variant is a kebab-named component (kyb-kyc-verification) so adjacent default initialisms glue into KYBKYC in the operation-scoped variant name',
+    stainlessPath: '(resource) user > (method) verify_identity',
+    qualified: 'client.user.verifyIdentity',
+    params: ['username: string;'],
+    response:
+      '{ token?: string; beneficial_owner_individuals?: { owner_name?: string; }[]; status_reasons?: { reason_code?: string; }[]; verification_application?: { status_reasons?: { application_note?: string; }[]; }; verification_document?: { document_id?: string; }[]; } | { token?: string; verified?: boolean; }',
+    markdown:
+      "## verify_identity\n\n`client.user.verifyIdentity(username: string): { token?: string; beneficial_owner_individuals?: object[]; status_reasons?: object[]; verification_application?: object; verification_document?: object[]; } | { token?: string; verified?: boolean; }`\n\n**post** `/user/{username}/verifyIdentity`\n\nCasing probe replicating lithic: inline oneOf response whose variant is a kebab-named component (kyb-kyc-verification) so adjacent default initialisms glue into KYBKYC in the operation-scoped variant name\n\n### Parameters\n\n- `username: string`\n\n### Returns\n\n- `{ token?: string; beneficial_owner_individuals?: { owner_name?: string; }[]; status_reasons?: { reason_code?: string; }[]; verification_application?: { status_reasons?: { application_note?: string; }[]; }; verification_document?: { document_id?: string; }[]; } | { token?: string; verified?: boolean; }`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.user.verifyIdentity('username');\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.user.verifyIdentity',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.user.verifyIdentity('username');\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'user.verify_identity',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.user.verify_identity(\n    "username",\n)\nprint(response)',
+      },
+      java: {
+        method: 'user().verifyIdentity',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.user.UserVerifyIdentityParams;\nimport com.hello_world_testingggg.api.models.user.UserVerifyIdentityResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        UserVerifyIdentityResponse response = client.user().verifyIdentity("username");\n    }\n}',
+      },
+      kotlin: {
+        method: 'user().verifyIdentity',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.user.UserVerifyIdentityParams\nimport com.hello_world_testingggg.api.models.user.UserVerifyIdentityResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: UserVerifyIdentityResponse = client.user().verifyIdentity("username")\n}',
+      },
+      go: {
+        method: 'client.User.VerifyIdentity',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.User.VerifyIdentity(context.TODO(), "username")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'user.verify_identity',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.user.verify_identity("username")\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/user/$USERNAME/verifyIdentity \\\n    -X POST \\\n    -H "api_key: $API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'ai_query',
+    endpoint: '/ai/query',
+    httpMethod: 'post',
+    summary: 'Query AI about a domain',
+    description:
+      'Casing probe replicating context.dev: glued AIAI prefix (resource ai + method ai_query) over plural and non-plural synthesized element mints',
+    stainlessPath: '(resource) ai > (method) ai_query',
+    qualified: 'client.ai.aiQuery',
+    params: [
+      "data_to_extract: { datapoint_name: string; datapoint_type?: 'text' | 'number'; }[];",
+      'domain: string;',
+      'authentication_3ds?: { challenge_rules?: { challenge_kind?: string; }[]; fallback_check?: { check_name?: string; }[]; };',
+      'datapoint_object_schema?: object;',
+      "extraction_rules?: { rule_name?: string; rule_severity?: 'low' | 'high'; }[];",
+    ],
+    response:
+      '{ data_extracted?: { datapoint_value?: string; }[]; matched_rules?: { match_score?: number; }[]; }',
+    markdown:
+      "## ai_query\n\n`client.ai.aiQuery(data_to_extract: { datapoint_name: string; datapoint_type?: 'text' | 'number'; }[], domain: string, authentication_3ds?: { challenge_rules?: { challenge_kind?: string; }[]; fallback_check?: { check_name?: string; }[]; }, datapoint_object_schema?: object, extraction_rules?: { rule_name?: string; rule_severity?: 'low' | 'high'; }[]): { data_extracted?: object[]; matched_rules?: object[]; }`\n\n**post** `/ai/query`\n\nCasing probe replicating context.dev: glued AIAI prefix (resource ai + method ai_query) over plural and non-plural synthesized element mints\n\n### Parameters\n\n- `data_to_extract: { datapoint_name: string; datapoint_type?: 'text' | 'number'; }[]`\n  Non-plural array property: singularization is a no-op (decisive probe)\n\n- `domain: string`\n  The domain name to analyze\n\n- `authentication_3ds?: { challenge_rules?: { challenge_kind?: string; }[]; fallback_check?: { check_name?: string; }[]; }`\n  Digit-seam acronym parent for nested element mints\n  - `challenge_rules?: { challenge_kind?: string; }[]`\n    Plural array under the 3DS seam\n  - `fallback_check?: { check_name?: string; }[]`\n    Non-plural array under the 3DS seam\n\n- `datapoint_object_schema?: object`\n  Non-plural map property with enum values (map-mint probe)\n\n- `extraction_rules?: { rule_name?: string; rule_severity?: 'low' | 'high'; }[]`\n  Plural array property: singularized element mint (control probe)\n\n### Returns\n\n- `{ data_extracted?: { datapoint_value?: string; }[]; matched_rules?: { match_score?: number; }[]; }`\n\n  - `data_extracted?: { datapoint_value?: string; }[]`\n  - `matched_rules?: { match_score?: number; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.ai.aiQuery({ data_to_extract: [{ datapoint_name: 'datapoint_name' }], domain: 'domain' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.ai.aiQuery',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg({\n  apiKey: process.env['API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.ai.aiQuery({\n  data_to_extract: [{ datapoint_name: 'datapoint_name' }],\n  domain: 'domain',\n});\n\nconsole.log(response.data_extracted);",
+      },
+      python: {
+        method: 'ai.ai_query',
+        example:
+          'import os\nfrom hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg(\n    api_key=os.environ.get("API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.ai.ai_query(\n    data_to_extract=[{\n        "datapoint_name": "datapoint_name"\n    }],\n    domain="domain",\n)\nprint(response.data_extracted)',
+      },
+      java: {
+        method: 'ai().aiQuery',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.ai.AiAiQueryParams;\nimport com.hello_world_testingggg.api.models.ai.AiAiQueryResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        AiAiQueryParams params = AiAiQueryParams.builder()\n            .addDataToExtract(AiAiQueryParams.DataToExtract.builder()\n                .datapointName("datapoint_name")\n                .build())\n            .domain("domain")\n            .build();\n        AiAiQueryResponse response = client.ai().aiQuery(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'ai().aiQuery',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.ai.AiAiQueryParams\nimport com.hello_world_testingggg.api.models.ai.AiAiQueryResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val params: AiAiQueryParams = AiAiQueryParams.builder()\n        .addDataToExtract(AiAiQueryParams.DataToExtract.builder()\n            .datapointName("datapoint_name")\n            .build())\n        .domain("domain")\n        .build()\n    val response: AiAiQueryResponse = client.ai().aiQuery(params)\n}',
+      },
+      go: {
+        method: 'client.AI.AIQuery',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.AI.AIQuery(context.TODO(), helloworldtestingggg.AIAIQueryParams{\n\t\tDataToExtract: helloworldtestingggg.F([]helloworldtestingggg.AiaiQueryParamsDataToExtract{{\n\t\t\tDatapointName: helloworldtestingggg.F("datapoint_name"),\n\t\t}}),\n\t\tDomain: helloworldtestingggg.F("domain"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DataExtracted)\n}\n',
+      },
+      ruby: {
+        method: 'ai.ai_query',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.ai.ai_query(\n  data_to_extract: [{datapoint_name: "datapoint_name"}],\n  domain: "domain"\n)\n\nputs(response)',
+      },
+      http: {
+        example:
+          'curl /api/v3/ai/query \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "data_to_extract": [\n            {\n              "datapoint_name": "datapoint_name"\n            }\n          ],\n          "domain": "domain"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'text_first',
     endpoint: '/media/text-first',
     httpMethod: 'get',

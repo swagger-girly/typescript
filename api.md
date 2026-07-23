@@ -210,6 +210,7 @@ Types:
 - <code><a href="./src/resources/user.ts">UserRetrieveResponse</a></code>
 - <code><a href="./src/resources/user.ts">UserCreateWithListResponse</a></code>
 - <code><a href="./src/resources/user.ts">UserLoginResponse</a></code>
+- <code><a href="./src/resources/user.ts">UserVerifyIdentityResponse</a></code>
 
 Methods:
 
@@ -220,6 +221,17 @@ Methods:
 - <code title="post /user/createWithList">client.user.<a href="./src/resources/user.ts">createWithList</a>([ ...body ]) -> UserCreateWithListResponse</code>
 - <code title="get /user/login">client.user.<a href="./src/resources/user.ts">login</a>({ ...params }) -> string</code>
 - <code title="get /user/logout">client.user.<a href="./src/resources/user.ts">logout</a>() -> void</code>
+- <code title="post /user/{username}/verifyIdentity">client.user.<a href="./src/resources/user.ts">verifyIdentity</a>(username) -> UserVerifyIdentityResponse</code>
+
+# AI
+
+Types:
+
+- <code><a href="./src/resources/ai.ts">AIAIQueryResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/query">client.ai.<a href="./src/resources/ai.ts">aiQuery</a>({ ...params }) -> AIAIQueryResponse</code>
 
 # Media
 

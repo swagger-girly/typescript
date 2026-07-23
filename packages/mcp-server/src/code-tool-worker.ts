@@ -165,6 +165,8 @@ const fuse = new Fuse(
     'client.user.logout',
     'client.user.retrieve',
     'client.user.update',
+    'client.user.verifyIdentity',
+    'client.ai.aiQuery',
     'client.media.binaryAndJson',
     'client.media.jsonAndXml',
     'client.media.jsonFirst',
