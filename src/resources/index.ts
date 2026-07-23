@@ -28,6 +28,7 @@ export {
   type MediaTextOnlyResponse,
   type MediaVendorJsonResponse,
 } from './media';
+export { Notifications } from './notifications/notifications';
 export {
   PetResource,
   type Pet,
@@ -37,6 +38,7 @@ export {
   type PetListFakePageResponse,
   type PetListUnpaginatedResponse,
   type PetRetrievePremiumResponse,
+  type PetSearchResponse,
   type PetUploadImageResponse,
   type ConnectClientEvent,
   type ConnectServerEvent,
@@ -46,6 +48,7 @@ export {
   type PetFindByStatusParams,
   type PetFindByTagsParams,
   type PetListUnpaginatedParams,
+  type PetSearchParams,
   type PetUpdateWithFormParams,
   type PetUploadImageParams,
   type PetWatchStatusParams,

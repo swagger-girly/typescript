@@ -28,6 +28,7 @@ Types:
 - <code><a href="./src/resources/pet.ts">PetListFakePageResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetListUnpaginatedResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetRetrievePremiumResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetSearchResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectClientEvent</a></code>
 - <code><a href="./src/resources/pet.ts">ConnectServerEvent</a></code>
@@ -45,6 +46,7 @@ Methods:
 - <code title="get /pet/fake-page-inferred">client.pet.<a href="./src/resources/pet.ts">listFakePageInferred</a>() -> PetsXFakeSinglePage</code>
 - <code title="get /pet/unpaginated">client.pet.<a href="./src/resources/pet.ts">listUnpaginated</a>({ ...params }) -> PetListUnpaginatedResponse</code>
 - <code title="get /pet/{petId}/premium">client.pet.<a href="./src/resources/pet.ts">retrievePremium</a>(petID) -> PetRetrievePremiumResponse</code>
+- <code title="get /pet/search">client.pet.<a href="./src/resources/pet.ts">search</a>({ ...params }) -> PetSearchResponse</code>
 - <code title="post /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">updateWithForm</a>(petID, { ...params }) -> void</code>
 - <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">uploadImage</a>(petID, body, { ...params }) -> PetUploadImageResponse</code>
 - <code title="get /pet/{petId}/status/stream">client.pet.<a href="./src/resources/pet.ts">watchStatus</a>(petID, { ...params }) -> Pet</code>
@@ -149,6 +151,22 @@ Types:
 Methods:
 
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">parsed</a>(body) -> void</code>
+
+# Notifications
+
+## Webhooks
+
+Types:
+
+- <code><a href="./src/resources/notifications/webhooks.ts">PetCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/notifications/webhooks.ts">PetUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/notifications/webhooks.ts">PetInventoryLowWebhookEvent</a></code>
+- <code><a href="./src/resources/notifications/webhooks.ts">PetModerationWebhookEvent</a></code>
+- <code><a href="./src/resources/notifications/webhooks.ts">ParsePetWebhookEvent</a></code>
+
+Methods:
+
+- <code>client.notifications.webhooks.<a href="./src/resources/notifications/webhooks.ts">parsePet</a>(body) -> void</code>
 
 # Store
 

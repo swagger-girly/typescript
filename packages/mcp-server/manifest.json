@@ -23,6 +23,8 @@
       ],
       "env": {
         "API_KEY": "${user_config.API_KEY}",
+        "BASIC_AUTH_USERNAME": "${user_config.BASIC_AUTH_USERNAME}",
+        "BASIC_AUTH_PASSWORD": "${user_config.BASIC_AUTH_PASSWORD}",
         "PETSTORE_WEBHOOK_SECRET": "${user_config.PETSTORE_WEBHOOK_SECRET}"
       }
     }
@@ -34,9 +36,21 @@
       "required": true,
       "type": "string"
     },
+    "BASIC_AUTH_USERNAME": {
+      "title": "basic_auth_username",
+      "description": "Username for HTTP Basic authentication.",
+      "required": true,
+      "type": "string"
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "title": "basic_auth_password",
+      "description": "Password for HTTP Basic authentication.",
+      "required": true,
+      "type": "string"
+    },
     "PETSTORE_WEBHOOK_SECRET": {
       "title": "webhook_secret",
-      "description": "",
+      "description": "Secret used to verify incoming webhook signatures.",
       "required": false,
       "type": "string"
     }

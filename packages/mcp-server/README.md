@@ -10,6 +10,8 @@ You can run the MCP Server directly via `npx`:
 
 ```sh
 export API_KEY="My API Key"
+export BASIC_AUTH_USERNAME="My Basic Auth Username"
+export BASIC_AUTH_PASSWORD="My Basic Auth Password"
 export PETSTORE_WEBHOOK_SECRET="My Webhook Secret"
 npx -y hello-world-testingggg-mcp@latest
 ```
@@ -29,6 +31,8 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["-y", "hello-world-testingggg-mcp"],
       "env": {
         "API_KEY": "My API Key",
+        "BASIC_AUTH_USERNAME": "My Basic Auth Username",
+        "BASIC_AUTH_PASSWORD": "My Basic Auth Password",
         "PETSTORE_WEBHOOK_SECRET": "My Webhook Secret"
       }
     }
@@ -41,14 +45,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIlBFVFNUT1JFX1dFQkhPT0tfU0VDUkVUIjoiTXkgV2ViaG9vayBTZWNyZXQifX0)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=hello-world-testingggg-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImhlbGxvLXdvcmxkLXRlc3RpbmdnZ2ctbWNwIl0sImVudiI6eyJBUElfS0VZIjoiTXkgQVBJIEtleSIsIkJBU0lDX0FVVEhfVVNFUk5BTUUiOiJNeSBCYXNpYyBBdXRoIFVzZXJuYW1lIiwiQkFTSUNfQVVUSF9QQVNTV09SRCI6Ik15IEJhc2ljIEF1dGggUGFzc3dvcmQiLCJQRVRTVE9SRV9XRUJIT09LX1NFQ1JFVCI6Ik15IFdlYmhvb2sgU2VjcmV0In19)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22hello-world-testingggg-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22hello-world-testingggg-mcp%22%5D%2C%22env%22%3A%7B%22API_KEY%22%3A%22My%20API%20Key%22%2C%22BASIC_AUTH_USERNAME%22%3A%22My%20Basic%20Auth%20Username%22%2C%22BASIC_AUTH_PASSWORD%22%3A%22My%20Basic%20Auth%20Password%22%2C%22PETSTORE_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +60,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add hello_world_testingggg_mcp_api --env API_KEY="My API Key" PETSTORE_WEBHOOK_SECRET="My Webhook Secret" -- npx -y hello-world-testingggg-mcp
+claude mcp add hello_world_testingggg_mcp_api --env API_KEY="My API Key" BASIC_AUTH_USERNAME="My Basic Auth Username" BASIC_AUTH_PASSWORD="My Basic Auth Password" PETSTORE_WEBHOOK_SECRET="My Webhook Secret" -- npx -y hello-world-testingggg-mcp
 ```
 
 ## Code Mode
@@ -80,10 +84,14 @@ and repeatably.
 
 Launching the client with `--transport=http` launches the server as a remote server using Streamable HTTP transport. The `--port` setting can choose the port it will run on, and the `--socket` setting allows it to run on a Unix socket.
 
-Authorization can be provided via the following headers:
+Authorization can be provided via the `Authorization` header using the Basic scheme.
+
+Additionally, authorization can be provided via the following headers:
 | Header | Equivalent client option | Security scheme |
-| --------- | ------------------------ | --------------- |
+| ----------------------- | ------------------------ | --------------- |
 | `api_key` | `apiKey` | api_key |
+| `x-basic-auth-username` | `basicAuthUsername` | basic_auth |
+| `x-basic-auth-password` | `basicAuthPassword` | basic_auth |
 
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 
@@ -93,7 +101,7 @@ A configuration JSON for this server might look like this, assuming the server i
     "hello_world_testingggg_api": {
       "url": "http://localhost:3000",
       "headers": {
-        "api_key": "My API Key"
+        "Authorization": "Basic <auth value>"
       }
     }
   }
