@@ -343,6 +343,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/user/logout',
   },
   {
+    clientCallName: 'client.user.verifyIdentity',
+    fullyQualifiedName: 'user.verifyIdentity',
+    httpMethod: 'post',
+    httpPath: '/user/{username}/verifyIdentity',
+  },
+  {
+    clientCallName: 'client.ai.aiQuery',
+    fullyQualifiedName: 'ai.aiQuery',
+    httpMethod: 'post',
+    httpPath: '/ai/query',
+  },
+  {
     clientCallName: 'client.media.binaryAndJson',
     fullyQualifiedName: 'media.binaryAndJson',
     httpMethod: 'get',
