@@ -118,6 +118,7 @@ const fuse = new Fuse(
     'client.pet.list',
     'client.pet.listFakePage',
     'client.pet.listFakePageInferred',
+    'client.pet.listLeaderboard',
     'client.pet.listUnpaginated',
     'client.pet.retrieve',
     'client.pet.retrievePremium',

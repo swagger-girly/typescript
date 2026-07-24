@@ -26,6 +26,7 @@ Types:
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetListFakePageResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetListLeaderboardResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetListUnpaginatedResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetRetrievePremiumResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetSearchResponse</a></code>
@@ -44,6 +45,7 @@ Methods:
 - <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
 - <code title="get /pet/fake-page">client.pet.<a href="./src/resources/pet.ts">listFakePage</a>() -> PetListFakePageResponse</code>
 - <code title="get /pet/fake-page-inferred">client.pet.<a href="./src/resources/pet.ts">listFakePageInferred</a>() -> PetsXFakeSinglePage</code>
+- <code title="get /pet/leaderboard">client.pet.<a href="./src/resources/pet.ts">listLeaderboard</a>() -> PetListLeaderboardResponse</code>
 - <code title="get /pet/unpaginated">client.pet.<a href="./src/resources/pet.ts">listUnpaginated</a>({ ...params }) -> PetListUnpaginatedResponse</code>
 - <code title="get /pet/{petId}/premium">client.pet.<a href="./src/resources/pet.ts">retrievePremium</a>(petID) -> PetRetrievePremiumResponse</code>
 - <code title="get /pet/search">client.pet.<a href="./src/resources/pet.ts">search</a>({ ...params }) -> PetSearchResponse</code>

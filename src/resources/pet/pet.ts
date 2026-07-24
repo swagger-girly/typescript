@@ -154,6 +154,19 @@ export class PetResource extends APIResource {
   }
 
   /**
+   * Returns a bare top-level array of inline objects so generators must mint a
+   * distinct element type instead of reusing the response alias name.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listLeaderboard();
+   * ```
+   */
+  listLeaderboard(options?: RequestOptions): APIPromise<PetListLeaderboardResponse> {
+    return this._client.get('/pet/leaderboard', options);
+  }
+
+  /**
    * Returns the same cursor-shaped pet list response without enabling SDK pagination
    * helpers.
    *
@@ -341,6 +354,42 @@ export interface PetListFakePageResponse {
   data: Array<Pet>;
 
   has_more: boolean;
+}
+
+export type PetListLeaderboardResponse = Array<PetListLeaderboardResponse.PetListLeaderboardResponseItem>;
+
+export namespace PetListLeaderboardResponse {
+  export interface PetListLeaderboardResponseItem {
+    /**
+     * Ranked pet ID
+     */
+    petId: number;
+
+    badge?: PetListLeaderboardResponseItem.Badge;
+
+    /**
+     * Leaderboard position
+     */
+    rank?: number;
+
+    /**
+     * Adoption return on investment
+     */
+    roi?: PetListLeaderboardResponseItem.Roi;
+  }
+
+  export namespace PetListLeaderboardResponseItem {
+    export interface Badge {}
+
+    /**
+     * Adoption return on investment
+     */
+    export interface Roi {
+      currency?: string;
+
+      times?: number;
+    }
+  }
 }
 
 export interface PetListUnpaginatedResponse {
@@ -670,6 +719,7 @@ export declare namespace PetResource {
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
     type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListLeaderboardResponse as PetListLeaderboardResponse,
     type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
     type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
     type PetSearchResponse as PetSearchResponse,
