@@ -36,6 +36,7 @@ export {
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
   type PetListFakePageResponse,
+  type PetListLeaderboardResponse,
   type PetListUnpaginatedResponse,
   type PetRetrievePremiumResponse,
   type PetSearchResponse,

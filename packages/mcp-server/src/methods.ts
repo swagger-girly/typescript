@@ -78,6 +78,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/pet/fake-page-inferred',
   },
   {
+    clientCallName: 'client.pet.listLeaderboard',
+    fullyQualifiedName: 'pet.listLeaderboard',
+    httpMethod: 'get',
+    httpPath: '/pet/leaderboard',
+  },
+  {
     clientCallName: 'client.pet.listUnpaginated',
     fullyQualifiedName: 'pet.listUnpaginated',
     httpMethod: 'get',

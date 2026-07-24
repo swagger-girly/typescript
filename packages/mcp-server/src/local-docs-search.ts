@@ -345,6 +345,55 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'list_leaderboard',
+    endpoint: '/pet/leaderboard',
+    httpMethod: 'get',
+    summary: 'Pet popularity leaderboard.',
+    description:
+      'Returns a bare top-level array of inline objects so generators must mint a distinct element type instead of reusing the response alias name.',
+    stainlessPath: '(resource) pet > (method) list_leaderboard',
+    qualified: 'client.pet.listLeaderboard',
+    response:
+      '{ petId: number; badge?: {  }; rank?: number; roi?: { currency?: string; times?: number; }; }[]',
+    markdown:
+      "## list_leaderboard\n\n`client.pet.listLeaderboard(): { petId: number; badge?: object; rank?: number; roi?: object; }[]`\n\n**get** `/pet/leaderboard`\n\nReturns a bare top-level array of inline objects so generators must mint a distinct element type instead of reusing the response alias name.\n\n### Returns\n\n- `{ petId: number; badge?: {  }; rank?: number; roi?: { currency?: string; times?: number; }; }[]`\n\n### Example\n\n```typescript\nimport HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listLeaderboard();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.pet.listLeaderboard',
+        example:
+          "import HelloWorldTestingggg from 'hello-world-testingggg';\n\nconst client = new HelloWorldTestingggg();\n\nconst response = await client.pet.listLeaderboard();\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'pet.list_leaderboard',
+        example:
+          'from hello_world_testingggg import HelloWorldTestingggg\n\nclient = HelloWorldTestingggg()\nresponse = client.pet.list_leaderboard()\nprint(response)',
+      },
+      java: {
+        method: 'pet().listLeaderboard',
+        example:
+          'package com.hello_world_testingggg.api.example;\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient;\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient;\nimport com.hello_world_testingggg.api.models.pet.PetListLeaderboardParams;\nimport com.hello_world_testingggg.api.models.pet.PetListLeaderboardResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        HelloWorldTestinggggClient client = HelloWorldTestinggggOkHttpClient.fromEnv();\n\n        List<PetListLeaderboardResponse> response = client.pet().listLeaderboard();\n    }\n}',
+      },
+      kotlin: {
+        method: 'pet().listLeaderboard',
+        example:
+          'package com.hello_world_testingggg.api.example\n\nimport com.hello_world_testingggg.api.client.HelloWorldTestinggggClient\nimport com.hello_world_testingggg.api.client.okhttp.HelloWorldTestinggggOkHttpClient\nimport com.hello_world_testingggg.api.models.pet.PetListLeaderboardParams\nimport com.hello_world_testingggg.api.models.pet.PetListLeaderboardResponse\n\nfun main() {\n    val client: HelloWorldTestinggggClient = HelloWorldTestinggggOkHttpClient.fromEnv()\n\n    val response: List<PetListLeaderboardResponse> = client.pet().listLeaderboard()\n}',
+      },
+      go: {
+        method: 'client.Pet.ListLeaderboard',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/swagger-girly/go"\n\t"github.com/swagger-girly/go/option"\n)\n\nfunc main() {\n\tclient := helloworldtestingggg.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t\toption.WithBasicAuthUsername("My Basic Auth Username"),\n\t\toption.WithBasicAuthPassword("My Basic Auth Password"),\n\t)\n\tresponse, err := client.Pet.ListLeaderboard(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      ruby: {
+        method: 'pet.list_leaderboard',
+        example:
+          'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.pet.list_leaderboard\n\nputs(response)',
+      },
+      http: {
+        example: 'curl /api/v3/pet/leaderboard',
+      },
+    },
+  },
+  {
     name: 'update',
     endpoint: '/pet',
     httpMethod: 'put',
