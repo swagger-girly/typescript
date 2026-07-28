@@ -12,4 +12,4 @@ export {
   type ReportPauseParams,
   type ReportsReportCursorPage,
 } from './reports/index';
-export { Store, type StoreListInventoryResponse } from './store';
+export { Store, type StoreListInventoryResponse, type StoreRetrieveActivityResponse } from './store';
