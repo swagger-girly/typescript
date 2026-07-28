@@ -75,7 +75,7 @@ export {
   type ProfileUpdateParams,
   type ProfileLegacySearchParams,
 } from './profiles';
-export { Store, type StoreListInventoryResponse } from './store/store';
+export { Store, type StoreListInventoryResponse, type StoreRetrieveActivityResponse } from './store/store';
 export {
   User,
   type UserCreateResponse,

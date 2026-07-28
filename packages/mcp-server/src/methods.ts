@@ -263,6 +263,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/store/inventory',
   },
   {
+    clientCallName: 'client.store.retrieveActivity',
+    fullyQualifiedName: 'store.retrieveActivity',
+    httpMethod: 'get',
+    httpPath: '/store/activity/{activityId}',
+  },
+  {
     clientCallName: 'client.store.order.create',
     fullyQualifiedName: 'store.order.create',
     httpMethod: 'post',

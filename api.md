@@ -175,10 +175,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/store/store.ts">StoreListInventoryResponse</a></code>
+- <code><a href="./src/resources/store/store.ts">StoreRetrieveActivityResponse</a></code>
 
 Methods:
 
 - <code title="get /store/inventory">client.store.<a href="./src/resources/store/store.ts">listInventory</a>() -> StoreListInventoryResponse</code>
+- <code title="get /store/activity/{activityId}">client.store.<a href="./src/resources/store/store.ts">retrieveActivity</a>(activityID) -> StoreRetrieveActivityResponse</code>
 
 ## Order
 

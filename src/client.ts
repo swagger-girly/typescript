@@ -126,7 +126,7 @@ import {
   PetsCustomCursorPage,
   PetsXFakeSinglePage,
 } from './resources/pet/pet';
-import { Store, StoreListInventoryResponse } from './resources/store/store';
+import { Store, StoreListInventoryResponse, StoreRetrieveActivityResponse } from './resources/store/store';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -1103,7 +1103,11 @@ export declare namespace HelloWorldTestingggg {
 
   export { Notifications as Notifications };
 
-  export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
+  export {
+    Store as Store,
+    type StoreListInventoryResponse as StoreListInventoryResponse,
+    type StoreRetrieveActivityResponse as StoreRetrieveActivityResponse,
+  };
 
   export {
     User as User,

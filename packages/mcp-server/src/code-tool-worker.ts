@@ -152,6 +152,7 @@ const fuse = new Fuse(
     'client.webhooks.parsed',
     'client.notifications.webhooks.parsePet',
     'client.store.listInventory',
+    'client.store.retrieveActivity',
     'client.store.order.create',
     'client.store.order.delete',
     'client.store.order.retrieve',
