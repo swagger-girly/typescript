@@ -65,6 +65,22 @@ export namespace PetInventoryLowWebhookEvent {
 
     quantity?: number;
 
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
     shipDate?: string;
 
     /**
@@ -119,6 +135,22 @@ export namespace PetModerationWebhookEvent {
         password?: string;
 
         phone?: string;
+
+        relatedAddress?: Shared.Address;
+
+        relatedCategory?: unknown;
+
+        relatedCustomer?: unknown;
+
+        relatedMoney?: Shared.Money;
+
+        relatedOrder?: unknown;
+
+        relatedPet?: PetAPI.Pet;
+
+        relatedShelter?: unknown;
+
+        relatedTag?: unknown;
 
         username?: string;
 
@@ -177,6 +209,22 @@ export namespace ParsePetWebhookEvent {
         password?: string;
 
         phone?: string;
+
+        relatedAddress?: Shared.Address;
+
+        relatedCategory?: unknown;
+
+        relatedCustomer?: unknown;
+
+        relatedMoney?: Shared.Money;
+
+        relatedOrder?: unknown;
+
+        relatedPet?: PetAPI.Pet;
+
+        relatedShelter?: unknown;
+
+        relatedTag?: unknown;
 
         username?: string;
 

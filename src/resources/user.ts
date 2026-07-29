@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
+import * as PetAPI from './pet/pet';
 import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
@@ -149,6 +151,22 @@ export interface UserCreateResponse {
 
   phone?: string;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
   username?: string;
 
   /**
@@ -170,6 +188,22 @@ export interface UserRetrieveResponse {
 
   phone?: string;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
   username?: string;
 
   /**
@@ -190,6 +224,22 @@ export interface UserCreateWithListResponse {
   password?: string;
 
   phone?: string;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
 
   username?: string;
 
@@ -277,6 +327,22 @@ export interface UserCreateParams {
 
   phone?: string;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
   username?: string;
 
   /**
@@ -297,6 +363,22 @@ export interface UserUpdateParams {
   password?: string;
 
   phone?: string;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
 
   username?: string;
 
@@ -323,6 +405,22 @@ export namespace UserCreateWithListParams {
     password?: string;
 
     phone?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
 
     username?: string;
 

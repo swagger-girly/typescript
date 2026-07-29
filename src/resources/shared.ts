@@ -1,9 +1,27 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import * as PetAPI from './pet/pet';
+
 export interface Address {
   city?: string;
 
   geo?: Address.Geo;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
 
   state?: string;
 
@@ -30,4 +48,20 @@ export interface Money {
    * ISO 4217 currency code.
    */
   currency: string;
+
+  relatedAddress?: Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
 }
