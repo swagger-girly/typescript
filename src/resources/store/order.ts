@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as PetAPI from '../pet/pet';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -65,6 +66,22 @@ export interface OrderCreateResponse {
 
   quantity?: number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
+
   shipDate?: string;
 
   /**
@@ -84,6 +101,22 @@ export interface OrderRetrieveResponse {
 
   quantity?: number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
+
   shipDate?: string;
 
   /**
@@ -102,6 +135,22 @@ export interface OrderCreateParams {
   petId?: number;
 
   quantity?: number;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
 
   shipDate?: string;
 

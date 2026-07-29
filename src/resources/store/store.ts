@@ -136,6 +136,22 @@ export namespace StoreRetrieveActivityResponse {
       contact?: TransferredTo.Contact;
 
       location?: TransferredTo.Location;
+
+      relatedAddress?: Shared.Address;
+
+      relatedCategory?: unknown;
+
+      relatedCustomer?: unknown;
+
+      relatedMoney?: Shared.Money;
+
+      relatedOrder?: unknown;
+
+      relatedPet?: PetAPI.Pet;
+
+      relatedTag?: unknown;
+
+      relatedUser?: unknown;
     }
 
     export namespace TransferredTo {

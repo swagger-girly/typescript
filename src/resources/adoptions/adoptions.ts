@@ -110,6 +110,22 @@ export namespace Application {
       contact?: Shelter.Contact;
 
       location?: Shelter.Location;
+
+      relatedAddress?: Shared.Address;
+
+      relatedCategory?: unknown;
+
+      relatedCustomer?: unknown;
+
+      relatedMoney?: Shared.Money;
+
+      relatedOrder?: unknown;
+
+      relatedPet?: PetAPI.Pet;
+
+      relatedTag?: unknown;
+
+      relatedUser?: unknown;
     }
 
     export namespace Shelter {
@@ -323,6 +339,22 @@ export declare namespace AdoptionCreateParams {
       contact?: Shelter.Contact;
 
       location?: Shelter.Location;
+
+      relatedAddress?: Shared.Address;
+
+      relatedCategory?: unknown;
+
+      relatedCustomer?: unknown;
+
+      relatedMoney?: Shared.Money;
+
+      relatedOrder?: unknown;
+
+      relatedPet?: PetAPI.Pet;
+
+      relatedTag?: unknown;
+
+      relatedUser?: unknown;
     }
 
     export namespace Shelter {

@@ -307,38 +307,35 @@ export interface Pet {
    */
   acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
 
-  category?: Pet.Category;
+  category?: unknown;
 
   /**
    * Microchip identifier; legacy chips used numeric identifiers.
    */
   microchipId?: string | number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: unknown;
+
+  relatedUser?: unknown;
+
   /**
    * pet status in the store
    */
   status?: PetStatus;
 
-  tags?: Array<Pet.Tag>;
-}
-
-export namespace Pet {
-  export interface Category {
-    id?: number;
-
-    name?: string;
-
-    /**
-     * Nested subcategories; the tree can recurse arbitrarily deep.
-     */
-    subcategories?: Array<unknown>;
-  }
-
-  export interface Tag {
-    id?: number;
-
-    name?: string;
-  }
+  tags?: Array<unknown>;
 }
 
 /**
@@ -509,6 +506,22 @@ export interface PetCreateParams {
    */
   microchipId?: string | number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: PetCreateParams.RelatedCategory;
+
+  relatedCustomer?: PetCreateParams.RelatedCustomer;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: PetCreateParams.RelatedOrder;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: PetCreateParams.RelatedShelter;
+
+  relatedUser?: PetCreateParams.RelatedUser;
+
   /**
    * pet status in the store
    */
@@ -523,16 +536,241 @@ export namespace PetCreateParams {
 
     name?: string;
 
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
     /**
      * Nested subcategories; the tree can recurse arbitrarily deep.
      */
     subcategories?: Array<unknown>;
   }
 
+  export interface RelatedCategory {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCustomer {
+    id?: number;
+
+    address?: Array<Shared.Address>;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    username?: string;
+  }
+
+  export interface RelatedOrder {
+    id?: number;
+
+    complete?: boolean;
+
+    petId?: number;
+
+    quantity?: number;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    shipDate?: string;
+
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+
+    total?: Shared.Money;
+  }
+
+  export interface RelatedShelter {
+    name: string;
+
+    address?: Shared.Address;
+
+    contact?: RelatedShelter.Contact;
+
+    location?: RelatedShelter.Location;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+  }
+
+  export namespace RelatedShelter {
+    export interface Contact {
+      primary?: Contact.Primary;
+    }
+
+    export namespace Contact {
+      export interface Primary {
+        availability?: Primary.Availability;
+
+        name?: string;
+
+        phone?: string;
+      }
+
+      export namespace Primary {
+        export interface Availability {
+          weekday?: Availability.Weekday;
+
+          weekend?: Availability.Weekend | null;
+        }
+
+        export namespace Availability {
+          export interface Weekday {
+            close?: string;
+
+            open?: string;
+          }
+
+          export interface Weekend {
+            close?: string;
+
+            open?: string;
+          }
+        }
+      }
+    }
+
+    export interface Location {
+      latitude: number;
+
+      longitude: number;
+    }
+  }
+
+  export interface RelatedUser {
+    id?: number;
+
+    email?: string;
+
+    firstName?: string;
+
+    lastName?: string;
+
+    password?: string;
+
+    phone?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    username?: string;
+
+    /**
+     * User Status
+     */
+    userStatus?: number;
+  }
+
   export interface Tag {
     id?: number;
 
     name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedUser?: unknown;
   }
 }
 
@@ -556,6 +794,22 @@ export interface PetUpdateParams {
    */
   microchipId?: string | number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: PetUpdateParams.RelatedCategory;
+
+  relatedCustomer?: PetUpdateParams.RelatedCustomer;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: PetUpdateParams.RelatedOrder;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: PetUpdateParams.RelatedShelter;
+
+  relatedUser?: PetUpdateParams.RelatedUser;
+
   /**
    * pet status in the store
    */
@@ -570,16 +824,241 @@ export namespace PetUpdateParams {
 
     name?: string;
 
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
     /**
      * Nested subcategories; the tree can recurse arbitrarily deep.
      */
     subcategories?: Array<unknown>;
   }
 
+  export interface RelatedCategory {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCustomer {
+    id?: number;
+
+    address?: Array<Shared.Address>;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    username?: string;
+  }
+
+  export interface RelatedOrder {
+    id?: number;
+
+    complete?: boolean;
+
+    petId?: number;
+
+    quantity?: number;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    shipDate?: string;
+
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+
+    total?: Shared.Money;
+  }
+
+  export interface RelatedShelter {
+    name: string;
+
+    address?: Shared.Address;
+
+    contact?: RelatedShelter.Contact;
+
+    location?: RelatedShelter.Location;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+  }
+
+  export namespace RelatedShelter {
+    export interface Contact {
+      primary?: Contact.Primary;
+    }
+
+    export namespace Contact {
+      export interface Primary {
+        availability?: Primary.Availability;
+
+        name?: string;
+
+        phone?: string;
+      }
+
+      export namespace Primary {
+        export interface Availability {
+          weekday?: Availability.Weekday;
+
+          weekend?: Availability.Weekend | null;
+        }
+
+        export namespace Availability {
+          export interface Weekday {
+            close?: string;
+
+            open?: string;
+          }
+
+          export interface Weekend {
+            close?: string;
+
+            open?: string;
+          }
+        }
+      }
+    }
+
+    export interface Location {
+      latitude: number;
+
+      longitude: number;
+    }
+  }
+
+  export interface RelatedUser {
+    id?: number;
+
+    email?: string;
+
+    firstName?: string;
+
+    lastName?: string;
+
+    password?: string;
+
+    phone?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    username?: string;
+
+    /**
+     * User Status
+     */
+    userStatus?: number;
+  }
+
   export interface Tag {
     id?: number;
 
     name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedUser?: unknown;
   }
 }
 
