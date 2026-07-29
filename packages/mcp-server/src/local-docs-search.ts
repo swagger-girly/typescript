@@ -92,6 +92,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nsystem_health = hello_world_testingggg.health\n\nputs(system_health)',
       },
+      csharp: {
+        method: 'Health',
+        example:
+          'ClientHealthParams parameters = new();\n\nvar systemHealth = await client.Health(parameters);\n\nConsole.WriteLine(systemHealth);',
+      },
       http: {
         example: 'curl /api/v3/health',
       },
@@ -139,6 +144,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'retrieve_rate_limits',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.retrieve_rate_limits\n\nputs(response)',
+      },
+      csharp: {
+        method: 'RetrieveRateLimits',
+        example:
+          'ClientRetrieveRateLimitsParams parameters = new();\n\nvar response = await client.RetrieveRateLimits(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/rate_limits \\\n    -H "api_key: $API_KEY"',
@@ -193,6 +203,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list\n\nputs(page)',
       },
+      csharp: {
+        method: 'Pet.List',
+        example:
+          'PetListParams parameters = new();\n\nvar page = await client.Pet.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       http: {
         example: 'curl /api/v3/pet',
       },
@@ -242,6 +257,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_unpaginated\n\nputs(response)',
       },
+      csharp: {
+        method: 'Pet.ListUnpaginated',
+        example:
+          'PetListUnpaginatedParams parameters = new();\n\nvar response = await client.Pet.ListUnpaginated(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/pet/unpaginated',
       },
@@ -289,6 +309,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.list_fake_page',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_fake_page\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Pet.ListFakePage',
+        example:
+          'PetListFakePageParams parameters = new();\n\nvar response = await client.Pet.ListFakePage(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/pet/fake-page',
@@ -339,6 +364,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list_fake_page_inferred\n\nputs(page)',
       },
+      csharp: {
+        method: 'Pet.ListFakePageInferred',
+        example:
+          'PetListFakePageInferredParams parameters = new();\n\nvar page = await client.Pet.ListFakePageInferred(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       http: {
         example: 'curl /api/v3/pet/fake-page-inferred',
       },
@@ -387,6 +417,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.list_leaderboard',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.pet.list_leaderboard\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Pet.ListLeaderboard',
+        example:
+          'PetListLeaderboardParams parameters = new();\n\nvar response = await client.Pet.ListLeaderboard(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/pet/leaderboard',
@@ -453,6 +488,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.update',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
+      },
+      csharp: {
+        method: 'Pet.Update',
+        example:
+          'PetUpdateParams parameters = new()\n{\n    Name = "doggie",\n    PhotoUrls =\n    [\n        "string"\n    ],\n};\n\nvar pet = await client.Pet.Update(parameters);\n\nConsole.WriteLine(pet);',
       },
       http: {
         example:
@@ -521,6 +561,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.create(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
       },
+      csharp: {
+        method: 'Pet.Create',
+        example:
+          'PetCreateParams parameters = new()\n{\n    Name = "doggie",\n    PhotoUrls =\n    [\n        "string"\n    ],\n};\n\nvar pet = await client.Pet.Create(parameters);\n\nConsole.WriteLine(pet);',
+      },
       http: {
         example:
           'curl /api/v3/pet \\\n    -H \'Content-Type: application/json\' \\\n    -d \'{\n          "name": "doggie",\n          "photoUrls": [\n            "string"\n          ],\n          "id": 10\n        }\'',
@@ -571,6 +616,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_status\n\nputs(pets)',
       },
+      csharp: {
+        method: 'Pet.FindByStatus',
+        example:
+          'PetFindByStatusParams parameters = new();\n\nvar pets = await client.Pet.FindByStatus(parameters);\n\nConsole.WriteLine(pets);',
+      },
       http: {
         example: 'curl /api/v3/pet/findByStatus',
       },
@@ -620,6 +670,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.find_by_tags',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_tags\n\nputs(pets)',
+      },
+      csharp: {
+        method: 'Pet.FindByTags',
+        example:
+          'PetFindByTagsParams parameters = new();\n\nvar pets = await client.Pet.FindByTags(parameters);\n\nConsole.WriteLine(pets);',
       },
       http: {
         example: 'curl /api/v3/pet/findByTags',
@@ -676,6 +731,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.search\n\nputs(pets)',
       },
+      csharp: {
+        method: 'Pet.Search',
+        example:
+          'PetSearchParams parameters = new();\n\nvar pets = await client.Pet.Search(parameters);\n\nConsole.WriteLine(pets);',
+      },
       http: {
         example: 'curl /api/v3/pet/search',
       },
@@ -725,6 +785,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.retrieve(0)\n\nputs(pet)',
       },
+      csharp: {
+        method: 'Pet.Retrieve',
+        example:
+          'PetRetrieveParams parameters = new() { PetID = 0 };\n\nvar pet = await client.Pet.Retrieve(parameters);\n\nConsole.WriteLine(pet);',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -H "api_key: $API_KEY"',
       },
@@ -771,6 +836,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.update_with_form',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.update_with_form(0)\n\nputs(result)',
+      },
+      csharp: {
+        method: 'Pet.UpdateWithForm',
+        example:
+          'PetUpdateWithFormParams parameters = new() { PetID = 0 };\n\nawait client.Pet.UpdateWithForm(parameters);',
       },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -X POST',
@@ -819,6 +889,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.delete(0)\n\nputs(result)',
       },
+      csharp: {
+        method: 'Pet.Delete',
+        example: 'PetDeleteParams parameters = new() { PetID = 0 };\n\nawait client.Pet.Delete(parameters);',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID \\\n    -X DELETE',
       },
@@ -866,6 +940,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.upload_image',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.upload_image(0, body: StringIO.new("Example data"))\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Pet.UploadImage',
+        example:
+          'PetUploadImageParams parameters = new()\n{\n    PetID = 0,\n    Body = Encoding.UTF8.GetBytes("Example data"),\n};\n\nvar response = await client.Pet.UploadImage(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example:
@@ -918,6 +997,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.pet.retrieve_premium(0)\n\nputs(response)',
       },
+      csharp: {
+        method: 'Pet.RetrievePremium',
+        example:
+          'PetRetrievePremiumParams parameters = new() { PetID = 0 };\n\nvar response = await client.Pet.RetrievePremium(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID/premium \\\n    -H "api_key: $API_KEY"',
       },
@@ -968,6 +1052,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.watch_status(0)\n\nputs(pet)',
       },
+      csharp: {
+        method: 'Pet.WatchStatusStreaming',
+        example:
+          'PetWatchStatusParams parameters = new() { PetID = 0 };\n\nawait foreach (var pet in client.Pet.WatchStatusStreaming(parameters))\n{\n    Console.WriteLine(pet);\n}',
+      },
       http: {
         example: 'curl /api/v3/pet/$PET_ID/status/stream \\\n    -H "api_key: $API_KEY"',
       },
@@ -1009,6 +1098,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.connect',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.pet.connect\n\nputs(result)',
+      },
+      csharp: {
+        example:
+          'PetConnectParams parameters = new() { PetID = "petId" };\n\nawait client.Pet.Connect(parameters);',
       },
     },
   },
@@ -1053,6 +1146,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfileslist = hello_world_testingggg.files.list\n\nputs(fileslist)',
+      },
+      csharp: {
+        method: 'Files.List',
+        example:
+          'FileListParams parameters = new();\n\nvar fileslist = await client.Files.List(parameters);\n\nConsole.WriteLine(fileslist);',
       },
       http: {
         example: 'curl /api/v3/files \\\n    -H "api_key: $API_KEY"',
@@ -1109,6 +1207,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload(file: StringIO.new("Example data"))\n\nputs(file)',
       },
+      csharp: {
+        method: 'Files.Upload',
+        example:
+          'FileUploadParams parameters = new()\n{\n    File = Encoding.UTF8.GetBytes("Example data")\n};\n\nvar file = await client.Files.Upload(parameters);\n\nConsole.WriteLine(file);',
+      },
       http: {
         example:
           "curl /api/v3/files \\\n    -H 'Content-Type: multipart/form-data' \\\n    -H \"api_key: $API_KEY\" \\\n    -F 'file=@/path/to/file'",
@@ -1158,6 +1261,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.files.download("path")\n\nputs(response)',
       },
+      csharp: {
+        method: 'Files.Download',
+        example:
+          'FileDownloadParams parameters = new() { Path = "path" };\n\nvar response = await client.Files.Download(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -H "api_key: $API_KEY"',
       },
@@ -1204,6 +1312,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.files.delete("path")\n\nputs(result)',
+      },
+      csharp: {
+        method: 'Files.Delete',
+        example:
+          'FileDeleteParams parameters = new() { Path = "path" };\n\nawait client.Files.Delete(parameters);',
       },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -X DELETE \\\n    -H "api_key: $API_KEY"',
@@ -1253,6 +1366,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.update("path")\n\nputs(file)',
       },
+      csharp: {
+        method: 'Files.Update',
+        example:
+          'FileUpdateParams parameters = new() { Path = "path" };\n\nvar file = await client.Files.Update(parameters);\n\nConsole.WriteLine(file);',
+      },
       http: {
         example: 'curl /api/v3/files/$PATH \\\n    -X PUT \\\n    -H "api_key: $API_KEY"',
       },
@@ -1300,6 +1418,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.upload_direct',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload_direct(body: StringIO.new("Example data"))\n\nputs(file)',
+      },
+      csharp: {
+        method: 'Files.UploadDirect',
+        example:
+          'FileUploadDirectParams parameters = new()\n{\n    Body = Encoding.UTF8.GetBytes("Example data")\n};\n\nvar file = await client.Files.UploadDirect(parameters);\n\nConsole.WriteLine(file);',
       },
       http: {
         example:
@@ -1349,6 +1472,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.create_archive',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\narchive = hello_world_testingggg.files.create_archive(files: [StringIO.new("Example data")])\n\nputs(archive)',
+      },
+      csharp: {
+        method: 'Files.CreateArchive',
+        example:
+          'FileCreateArchiveParams parameters = new()\n{\n    Files =\n    [\n        Encoding.UTF8.GetBytes("Example data")\n    ],\n};\n\nvar archive = await client.Files.CreateArchive(parameters);\n\nConsole.WriteLine(archive);',
       },
       http: {
         example:
@@ -1409,6 +1537,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.create(display_name: "Ada Lovelace")\n\nputs(profile)',
       },
+      csharp: {
+        method: 'Profiles.Create',
+        example:
+          'ProfileCreateParams parameters = new() { DisplayName = "Ada Lovelace" };\n\nvar profile = await client.Profiles.Create(parameters);\n\nConsole.WriteLine(profile);',
+      },
       http: {
         example:
           'curl /api/v3/profiles \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "displayName": "Ada Lovelace",\n          "email": "ada@example.com",\n          "metadata": {\n            "crm_id": "crm_123"\n          },\n          "preferences": {\n            "alerts": {\n              "inventory": true\n            },\n            "newsletter": true\n          },\n          "secretNote": "verified manually"\n        }\'',
@@ -1458,6 +1591,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'profiles.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.retrieve("profileId")\n\nputs(profile)',
+      },
+      csharp: {
+        method: 'Profiles.Retrieve',
+        example:
+          'ProfileRetrieveParams parameters = new() { ProfileID = "profileId" };\n\nvar profile = await client.Profiles.Retrieve(parameters);\n\nConsole.WriteLine(profile);',
       },
       http: {
         example: 'curl /api/v3/profiles/$PROFILE_ID \\\n    -H "api_key: $API_KEY"',
@@ -1510,6 +1648,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.update("profileId", body: {})\n\nputs(profile)',
       },
+      csharp: {
+        method: 'Profiles.Update',
+        example:
+          'ProfileUpdateParams parameters = new()\n{\n    ProfileID = "profileId",\n    Body = new ProfileDetailsUpdate()\n    {\n        DisplayName = "displayName",\n        Email = "email",\n        Metadata = new Dictionary<string, string>() { { "foo", "string" } },\n        Preferences = new()\n        {\n            Alerts = new Dictionary<string, bool>() { { "foo", true } },\n            Newsletter = true,\n            ScoreByRegion = JsonSerializer.Deserialize<JsonElement>("{}"),\n        },\n    },\n};\n\nvar profile = await client.Profiles.Update(parameters);\n\nConsole.WriteLine(profile);',
+      },
       http: {
         example:
           "curl /api/v3/profiles/$PROFILE_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"api_key: $API_KEY\" \\\n    -d '{}'",
@@ -1560,6 +1703,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofiles = hello_world_testingggg.profiles.legacy_search\n\nputs(profiles)',
       },
+      csharp: {
+        method: 'Profiles.LegacySearch',
+        example:
+          'ProfileLegacySearchParams parameters = new();\n\nvar profiles = await client.Profiles.LegacySearch(parameters);\n\nConsole.WriteLine(profiles);',
+      },
       http: {
         example: 'curl /api/v3/profiles/legacy-search \\\n    -H "api_key: $API_KEY"',
       },
@@ -1608,6 +1756,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.create',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.create(body: {applicant_type: :individual, name: "name"})\n\nputs(application)',
+      },
+      csharp: {
+        method: 'Adoptions.Create',
+        example:
+          'AdoptionCreateParams parameters = new()\n{\n    Body = new Individual()\n    {\n        Name = "name",\n        Address = new()\n        {\n            City = "Palo Alto",\n            Geo = new()\n            {\n                Latitude = 37.4443,\n                Longitude = -122.1598,\n            },\n            RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n            RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n            RelatedMoney = new()\n            {\n                Amount = 2500,\n                Currency = "USD",\n                RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedPet = new()\n                {\n                    Name = "doggie",\n                    PhotoUrls =\n                    [\n                        "string"\n                    ],\n                    ID = 10,\n                    AcquisitionChannel = AcquisitionChannel.Breeder,\n                    Category = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    MicrochipID = "string",\n                    RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    Status = PetStatus.Available,\n                    Tags =\n                    [\n                        JsonSerializer.Deserialize<JsonElement>("{}")\n                    ],\n                },\n                RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedTag = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n            },\n            RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n            RelatedPet = new()\n            {\n                Name = "doggie",\n                PhotoUrls =\n                [\n                    "string"\n                ],\n                ID = 10,\n                AcquisitionChannel = AcquisitionChannel.Breeder,\n                Category = JsonSerializer.Deserialize<JsonElement>("{}"),\n                MicrochipID = "string",\n                RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                Status = PetStatus.Available,\n                Tags =\n                [\n                    JsonSerializer.Deserialize<JsonElement>("{}")\n                ],\n            },\n            RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n            RelatedTag = JsonSerializer.Deserialize<JsonElement>("{}"),\n            RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n            State = "CA",\n            Street = "437 Lytton",\n            Zip = "94301",\n        },\n        Age = 0,\n        Email = "email",\n    },\n};\n\nvar application = await client.Adoptions.Create(parameters);\n\nConsole.WriteLine(application);',
       },
       http: {
         example:
@@ -1659,6 +1812,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.retrieve("applicationId")\n\nputs(application)',
       },
+      csharp: {
+        method: 'Adoptions.Retrieve',
+        example:
+          'AdoptionRetrieveParams parameters = new() { ApplicationID = "applicationId" };\n\nvar application = await client.Adoptions.Retrieve(parameters);\n\nConsole.WriteLine(application);',
+      },
       http: {
         example: 'curl /api/v3/adoptions/applications/$APPLICATION_ID \\\n    -H "api_key: $API_KEY"',
       },
@@ -1709,6 +1867,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.adoptions.retrieve_decision("applicationId")\n\nputs(response)',
       },
+      csharp: {
+        method: 'Adoptions.RetrieveDecision',
+        example:
+          'AdoptionRetrieveDecisionParams parameters = new()\n{\n    ApplicationID = "applicationId"\n};\n\nvar response = await client.Adoptions.RetrieveDecision(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example:
           'curl /api/v3/adoptions/applications/$APPLICATION_ID/decision \\\n    -H "api_key: $API_KEY"',
@@ -1758,6 +1921,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.policies.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.adoptions.policies.list\n\nputs(page)',
+      },
+      csharp: {
+        method: 'Adoptions.Policies.List',
+        example:
+          'PolicyListParams parameters = new();\n\nvar page = await client.Adoptions.Policies.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
       },
       http: {
         example: 'curl /api/v3/adoptions/policies \\\n    -H "api_key: $API_KEY"',
@@ -1816,6 +1984,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.create(\n  name: "name",\n  rules: [{attribute: :PET_STATUS, operation: :IS_ONE_OF}]\n)\n\nputs(policy)',
       },
+      csharp: {
+        method: 'Adoptions.Policies.Create',
+        example:
+          'PolicyCreateParams parameters = new()\n{\n    Name = "name",\n    Rules =\n    [\n        new()\n        {\n            Attribute = RuleAttribute.PetStatus,\n            Operation = Operation.IsOneOf,\n            Value = "string",\n        },\n    ],\n};\n\nvar policy = await client.Adoptions.Policies.Create(parameters);\n\nConsole.WriteLine(policy);',
+      },
       http: {
         example:
           'curl /api/v3/adoptions/policies \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "name": "name",\n          "rules": [\n            {\n              "attribute": "PET_STATUS",\n              "operation": "IS_ONE_OF"\n            }\n          ]\n        }\'',
@@ -1865,6 +2038,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.policies.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.retrieve("policyId")\n\nputs(policy)',
+      },
+      csharp: {
+        method: 'Adoptions.Policies.Retrieve',
+        example:
+          'PolicyRetrieveParams parameters = new() { PolicyID = "policyId" };\n\nvar policy = await client.Adoptions.Policies.Retrieve(parameters);\n\nConsole.WriteLine(policy);',
       },
       http: {
         example: 'curl /api/v3/adoptions/policies/$POLICY_ID \\\n    -H "api_key: $API_KEY"',
@@ -1916,6 +2094,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.update("policyId", body: {})\n\nputs(policy)',
       },
+      csharp: {
+        method: 'Adoptions.Policies.Update',
+        example:
+          'PolicyUpdateParams parameters = new()\n{\n    PolicyID = "policyId",\n    Body = new AdoptionPolicyDetailsUpdate()\n    {\n        Escalation = new()\n        {\n            Operator = Operator.All,\n            Groups =\n            [\n\n            ],\n            Rules =\n            [\n                new()\n                {\n                    Attribute = RuleAttribute.PetStatus,\n                    Operation = Operation.IsOneOf,\n                    Value = "string",\n                },\n            ],\n        },\n        Name = "name",\n        NotificationTarget = "string",\n    },\n};\n\nvar policy = await client.Adoptions.Policies.Update(parameters);\n\nConsole.WriteLine(policy);',
+      },
       http: {
         example:
           "curl /api/v3/adoptions/policies/$POLICY_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"api_key: $API_KEY\" \\\n    -d '{}'",
@@ -1965,6 +2148,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'placements.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.placements.list\n\nputs(page)',
+      },
+      csharp: {
+        method: 'Placements.List',
+        example:
+          'PlacementListParams parameters = new();\n\nvar page = await client.Placements.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
       },
       http: {
         example: 'curl /api/v3/placements \\\n    -H "api_key: $API_KEY"',
@@ -2020,6 +2208,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.create(application_id: "applicationId")\n\nputs(placement)',
       },
+      csharp: {
+        method: 'Placements.Create',
+        example:
+          'PlacementCreateParams parameters = new() { ApplicationID = "applicationId" };\n\nvar placement = await client.Placements.Create(parameters);\n\nConsole.WriteLine(placement);',
+      },
       http: {
         example:
           'curl /api/v3/placements \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "applicationId": "applicationId"\n        }\'',
@@ -2069,6 +2262,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'placements.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.retrieve("placementId")\n\nputs(placement)',
+      },
+      csharp: {
+        method: 'Placements.Retrieve',
+        example:
+          'PlacementRetrieveParams parameters = new() { PlacementID = "placementId" };\n\nvar placement = await client.Placements.Retrieve(parameters);\n\nConsole.WriteLine(placement);',
       },
       http: {
         example: 'curl /api/v3/placements/$PLACEMENT_ID \\\n    -H "api_key: $API_KEY"',
@@ -2120,6 +2318,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.record_event(\n  "placementId",\n  placement_event: {id: "id", leg: {location: {}}, occurredAt: "2019-12-27T18:11:19.117Z", type: :transfer}\n)\n\nputs(placement)',
       },
+      csharp: {
+        method: 'Placements.RecordEvent',
+        example:
+          'PlacementRecordEventParams parameters = new()\n{\n    PlacementID = "placementId",\n    PlacementEvent = new PlacementTransferEvent()\n    {\n        ID = "id",\n        Leg = new()\n        {\n            Location = new()\n            {\n                City = "Palo Alto",\n                Geo = new()\n                {\n                    Latitude = 37.4443,\n                    Longitude = -122.1598,\n                },\n                RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedMoney = new()\n                {\n                    Amount = 2500,\n                    Currency = "USD",\n                    RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedPet = new()\n                    {\n                        Name = "doggie",\n                        PhotoUrls =\n                        [\n                            "string"\n                        ],\n                        ID = 10,\n                        AcquisitionChannel = AcquisitionChannel.Breeder,\n                        Category = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        MicrochipID = "string",\n                        RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                        Status = PetStatus.Available,\n                        Tags =\n                        [\n                            JsonSerializer.Deserialize<JsonElement>("{}")\n                        ],\n                    },\n                    RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedTag = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                },\n                RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedPet = new()\n                {\n                    Name = "doggie",\n                    PhotoUrls =\n                    [\n                        "string"\n                    ],\n                    ID = 10,\n                    AcquisitionChannel = AcquisitionChannel.Breeder,\n                    Category = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    MicrochipID = "string",\n                    RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                    Status = PetStatus.Available,\n                    Tags =\n                    [\n                        JsonSerializer.Deserialize<JsonElement>("{}")\n                    ],\n                },\n                RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedTag = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n                State = "CA",\n                Street = "437 Lytton",\n                Zip = "94301",\n            },\n            Contact = new()\n            {\n                Name = "name",\n                Phone = "phone",\n            },\n            Cost = new()\n            {\n                Amount = 2500,\n                Currency = "USD",\n                RelatedCategory = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedCustomer = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedOrder = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedShelter = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedTag = JsonSerializer.Deserialize<JsonElement>("{}"),\n                RelatedUser = JsonSerializer.Deserialize<JsonElement>("{}"),\n            },\n            Window = new()\n            {\n                End = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),\n                Start = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),\n            },\n        },\n        OccurredAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),\n        Type = Type.Transfer,\n        Note = "note",\n    },\n};\n\nvar placement = await client.Placements.RecordEvent(parameters);\n\nConsole.WriteLine(placement);',
+      },
       http: {
         example:
           'curl /api/v3/placements/$PLACEMENT_ID/events \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "id": "id",\n          "leg": {\n            "location": {}\n          },\n          "occurredAt": "2019-12-27T18:11:19.117Z",\n          "type": "transfer"\n        }\'',
@@ -2163,6 +2366,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.webhooks.parsed\n\nputs(result)',
       },
+      csharp: {
+        example: 'WebhookParsedParams parameters = new();\n\nawait client.Webhooks.Parsed(parameters);',
+      },
     },
   },
   {
@@ -2201,6 +2407,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'notifications.webhooks.parse_pet',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.notifications.webhooks.parse_pet\n\nputs(result)',
+      },
+      csharp: {
+        example:
+          'WebhookParsePetParams parameters = new();\n\nawait client.Notifications.Webhooks.ParsePet(parameters);',
       },
     },
   },
@@ -2245,6 +2455,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.list_inventory',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.list_inventory\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Store.ListInventory',
+        example:
+          'StoreListInventoryParams parameters = new();\n\nvar response = await client.Store.ListInventory(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/store/inventory \\\n    -H "api_key: $API_KEY"',
@@ -2294,6 +2509,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.retrieve_activity',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.retrieve_activity("activityId")\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Store.RetrieveActivity',
+        example:
+          'StoreRetrieveActivityParams parameters = new() { ActivityID = "activityId" };\n\nvar response = await client.Store.RetrieveActivity(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/store/activity/$ACTIVITY_ID \\\n    -H "api_key: $API_KEY"',
@@ -2360,6 +2580,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\norder = hello_world_testingggg.store.order.create\n\nputs(order)',
       },
+      csharp: {
+        method: 'Store.Order.Create',
+        example:
+          'OrderCreateParams parameters = new();\n\nvar order = await client.Store.Order.Create(parameters);\n\nConsole.WriteLine(order);',
+      },
       http: {
         example: 'curl /api/v3/store/order \\\n    -X POST',
       },
@@ -2410,6 +2635,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\norder = hello_world_testingggg.store.order.retrieve(0)\n\nputs(order)',
       },
+      csharp: {
+        method: 'Store.Order.Retrieve',
+        example:
+          'OrderRetrieveParams parameters = new() { OrderID = 0 };\n\nvar order = await client.Store.Order.Retrieve(parameters);\n\nConsole.WriteLine(order);',
+      },
       http: {
         example: 'curl /api/v3/store/order/$ORDER_ID',
       },
@@ -2457,6 +2687,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.order.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.store.order.delete(0)\n\nputs(result)',
+      },
+      csharp: {
+        method: 'Store.Order.Delete',
+        example:
+          'OrderDeleteParams parameters = new() { OrderID = 0 };\n\nawait client.Store.Order.Delete(parameters);',
       },
       http: {
         example: 'curl /api/v3/store/order/$ORDER_ID \\\n    -X DELETE',
@@ -2507,6 +2742,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.store.reports.list\n\nputs(page)',
       },
+      csharp: {
+        method: 'Store.Reports.List',
+        example:
+          'ReportListParams parameters = new();\n\nvar page = await client.Store.Reports.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       http: {
         example: 'curl /api/v3/store/reports \\\n    -H "api_key: $API_KEY"',
       },
@@ -2556,6 +2796,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nreport = hello_world_testingggg.store.reports.retrieve("reportId")\n\nputs(report)',
       },
+      csharp: {
+        method: 'Store.Reports.Retrieve',
+        example:
+          'ReportRetrieveParams parameters = new() { ReportID = "reportId" };\n\nvar report = await client.Store.Reports.Retrieve(parameters);\n\nConsole.WriteLine(report);',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID \\\n    -H "api_key: $API_KEY"',
       },
@@ -2604,6 +2849,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.reports.embed("reportId")\n\nputs(response)',
       },
+      csharp: {
+        method: 'Store.Reports.Embed',
+        example:
+          'ReportEmbedParams parameters = new() { ReportID = "reportId" };\n\nvar response = await client.Store.Reports.Embed(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/embed \\\n    -H "api_key: $API_KEY"',
       },
@@ -2650,6 +2900,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.reports.pause',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.store.reports.pause("reportId")\n\nputs(result)',
+      },
+      csharp: {
+        method: 'Store.Reports.Pause',
+        example:
+          'ReportPauseParams parameters = new() { ReportID = "reportId" };\n\nawait client.Store.Reports.Pause(parameters);',
       },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/pause \\\n    -X POST \\\n    -H "api_key: $API_KEY"',
@@ -2699,6 +2954,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ninventory_response = hello_world_testingggg.store.reports.inventory.list("reportId")\n\nputs(inventory_response)',
       },
+      csharp: {
+        method: 'Store.Reports.Inventory.List',
+        example:
+          'InventoryListParams parameters = new() { ReportID = "reportId" };\n\nvar inventoryResponse = await client.Store.Reports.Inventory.List(parameters);\n\nConsole.WriteLine(inventoryResponse);',
+      },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/inventory \\\n    -H "api_key: $API_KEY"',
       },
@@ -2746,6 +3006,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.reports.inventory.daily.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ndaily_inventory = hello_world_testingggg.store.reports.inventory.daily.retrieve("2019-12-27", report_id: "reportId")\n\nputs(daily_inventory)',
+      },
+      csharp: {
+        method: 'Store.Reports.Inventory.Daily.Retrieve',
+        example:
+          'DailyRetrieveParams parameters = new()\n{\n    ReportID = "reportId",\n    Date = "2019-12-27",\n};\n\nvar dailyInventory = await client.Store.Reports.Inventory.Daily.Retrieve(parameters);\n\nConsole.WriteLine(dailyInventory);',
       },
       http: {
         example: 'curl /api/v3/store/reports/$REPORT_ID/inventory/daily/$DATE \\\n    -H "api_key: $API_KEY"',
@@ -2813,6 +3078,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nuser = hello_world_testingggg.user.create\n\nputs(user)',
       },
+      csharp: {
+        method: 'User.Create',
+        example:
+          'UserCreateParams parameters = new();\n\nvar user = await client.User.Create(parameters);\n\nConsole.WriteLine(user);',
+      },
       http: {
         example: 'curl /api/v3/user \\\n    -X POST',
       },
@@ -2864,6 +3134,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.user.create_with_list\n\nputs(response)',
       },
+      csharp: {
+        method: 'User.CreateWithList',
+        example:
+          'UserCreateWithListParams parameters = new();\n\nvar response = await client.User.CreateWithList(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/user/createWithList \\\n    -X POST',
       },
@@ -2912,6 +3187,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.user.login\n\nputs(response)',
       },
+      csharp: {
+        method: 'User.Login',
+        example:
+          'UserLoginParams parameters = new();\n\nvar response = await client.User.Login(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/user/login',
       },
@@ -2957,6 +3237,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.logout',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.logout\n\nputs(result)',
+      },
+      csharp: {
+        method: 'User.Logout',
+        example: 'UserLogoutParams parameters = new();\n\nawait client.User.Logout(parameters);',
       },
       http: {
         example: 'curl /api/v3/user/logout',
@@ -3006,6 +3290,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nuser = hello_world_testingggg.user.retrieve("username")\n\nputs(user)',
+      },
+      csharp: {
+        method: 'User.Retrieve',
+        example:
+          'UserRetrieveParams parameters = new() { Username = "username" };\n\nvar user = await client.User.Retrieve(parameters);\n\nConsole.WriteLine(user);',
       },
       http: {
         example: 'curl /api/v3/user/$USERNAME',
@@ -3072,6 +3361,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.update("username")\n\nputs(result)',
       },
+      csharp: {
+        method: 'User.Update',
+        example:
+          'UserUpdateParams parameters = new() { Username = "username" };\n\nawait client.User.Update(parameters);',
+      },
       http: {
         example: 'curl /api/v3/user/$USERNAME \\\n    -X PUT',
       },
@@ -3118,6 +3412,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.delete("username")\n\nputs(result)',
+      },
+      csharp: {
+        method: 'User.Delete',
+        example:
+          'UserDeleteParams parameters = new() { Username = "username" };\n\nawait client.User.Delete(parameters);',
       },
       http: {
         example: 'curl /api/v3/user/$USERNAME \\\n    -X DELETE',
@@ -3168,6 +3467,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.verify_identity',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.user.verify_identity("username")\n\nputs(response)',
+      },
+      csharp: {
+        method: 'User.VerifyIdentity',
+        example:
+          'UserVerifyIdentityParams parameters = new() { Username = "username" };\n\nvar response = await client.User.VerifyIdentity(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/user/$USERNAME/verifyIdentity \\\n    -X POST \\\n    -H "api_key: $API_KEY"',
@@ -3225,6 +3529,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.ai.ai_query(\n  data_to_extract: [{datapoint_name: "datapoint_name"}],\n  domain: "domain"\n)\n\nputs(response)',
       },
+      csharp: {
+        method: 'AI.AIQuery',
+        example:
+          'AIAIQueryParams parameters = new()\n{\n    DataToExtract =\n    [\n        new()\n        {\n            DatapointName = "datapoint_name",\n            DatapointType = DatapointType.Text,\n        },\n    ],\n    Domain = "domain",\n};\n\nvar response = await client.AI.AIQuery(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example:
           'curl /api/v3/ai/query \\\n    -H \'Content-Type: application/json\' \\\n    -H "api_key: $API_KEY" \\\n    -d \'{\n          "data_to_extract": [\n            {\n              "datapoint_name": "datapoint_name"\n            }\n          ],\n          "domain": "domain"\n        }\'',
@@ -3273,6 +3582,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_first\n\nputs(response)',
       },
+      csharp: {
+        method: 'Media.TextFirst',
+        example:
+          'MediaTextFirstParams parameters = new();\n\nvar response = await client.Media.TextFirst(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/media/text-first \\\n    -H "api_key: $API_KEY"',
       },
@@ -3319,6 +3633,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.json_first',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_first\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Media.JsonFirst',
+        example:
+          'MediaJsonFirstParams parameters = new();\n\nvar response = await client.Media.JsonFirst(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/media/json-first \\\n    -H "api_key: $API_KEY"',
@@ -3367,6 +3686,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_and_xml\n\nputs(response)',
       },
+      csharp: {
+        method: 'Media.JsonAndXml',
+        example:
+          'MediaJsonAndXmlParams parameters = new();\n\nvar response = await client.Media.JsonAndXml(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/media/json-and-xml \\\n    -H "api_key: $API_KEY"',
       },
@@ -3414,6 +3738,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_only\n\nputs(response)',
       },
+      csharp: {
+        method: 'Media.TextOnly',
+        example:
+          'MediaTextOnlyParams parameters = new();\n\nvar response = await client.Media.TextOnly(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/media/text-only \\\n    -H "api_key: $API_KEY"',
       },
@@ -3459,6 +3788,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.schema_on_text',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.media.schema_on_text\n\nputs(result)',
+      },
+      csharp: {
+        method: 'Media.SchemaOnText',
+        example:
+          'MediaSchemaOnTextParams parameters = new();\n\nawait client.Media.SchemaOnText(parameters);',
       },
       http: {
         example: 'curl /api/v3/media/schema-on-text \\\n    -H "api_key: $API_KEY"',
@@ -3507,6 +3841,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.schema_on_json\n\nputs(response)',
       },
+      csharp: {
+        method: 'Media.SchemaOnJson',
+        example:
+          'MediaSchemaOnJsonParams parameters = new();\n\nvar response = await client.Media.SchemaOnJson(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/media/schema-on-json \\\n    -H "api_key: $API_KEY"',
       },
@@ -3553,6 +3892,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.vendor_json',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.vendor_json\n\nputs(response)',
+      },
+      csharp: {
+        method: 'Media.VendorJson',
+        example:
+          'MediaVendorJsonParams parameters = new();\n\nvar response = await client.Media.VendorJson(parameters);\n\nConsole.WriteLine(response);',
       },
       http: {
         example: 'curl /api/v3/media/vendor-json \\\n    -H "api_key: $API_KEY"',
@@ -3601,6 +3945,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.binary_and_json\n\nputs(response)',
       },
+      csharp: {
+        method: 'Media.BinaryAndJson',
+        example:
+          'MediaBinaryAndJsonParams parameters = new();\n\nvar response = await client.Media.BinaryAndJson(parameters);\n\nConsole.WriteLine(response);',
+      },
       http: {
         example: 'curl /api/v3/media/binary-and-json \\\n    -H "api_key: $API_KEY"',
       },
@@ -3609,6 +3958,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
+  {
+    language: 'csharp',
+    content:
+      '# Hello World Testingggg C# API Library\n\nThe Hello World Testingggg C# SDK provides convenient access to the [Hello World Testingggg REST API](http://swagger.io) from applications written in   C#.\n\n## Installation\n\n```bash\ngit clone git@github.com:stainless-sdks/hello-world-testingggg-csharp.git\ndotnet add reference hello-world-testingggg-csharp/src/HelloWorldTestingggg\n```\n\n## Requirements\n\nThis library requires .NET Standard 2.0 or later.\n\n## Usage\n\nSee the [`examples`](examples) directory for complete and runnable examples.\n\n```csharp\nHelloWorldTestinggggClient client = new();\n\nPetUpdateParams parameters = new()\n{\n    Name = "doggie",\n    PhotoUrls =\n    [\n        "string"\n    ],\n};\n\nvar pet = await client.Pet.Update(parameters);\n\nConsole.WriteLine(pet);\n```',
+  },
   {
     language: 'go',
     content:
