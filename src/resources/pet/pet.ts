@@ -365,6 +365,13 @@ export namespace PetListLeaderboardResponse {
     badge?: PetListLeaderboardResponseItem.Badge;
 
     /**
+     * Docs anchor for the badge a leaderboard entry was awarded.
+     */
+    docsRef?:
+      | 'https://docs.petstore.example/leaderboard#top-adopter'
+      | 'https://docs.petstore.example/leaderboard#rising-star';
+
+    /**
      * Leaderboard position
      */
     rank?: number;
@@ -373,6 +380,11 @@ export namespace PetListLeaderboardResponse {
      * Adoption return on investment
      */
     roi?: PetListLeaderboardResponseItem.Roi;
+
+    /**
+     * Consecutive days on the leaderboard.
+     */
+    streak7d?: number;
   }
 
   export namespace PetListLeaderboardResponseItem {
