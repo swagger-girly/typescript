@@ -92,6 +92,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nsystem_health = hello_world_testingggg.health\n\nputs(system_health)',
       },
+      cli: {
+        method: '$client health',
+        example:
+          "hello-world-testingggg health \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'health',
         example:
@@ -149,6 +154,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'retrieve_rate_limits',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.retrieve_rate_limits\n\nputs(response)',
+      },
+      cli: {
+        method: '$client retrieve_rate_limits',
+        example: "hello-world-testingggg retrieve-rate-limits \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'retrieveRateLimits',
@@ -213,6 +222,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list\n\nputs(page)',
       },
+      cli: {
+        method: 'pet list',
+        example: 'hello-world-testingggg pet list',
+      },
       php: {
         method: 'pet->list',
         example:
@@ -272,6 +285,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_unpaginated\n\nputs(response)',
       },
+      cli: {
+        method: 'pet list_unpaginated',
+        example: 'hello-world-testingggg pet list-unpaginated',
+      },
       php: {
         method: 'pet->listUnpaginated',
         example:
@@ -329,6 +346,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.list_fake_page',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.list_fake_page\n\nputs(response)',
+      },
+      cli: {
+        method: 'pet list_fake_page',
+        example: 'hello-world-testingggg pet list-fake-page',
       },
       php: {
         method: 'pet->listFakePage',
@@ -389,6 +410,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npage = hello_world_testingggg.pet.list_fake_page_inferred\n\nputs(page)',
       },
+      cli: {
+        method: 'pet list_fake_page_inferred',
+        example: 'hello-world-testingggg pet list-fake-page-inferred',
+      },
       php: {
         method: 'pet->listFakePageInferred',
         example:
@@ -447,6 +472,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.list_leaderboard',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.pet.list_leaderboard\n\nputs(response)',
+      },
+      cli: {
+        method: 'pet list_leaderboard',
+        example:
+          "hello-world-testingggg pet list-leaderboard \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
       },
       php: {
         method: 'pet->listLeaderboard',
@@ -523,6 +553,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.update',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.update(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
+      },
+      cli: {
+        method: 'pet update',
+        example: 'hello-world-testingggg pet update \\\n  --name doggie \\\n  --photo-url string',
       },
       php: {
         method: 'pet->update',
@@ -601,6 +635,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npet = hello_world_testingggg.pet.create(name: "doggie", photo_urls: ["string"])\n\nputs(pet)',
       },
+      cli: {
+        method: 'pet create',
+        example: 'hello-world-testingggg pet create \\\n  --name doggie \\\n  --photo-url string',
+      },
       php: {
         method: 'pet->create',
         example:
@@ -661,6 +699,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_status\n\nputs(pets)',
       },
+      cli: {
+        method: 'pet find_by_status',
+        example: 'hello-world-testingggg pet find-by-status',
+      },
       php: {
         method: 'pet->findByStatus',
         example:
@@ -720,6 +762,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.find_by_tags',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.find_by_tags\n\nputs(pets)',
+      },
+      cli: {
+        method: 'pet find_by_tags',
+        example: 'hello-world-testingggg pet find-by-tags',
       },
       php: {
         method: 'pet->findByTags',
@@ -786,6 +832,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\npets = hello_world_testingggg.pet.search\n\nputs(pets)',
       },
+      cli: {
+        method: 'pet search',
+        example: 'hello-world-testingggg pet search',
+      },
       php: {
         method: 'pet->search',
         example:
@@ -845,6 +895,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.retrieve(0)\n\nputs(pet)',
       },
+      cli: {
+        method: 'pet retrieve',
+        example: "hello-world-testingggg pet retrieve \\\n  --api-key 'My API Key' \\\n  --pet-id 0",
+      },
       php: {
         method: 'pet->retrieve',
         example:
@@ -901,6 +955,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.update_with_form',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.update_with_form(0)\n\nputs(result)',
+      },
+      cli: {
+        method: 'pet update_with_form',
+        example: 'hello-world-testingggg pet update-with-form \\\n  --pet-id 0',
       },
       php: {
         method: 'pet->updateWithForm',
@@ -959,6 +1017,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresult = hello_world_testingggg.pet.delete(0)\n\nputs(result)',
       },
+      cli: {
+        method: 'pet delete',
+        example: 'hello-world-testingggg pet delete \\\n  --pet-id 0',
+      },
       php: {
         method: 'pet->delete',
         example:
@@ -1015,6 +1077,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.upload_image',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new\n\nresponse = hello_world_testingggg.pet.upload_image(0, body: StringIO.new("Example data"))\n\nputs(response)',
+      },
+      cli: {
+        method: 'pet upload_image',
+        example: "hello-world-testingggg pet upload-image \\\n  --pet-id 0 \\\n  --body 'Example data'",
       },
       php: {
         method: 'pet->uploadImage',
@@ -1077,6 +1143,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.pet.retrieve_premium(0)\n\nputs(response)',
       },
+      cli: {
+        method: 'pet retrieve_premium',
+        example: "hello-world-testingggg pet retrieve-premium \\\n  --api-key 'My API Key' \\\n  --pet-id 0",
+      },
       php: {
         method: 'pet->retrievePremium',
         example:
@@ -1137,6 +1207,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npet = hello_world_testingggg.pet.watch_status(0)\n\nputs(pet)',
       },
+      cli: {
+        method: 'pet watch_status',
+        example: "hello-world-testingggg pet watch-status \\\n  --api-key 'My API Key' \\\n  --pet-id 0",
+      },
       php: {
         method: 'pet->watchStatus',
         example:
@@ -1188,6 +1262,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'pet.connect',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.pet.connect\n\nputs(result)',
+      },
+      cli: {
+        example:
+          "hello-world-testingggg pet connect \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --pet-id petId",
       },
       php: {
         method: 'pet->connect',
@@ -1241,6 +1319,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfileslist = hello_world_testingggg.files.list\n\nputs(fileslist)',
+      },
+      cli: {
+        method: 'files list',
+        example: "hello-world-testingggg files list \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'files->list',
@@ -1307,6 +1389,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload(file: StringIO.new("Example data"))\n\nputs(file)',
       },
+      cli: {
+        method: 'files upload',
+        example:
+          "hello-world-testingggg files upload \\\n  --api-key 'My API Key' \\\n  --file 'Example data'",
+      },
       php: {
         method: 'files->upload',
         example:
@@ -1366,6 +1453,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.files.download("path")\n\nputs(response)',
       },
+      cli: {
+        method: 'files download',
+        example: "hello-world-testingggg files download \\\n  --api-key 'My API Key' \\\n  --path path",
+      },
       php: {
         method: 'files->download',
         example:
@@ -1422,6 +1513,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.files.delete("path")\n\nputs(result)',
+      },
+      cli: {
+        method: 'files delete',
+        example: "hello-world-testingggg files delete \\\n  --api-key 'My API Key' \\\n  --path path",
       },
       php: {
         method: 'files->delete',
@@ -1481,6 +1576,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.update("path")\n\nputs(file)',
       },
+      cli: {
+        method: 'files update',
+        example: "hello-world-testingggg files update \\\n  --api-key 'My API Key' \\\n  --path path",
+      },
       php: {
         method: 'files->update',
         example:
@@ -1538,6 +1637,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.upload_direct',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nfile = hello_world_testingggg.files.upload_direct(body: StringIO.new("Example data"))\n\nputs(file)',
+      },
+      cli: {
+        method: 'files upload_direct',
+        example:
+          "hello-world-testingggg files upload-direct \\\n  --api-key 'My API Key' \\\n  --body 'Example data'",
       },
       php: {
         method: 'files->uploadDirect',
@@ -1597,6 +1701,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'files.create_archive',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\narchive = hello_world_testingggg.files.create_archive(files: [StringIO.new("Example data")])\n\nputs(archive)',
+      },
+      cli: {
+        method: 'files create_archive',
+        example:
+          "hello-world-testingggg files create-archive \\\n  --api-key 'My API Key' \\\n  --file 'Example data'",
       },
       php: {
         method: 'files->createArchive',
@@ -1667,6 +1776,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.create(display_name: "Ada Lovelace")\n\nputs(profile)',
       },
+      cli: {
+        method: 'profiles create',
+        example:
+          "hello-world-testingggg profiles create \\\n  --api-key 'My API Key' \\\n  --display-name 'Ada Lovelace'",
+      },
       php: {
         method: 'profiles->create',
         example:
@@ -1726,6 +1840,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'profiles.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.retrieve("profileId")\n\nputs(profile)',
+      },
+      cli: {
+        method: 'profiles retrieve',
+        example:
+          "hello-world-testingggg profiles retrieve \\\n  --api-key 'My API Key' \\\n  --profile-id profileId",
       },
       php: {
         method: 'profiles->retrieve',
@@ -1788,6 +1907,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofile = hello_world_testingggg.profiles.update("profileId", body: {})\n\nputs(profile)',
       },
+      cli: {
+        method: 'profiles update',
+        example:
+          "hello-world-testingggg profiles update \\\n  --api-key 'My API Key' \\\n  --profile-id profileId \\\n  --archived-at \"'2019-12-27T18:11:19.117Z'\" \\\n  --archived-reason duplicate",
+      },
       php: {
         method: 'profiles->update',
         example:
@@ -1848,6 +1972,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nprofiles = hello_world_testingggg.profiles.legacy_search\n\nputs(profiles)',
       },
+      cli: {
+        method: 'profiles legacy_search',
+        example: "hello-world-testingggg profiles legacy-search \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'profiles->legacySearch',
         example:
@@ -1906,6 +2034,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.create',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.create(body: {applicant_type: :individual, name: "name"})\n\nputs(application)',
+      },
+      cli: {
+        method: 'adoptions create',
+        example:
+          "hello-world-testingggg adoptions create \\\n  --api-key 'My API Key' \\\n  --applicant-type individual \\\n  --name name",
       },
       php: {
         method: 'adoptions->create',
@@ -1967,6 +2100,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\napplication = hello_world_testingggg.adoptions.retrieve("applicationId")\n\nputs(application)',
       },
+      cli: {
+        method: 'adoptions retrieve',
+        example:
+          "hello-world-testingggg adoptions retrieve \\\n  --api-key 'My API Key' \\\n  --application-id applicationId",
+      },
       php: {
         method: 'adoptions->retrieve',
         example:
@@ -2027,6 +2165,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.adoptions.retrieve_decision("applicationId")\n\nputs(response)',
       },
+      cli: {
+        method: 'adoptions retrieve_decision',
+        example:
+          "hello-world-testingggg adoptions retrieve-decision \\\n  --api-key 'My API Key' \\\n  --application-id applicationId",
+      },
       php: {
         method: 'adoptions->retrieveDecision',
         example:
@@ -2086,6 +2229,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.policies.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.adoptions.policies.list\n\nputs(page)',
+      },
+      cli: {
+        method: 'policies list',
+        example: "hello-world-testingggg adoptions:policies list \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'adoptions->policies->list',
@@ -2154,6 +2301,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.create(\n  name: "name",\n  rules: [{attribute: :PET_STATUS, operation: :IS_ONE_OF}]\n)\n\nputs(policy)',
       },
+      cli: {
+        method: 'policies create',
+        example:
+          "hello-world-testingggg adoptions:policies create \\\n  --api-key 'My API Key' \\\n  --name name \\\n  --rule '{attribute: PET_STATUS, operation: IS_ONE_OF}'",
+      },
       php: {
         method: 'adoptions->policies->create',
         example:
@@ -2213,6 +2365,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'adoptions.policies.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.retrieve("policyId")\n\nputs(policy)',
+      },
+      cli: {
+        method: 'policies retrieve',
+        example:
+          "hello-world-testingggg adoptions:policies retrieve \\\n  --api-key 'My API Key' \\\n  --policy-id policyId",
       },
       php: {
         method: 'adoptions->policies->retrieve',
@@ -2274,6 +2431,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npolicy = hello_world_testingggg.adoptions.policies.update("policyId", body: {})\n\nputs(policy)',
       },
+      cli: {
+        method: 'policies update',
+        example:
+          "hello-world-testingggg adoptions:policies update \\\n  --api-key 'My API Key' \\\n  --policy-id policyId \\\n  --actor actor \\\n  --status active",
+      },
       php: {
         method: 'adoptions->policies->update',
         example:
@@ -2333,6 +2495,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'placements.list',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.placements.list\n\nputs(page)',
+      },
+      cli: {
+        method: 'placements list',
+        example: "hello-world-testingggg placements list \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'placements->list',
@@ -2398,6 +2564,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.create(application_id: "applicationId")\n\nputs(placement)',
       },
+      cli: {
+        method: 'placements create',
+        example:
+          "hello-world-testingggg placements create \\\n  --api-key 'My API Key' \\\n  --application-id applicationId",
+      },
       php: {
         method: 'placements->create',
         example:
@@ -2457,6 +2628,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'placements.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.retrieve("placementId")\n\nputs(placement)',
+      },
+      cli: {
+        method: 'placements retrieve',
+        example:
+          "hello-world-testingggg placements retrieve \\\n  --api-key 'My API Key' \\\n  --placement-id placementId",
       },
       php: {
         method: 'placements->retrieve',
@@ -2518,6 +2694,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nplacement = hello_world_testingggg.placements.record_event(\n  "placementId",\n  placement_event: {id: "id", leg: {location: {}}, occurredAt: "2019-12-27T18:11:19.117Z", type: :transfer}\n)\n\nputs(placement)',
       },
+      cli: {
+        method: 'placements record_event',
+        example:
+          "hello-world-testingggg placements record-event \\\n  --api-key 'My API Key' \\\n  --placement-id placementId \\\n  --id id \\\n  --leg '{location: {}}' \\\n  --occurred-at \"'2019-12-27T18:11:19.117Z'\" \\\n  --type transfer \\\n  --severity 0",
+      },
       php: {
         method: 'placements->recordEvent',
         example:
@@ -2571,6 +2752,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.webhooks.parsed\n\nputs(result)',
       },
+      cli: {
+        example:
+          "hello-world-testingggg webhooks parsed \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'webhooks->parsed',
         example:
@@ -2617,6 +2802,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'notifications.webhooks.parse_pet',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.notifications.webhooks.parse_pet\n\nputs(result)',
+      },
+      cli: {
+        example:
+          "hello-world-testingggg notifications:webhooks parse-pet \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
       },
       php: {
         method: 'notifications->webhooks->parsePet',
@@ -2670,6 +2859,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.list_inventory',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.list_inventory\n\nputs(response)',
+      },
+      cli: {
+        method: 'store list_inventory',
+        example: "hello-world-testingggg store list-inventory \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'store->listInventory',
@@ -2729,6 +2922,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.retrieve_activity',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.retrieve_activity("activityId")\n\nputs(response)',
+      },
+      cli: {
+        method: 'store retrieve_activity',
+        example:
+          "hello-world-testingggg store retrieve-activity \\\n  --api-key 'My API Key' \\\n  --activity-id activityId",
       },
       php: {
         method: 'store->retrieveActivity',
@@ -2805,6 +3003,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\norder = hello_world_testingggg.store.order.create\n\nputs(order)',
       },
+      cli: {
+        method: 'order create',
+        example:
+          "hello-world-testingggg store:order create \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'store->order->create',
         example:
@@ -2865,6 +3068,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\norder = hello_world_testingggg.store.order.retrieve(0)\n\nputs(order)',
       },
+      cli: {
+        method: 'order retrieve',
+        example:
+          "hello-world-testingggg store:order retrieve \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --order-id 0",
+      },
       php: {
         method: 'store->order->retrieve',
         example:
@@ -2922,6 +3130,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.order.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.store.order.delete(0)\n\nputs(result)',
+      },
+      cli: {
+        method: 'order delete',
+        example:
+          "hello-world-testingggg store:order delete \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --order-id 0",
       },
       php: {
         method: 'store->order->delete',
@@ -2982,6 +3195,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\npage = hello_world_testingggg.store.reports.list\n\nputs(page)',
       },
+      cli: {
+        method: 'reports list',
+        example: "hello-world-testingggg store:reports list \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'store->reports->list',
         example:
@@ -3041,6 +3258,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nreport = hello_world_testingggg.store.reports.retrieve("reportId")\n\nputs(report)',
       },
+      cli: {
+        method: 'reports retrieve',
+        example:
+          "hello-world-testingggg store:reports retrieve \\\n  --api-key 'My API Key' \\\n  --report-id reportId",
+      },
       php: {
         method: 'store->reports->retrieve',
         example:
@@ -3099,6 +3321,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.store.reports.embed("reportId")\n\nputs(response)',
       },
+      cli: {
+        method: 'reports embed',
+        example:
+          "hello-world-testingggg store:reports embed \\\n  --api-key 'My API Key' \\\n  --report-id reportId",
+      },
       php: {
         method: 'store->reports->embed',
         example:
@@ -3155,6 +3382,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.reports.pause',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.store.reports.pause("reportId")\n\nputs(result)',
+      },
+      cli: {
+        method: 'reports pause',
+        example:
+          "hello-world-testingggg store:reports pause \\\n  --api-key 'My API Key' \\\n  --report-id reportId",
       },
       php: {
         method: 'store->reports->pause',
@@ -3214,6 +3446,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ninventory_response = hello_world_testingggg.store.reports.inventory.list("reportId")\n\nputs(inventory_response)',
       },
+      cli: {
+        method: 'inventory list',
+        example:
+          "hello-world-testingggg store:reports:inventory list \\\n  --api-key 'My API Key' \\\n  --report-id reportId",
+      },
       php: {
         method: 'store->reports->inventory->list',
         example:
@@ -3271,6 +3508,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'store.reports.inventory.daily.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\ndaily_inventory = hello_world_testingggg.store.reports.inventory.daily.retrieve("2019-12-27", report_id: "reportId")\n\nputs(daily_inventory)',
+      },
+      cli: {
+        method: 'daily retrieve',
+        example:
+          "hello-world-testingggg store:reports:inventory:daily retrieve \\\n  --api-key 'My API Key' \\\n  --report-id reportId \\\n  --date \"'2019-12-27'\"",
       },
       php: {
         method: 'store->reports->inventory->daily->retrieve',
@@ -3348,6 +3590,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nuser = hello_world_testingggg.user.create\n\nputs(user)',
       },
+      cli: {
+        method: 'user create',
+        example:
+          "hello-world-testingggg user create \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'user->create',
         example:
@@ -3409,6 +3656,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.user.create_with_list\n\nputs(response)',
       },
+      cli: {
+        method: 'user create_with_list',
+        example:
+          "hello-world-testingggg user create-with-list \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'user->createWithList',
         example:
@@ -3467,6 +3719,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresponse = hello_world_testingggg.user.login\n\nputs(response)',
       },
+      cli: {
+        method: 'user login',
+        example:
+          "hello-world-testingggg user login \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
+      },
       php: {
         method: 'user->login',
         example:
@@ -3522,6 +3779,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.logout',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.logout\n\nputs(result)',
+      },
+      cli: {
+        method: 'user logout',
+        example:
+          "hello-world-testingggg user logout \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password'",
       },
       php: {
         method: 'user->logout',
@@ -3580,6 +3842,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.retrieve',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nuser = hello_world_testingggg.user.retrieve("username")\n\nputs(user)',
+      },
+      cli: {
+        method: 'user retrieve',
+        example:
+          "hello-world-testingggg user retrieve \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --username username",
       },
       php: {
         method: 'user->retrieve',
@@ -3656,6 +3923,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.update("username")\n\nputs(result)',
       },
+      cli: {
+        method: 'user update',
+        example:
+          "hello-world-testingggg user update \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --username username",
+      },
       php: {
         method: 'user->update',
         example:
@@ -3712,6 +3984,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.delete',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(\n  api_key: "My API Key",\n  basic_auth_username: "My Basic Auth Username",\n  basic_auth_password: "My Basic Auth Password"\n)\n\nresult = hello_world_testingggg.user.delete("username")\n\nputs(result)',
+      },
+      cli: {
+        method: 'user delete',
+        example:
+          "hello-world-testingggg user delete \\\n  --api-key 'My API Key' \\\n  --basic-auth-username 'My Basic Auth Username' \\\n  --basic-auth-password 'My Basic Auth Password' \\\n  --username username",
       },
       php: {
         method: 'user->delete',
@@ -3772,6 +4049,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'user.verify_identity',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.user.verify_identity("username")\n\nputs(response)',
+      },
+      cli: {
+        method: 'user verify_identity',
+        example:
+          "hello-world-testingggg user verify-identity \\\n  --api-key 'My API Key' \\\n  --username username",
       },
       php: {
         method: 'user->verifyIdentity',
@@ -3839,6 +4121,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.ai.ai_query(\n  data_to_extract: [{datapoint_name: "datapoint_name"}],\n  domain: "domain"\n)\n\nputs(response)',
       },
+      cli: {
+        method: 'ai ai_query',
+        example:
+          "hello-world-testingggg ai ai-query \\\n  --api-key 'My API Key' \\\n  --data-to-extract '{datapoint_name: datapoint_name}' \\\n  --domain domain",
+      },
       php: {
         method: 'ai->aiQuery',
         example:
@@ -3897,6 +4184,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_first\n\nputs(response)',
       },
+      cli: {
+        method: 'media text_first',
+        example: "hello-world-testingggg media text-first \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'media->textFirst',
         example:
@@ -3953,6 +4244,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.json_first',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_first\n\nputs(response)',
+      },
+      cli: {
+        method: 'media json_first',
+        example: "hello-world-testingggg media json-first \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'media->jsonFirst',
@@ -4011,6 +4306,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.json_and_xml\n\nputs(response)',
       },
+      cli: {
+        method: 'media json_and_xml',
+        example: "hello-world-testingggg media json-and-xml \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'media->jsonAndXml',
         example:
@@ -4068,6 +4367,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.text_only\n\nputs(response)',
       },
+      cli: {
+        method: 'media text_only',
+        example: "hello-world-testingggg media text-only \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'media->textOnly',
         example:
@@ -4123,6 +4426,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.schema_on_text',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresult = hello_world_testingggg.media.schema_on_text\n\nputs(result)',
+      },
+      cli: {
+        method: 'media schema_on_text',
+        example: "hello-world-testingggg media schema-on-text \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'media->schemaOnText',
@@ -4181,6 +4488,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.schema_on_json\n\nputs(response)',
       },
+      cli: {
+        method: 'media schema_on_json',
+        example: "hello-world-testingggg media schema-on-json \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'media->schemaOnJson',
         example:
@@ -4237,6 +4548,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'media.vendor_json',
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.vendor_json\n\nputs(response)',
+      },
+      cli: {
+        method: 'media vendor_json',
+        example: "hello-world-testingggg media vendor-json \\\n  --api-key 'My API Key'",
       },
       php: {
         method: 'media->vendorJson',
@@ -4295,6 +4610,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'require "hello_world_testingggg"\n\nhello_world_testingggg = HelloWorldTestingggg::Client.new(api_key: "My API Key")\n\nresponse = hello_world_testingggg.media.binary_and_json\n\nputs(response)',
       },
+      cli: {
+        method: 'media binary_and_json',
+        example: "hello-world-testingggg media binary-and-json \\\n  --api-key 'My API Key'",
+      },
       php: {
         method: 'media->binaryAndJson',
         example:
@@ -4313,6 +4632,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
+  {
+    language: 'cli',
+    content:
+      "# Hello World Testingggg CLI\n\nThe official CLI for the [Hello World Testingggg REST API](http://swagger.io).\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## Installation\n\n### Installing with Go\n\nTo test or install the CLI locally, you need [Go](https://go.dev/doc/install) version 1.22 or later installed.\n\n~~~sh\ngo install 'github.com/stainless-sdks/hello-world-testingggg-cli/cmd/hello-world-testingggg@latest'\n~~~\n\nOnce you have run `go install`, the binary is placed in your Go bin directory:\n\n- **Default location**: `$HOME/go/bin` (or `$GOPATH/bin` if GOPATH is set)\n- **Check your path**: Run `go env GOPATH` to see the base directory\n\nIf commands aren't found after installation, add the Go bin directory to your PATH:\n\n~~~sh\n# Add to your shell profile (.zshrc, .bashrc, etc.)\nexport PATH=\"$PATH:$(go env GOPATH)/bin\"\n~~~\n\n### Running Locally\n\nAfter cloning the git repository for this project, you can use the\n`scripts/run` script to run the tool locally:\n\n~~~sh\n./scripts/run args...\n~~~\n\n## Usage\n\nThe CLI follows a resource-based command structure:\n\n~~~sh\nhello-world-testingggg [resource] <command> [flags...]\n~~~\n\n~~~sh\nhello-world-testingggg pet update \\\n  --name doggie \\\n  --photo-url string\n~~~\n\nFor details about specific commands, use the `--help` flag.\n\n### Environment variables\n\n| Environment variable      | Description                                        | Required | Default value |\n| ------------------------- | -------------------------------------------------- | -------- | ------------- |\n| `API_KEY`                 | The API key for authorization in the header.       | yes      |               |\n| `BASIC_AUTH_USERNAME`     | Username for HTTP Basic authentication.            | yes      |               |\n| `BASIC_AUTH_PASSWORD`     | Password for HTTP Basic authentication.            | yes      |               |\n| `PETSTORE_WEBHOOK_SECRET` | Secret used to verify incoming webhook signatures. | no       | `null`        |\n\n### Global flags\n\n- `--api-key` - The API key for authorization in the header. (can also be set with `API_KEY` env var)\n- `--basic-auth-username` - Username for HTTP Basic authentication. (can also be set with `BASIC_AUTH_USERNAME` env var)\n- `--basic-auth-password` - Password for HTTP Basic authentication. (can also be set with `BASIC_AUTH_PASSWORD` env var)\n- `--webhook-secret` - Secret used to verify incoming webhook signatures. (can also be set with `PETSTORE_WEBHOOK_SECRET` env var)\n- `--help` - Show command line usage\n- `--debug` - Enable debug logging (includes HTTP request/response details)\n- `--version`, `-v` - Show the CLI version\n- `--base-url` - Use a custom API backend URL\n- `--format` - Change the output format (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--format-error` - Change the output format for errors (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--transform` - Transform the data output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n- `--transform-error` - Transform the error output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n\n### Passing files as arguments\n\nTo pass files to your API, you can use the `@myfile.ext` syntax:\n\n~~~bash\nhello-world-testingggg <command> --arg @abe.jpg\n~~~\n\nFiles can also be passed inside JSON or YAML blobs:\n\n~~~bash\nhello-world-testingggg <command> --arg '{image: \"@abe.jpg\"}'\n# Equivalent:\nhello-world-testingggg <command> <<YAML\narg:\n  image: \"@abe.jpg\"\nYAML\n~~~\n\nIf you need to pass a string literal that begins with an `@` sign, you can\nescape the `@` sign to avoid accidentally passing a file.\n\n~~~bash\nhello-world-testingggg <command> --username '\\@abe'\n~~~\n\n#### Explicit encoding\n\nFor JSON endpoints, the CLI tool does filetype sniffing to determine whether the\nfile contents should be sent as a string literal (for plain text files) or as a\nbase64-encoded string literal (for binary files). If you need to explicitly send\nthe file as either plain text or base64-encoded data, you can use\n`@file://myfile.txt` (for string encoding) or `@data://myfile.dat` (for\nbase64-encoding). Note that absolute paths will begin with `@file://` or\n`@data://`, followed by a third `/` (for example, `@file:///tmp/file.txt`).\n\n~~~bash\nhello-world-testingggg <command> --arg @data://file.txt\n~~~\n\n## Linking different Go SDK versions\n\nYou can link the CLI against a different version of the Hello World Testingggg Go SDK\nfor development purposes using the `./scripts/link` script.\n\nTo link to a specific version from a repository (version can be a branch,\ngit tag, or commit hash):\n\n~~~bash\n./scripts/link github.com/org/repo@version\n~~~\n\nTo link to a local copy of the SDK:\n\n~~~bash\n./scripts/link ../path/to/helloworldtestingggg-go\n~~~\n\nIf you run the link script without any arguments, it will default to `../helloworldtestingggg-go`.\n",
+  },
   {
     language: 'csharp',
     content:
