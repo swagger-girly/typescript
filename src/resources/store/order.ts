@@ -1,30 +1,53 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
+import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
+import * as PetAPI from '../pet/pet';
+import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-export class OrderResource extends APIResource {
+/**
+ * Access to Petstore orders
+ */
+export class Order extends APIResource {
   /**
    * Place a new order in the store
+   *
+   * @example
+   * ```ts
+   * const order = await client.store.order.create();
+   * ```
    */
-  create(body: OrderCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<Order> {
+  create(
+    body: OrderCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<OrderCreateResponse> {
     return this._client.post('/store/order', { body, ...options });
   }
 
   /**
    * For valid response try integer IDs with value <= 5 or > 10. Other values will
    * generate exceptions.
+   *
+   * @example
+   * ```ts
+   * const order = await client.store.order.retrieve(0);
+   * ```
    */
-  retrieve(orderID: number, options?: RequestOptions): APIPromise<Order> {
+  retrieve(orderID: number, options?: RequestOptions): APIPromise<OrderRetrieveResponse> {
     return this._client.get(path`/store/order/${orderID}`, options);
   }
 
   /**
    * For valid response try integer IDs with value < 1000. Anything above 1000 or
    * nonintegers will generate API errors
+   *
+   * @example
+   * ```ts
+   * await client.store.order.delete(0);
+   * ```
    */
   delete(orderID: number, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/store/order/${orderID}`, {
@@ -34,7 +57,7 @@ export class OrderResource extends APIResource {
   }
 }
 
-export interface Order {
+export interface OrderCreateResponse {
   id?: number;
 
   complete?: boolean;
@@ -43,12 +66,65 @@ export interface Order {
 
   quantity?: number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
+
   shipDate?: string;
 
   /**
    * Order Status
    */
   status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
+}
+
+export interface OrderRetrieveResponse {
+  id?: number;
+
+  complete?: boolean;
+
+  petId?: number;
+
+  quantity?: number;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
+
+  shipDate?: string;
+
+  /**
+   * Order Status
+   */
+  status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
 }
 
 export interface OrderCreateParams {
@@ -60,14 +136,36 @@ export interface OrderCreateParams {
 
   quantity?: number;
 
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedPet?: PetAPI.Pet;
+
+  relatedShelter?: unknown;
+
+  relatedTag?: unknown;
+
+  relatedUser?: unknown;
+
   shipDate?: string;
 
   /**
    * Order Status
    */
   status?: 'placed' | 'approved' | 'delivered';
+
+  total?: Shared.Money;
 }
 
-export declare namespace OrderResource {
-  export { type Order as Order, type OrderCreateParams as OrderCreateParams };
+export declare namespace Order {
+  export {
+    type OrderCreateResponse as OrderCreateResponse,
+    type OrderRetrieveResponse as OrderRetrieveResponse,
+    type OrderCreateParams as OrderCreateParams,
+  };
 }

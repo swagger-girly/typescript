@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'hello-world-testingggg/api-promise';
+import { APIPromise } from 'hello-world-testingggg/core/api-promise';
 
 import util from 'node:util';
 import HelloWorldTestingggg from 'hello-world-testingggg';
@@ -13,8 +13,6 @@ describe('instantiate client', () => {
   beforeEach(() => {
     jest.resetModules();
     process.env = { ...env };
-
-    console.warn = jest.fn();
   });
 
   afterEach(() => {
@@ -26,15 +24,17 @@ describe('instantiate client', () => {
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
     });
 
-    test('they are used in the request', () => {
-      const { req } = client.buildRequest({ path: '/foo', method: 'post' });
+    test('they are used in the request', async () => {
+      const { req } = await client.buildRequest({ path: '/foo', method: 'post' });
       expect(req.headers.get('x-my-default-header')).toEqual('2');
     });
 
-    test('can ignore `undefined` and leave the default', () => {
-      const { req } = client.buildRequest({
+    test('can ignore `undefined` and leave the default', async () => {
+      const { req } = await client.buildRequest({
         path: '/foo',
         method: 'post',
         headers: { 'X-My-Default-Header': undefined },
@@ -42,8 +42,8 @@ describe('instantiate client', () => {
       expect(req.headers.get('x-my-default-header')).toEqual('2');
     });
 
-    test('can be removed with `null`', () => {
-      const { req } = client.buildRequest({
+    test('can be removed with `null`', async () => {
+      const { req } = await client.buildRequest({
         path: '/foo',
         method: 'post',
         headers: { 'X-My-Default-Header': null },
@@ -52,8 +52,15 @@ describe('instantiate client', () => {
     });
   });
   describe('logging', () => {
-    afterEach(() => {
+    const env = process.env;
+
+    beforeEach(() => {
+      process.env = { ...env };
       process.env['HELLO_WORLD_TESTINGGGG_LOG'] = undefined;
+    });
+
+    afterEach(() => {
+      process.env = env;
     });
 
     const forceAPIResponseForClient = async (client: HelloWorldTestingggg) => {
@@ -62,6 +69,9 @@ describe('instantiate client', () => {
         Promise.resolve({
           response: new Response(),
           controller: new AbortController(),
+          requestLogID: 'log_000000',
+          retryOfRequestLogID: undefined,
+          startTime: Date.now(),
           options: {
             method: 'get',
             path: '/',
@@ -79,10 +89,25 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new HelloWorldTestingggg({ logger: logger, logLevel: 'debug', apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        logLevel: 'debug',
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).toHaveBeenCalled();
+    });
+
+    test('default logLevel is warn', async () => {
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.logLevel).toBe('warn');
     });
 
     test('debug logs are skipped when log level is info', async () => {
@@ -94,7 +119,13 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new HelloWorldTestingggg({ logger: logger, logLevel: 'info', apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        logLevel: 'info',
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -110,10 +141,38 @@ describe('instantiate client', () => {
       };
 
       process.env['HELLO_WORLD_TESTINGGGG_LOG'] = 'debug';
-      const client = new HelloWorldTestingggg({ logger: logger, apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
       expect(debugMock).toHaveBeenCalled();
+    });
+
+    test('warn when env var level is invalid', async () => {
+      const warnMock = jest.fn();
+      const logger = {
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: warnMock,
+        error: jest.fn(),
+      };
+
+      process.env['HELLO_WORLD_TESTINGGGG_LOG'] = 'not a log level';
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.logLevel).toBe('warn');
+      expect(warnMock).toHaveBeenCalledWith(
+        'process.env[\'HELLO_WORLD_TESTINGGGG_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
+      );
     });
 
     test('client log level overrides env var', async () => {
@@ -126,10 +185,37 @@ describe('instantiate client', () => {
       };
 
       process.env['HELLO_WORLD_TESTINGGGG_LOG'] = 'debug';
-      const client = new HelloWorldTestingggg({ logger: logger, logLevel: 'off', apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        logLevel: 'off',
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
+    });
+
+    test('no warning logged for invalid env var level + valid client level', async () => {
+      const warnMock = jest.fn();
+      const logger = {
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: warnMock,
+        error: jest.fn(),
+      };
+
+      process.env['HELLO_WORLD_TESTINGGGG_LOG'] = 'not a log level';
+      const client = new HelloWorldTestingggg({
+        logger: logger,
+        logLevel: 'debug',
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.logLevel).toBe('debug');
+      expect(warnMock).not.toHaveBeenCalled();
     });
   });
 
@@ -139,6 +225,8 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -148,6 +236,8 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -157,6 +247,8 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -166,6 +258,8 @@ describe('instantiate client', () => {
     const client = new HelloWorldTestingggg({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -184,6 +278,8 @@ describe('instantiate client', () => {
     const client = new HelloWorldTestingggg({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
       fetch: defaultFetch,
     });
   });
@@ -192,6 +288,8 @@ describe('instantiate client', () => {
     const client = new HelloWorldTestingggg({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -224,6 +322,8 @@ describe('instantiate client', () => {
     const client = new HelloWorldTestingggg({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
       fetch: testFetch,
     });
 
@@ -236,6 +336,8 @@ describe('instantiate client', () => {
       const client = new HelloWorldTestingggg({
         baseURL: 'http://localhost:5000/custom/path/',
         apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -244,6 +346,8 @@ describe('instantiate client', () => {
       const client = new HelloWorldTestingggg({
         baseURL: 'http://localhost:5000/custom/path',
         apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -253,59 +357,218 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new HelloWorldTestingggg({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        baseURL: 'https://example.com',
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] = 'https://example.com/from_env';
-      const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] = ''; // empty
-      const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
       expect(client.baseURL).toEqual('/api/v3');
     });
 
     test('blank env variable', () => {
       process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] = '  '; // blank
-      const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
       expect(client.baseURL).toEqual('/api/v3');
+    });
+
+    test('in request options', () => {
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/option/foo',
+      );
+    });
+
+    test('in request options overridden by client options', () => {
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+        baseURL: 'http://localhost:5000/client',
+      });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/client/foo',
+      );
+    });
+
+    test('in request options overridden by env variable', () => {
+      process.env['HELLO_WORLD_TESTINGGGG_BASE_URL'] = 'http://localhost:5000/env';
+      const client = new HelloWorldTestingggg({
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/env/foo',
+      );
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new HelloWorldTestingggg({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new HelloWorldTestingggg({
+      maxRetries: 4,
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+    });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+    const client2 = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+    });
     expect(client2.maxRetries).toEqual(2);
+  });
+
+  describe('withOptions', () => {
+    test('creates a new client with overridden options', async () => {
+      const client = new HelloWorldTestingggg({
+        baseURL: 'http://localhost:5000/',
+        maxRetries: 3,
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+
+      const newClient = client.withOptions({
+        maxRetries: 5,
+        baseURL: 'http://localhost:5001/',
+      });
+
+      // Verify the new client has updated options
+      expect(newClient.maxRetries).toEqual(5);
+      expect(newClient.baseURL).toEqual('http://localhost:5001/');
+
+      // Verify the original client is unchanged
+      expect(client.maxRetries).toEqual(3);
+      expect(client.baseURL).toEqual('http://localhost:5000/');
+
+      // Verify it's a different instance
+      expect(newClient).not.toBe(client);
+      expect(newClient.constructor).toBe(client.constructor);
+    });
+
+    test('inherits options from the parent client', async () => {
+      const client = new HelloWorldTestingggg({
+        baseURL: 'http://localhost:5000/',
+        defaultHeaders: { 'X-Test-Header': 'test-value' },
+        defaultQuery: { 'test-param': 'test-value' },
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+
+      const newClient = client.withOptions({
+        baseURL: 'http://localhost:5001/',
+      });
+
+      // Test inherited options remain the same
+      expect(newClient.buildURL('/foo', null)).toEqual('http://localhost:5001/foo?test-param=test-value');
+
+      const { req } = await newClient.buildRequest({ path: '/foo', method: 'get' });
+      expect(req.headers.get('x-test-header')).toEqual('test-value');
+    });
+
+    test('respects runtime property changes when creating new client', () => {
+      const client = new HelloWorldTestingggg({
+        baseURL: 'http://localhost:5000/',
+        timeout: 1000,
+        apiKey: 'My API Key',
+        basicAuthUsername: 'My Basic Auth Username',
+        basicAuthPassword: 'My Basic Auth Password',
+      });
+
+      // Modify the client properties directly after creation
+      client.baseURL = 'http://localhost:6000/';
+      client.timeout = 2000;
+
+      // Create a new client with withOptions
+      const newClient = client.withOptions({
+        maxRetries: 10,
+      });
+
+      // Verify the new client uses the updated properties, not the original ones
+      expect(newClient.baseURL).toEqual('http://localhost:6000/');
+      expect(newClient.timeout).toEqual(2000);
+      expect(newClient.maxRetries).toEqual(10);
+
+      // Original client should still have its modified properties
+      expect(client.baseURL).toEqual('http://localhost:6000/');
+      expect(client.timeout).toEqual(2000);
+      expect(client.maxRetries).not.toEqual(10);
+
+      // Verify URL building uses the updated baseURL
+      expect(newClient.buildURL('/bar', null)).toEqual('http://localhost:6000/bar');
+    });
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['API_KEY'] = 'My API Key';
+    process.env['BASIC_AUTH_USERNAME'] = 'My Basic Auth Username';
+    process.env['BASIC_AUTH_PASSWORD'] = 'My Basic Auth Password';
     const client = new HelloWorldTestingggg();
     expect(client.apiKey).toBe('My API Key');
+    expect(client.basicAuthUsername).toBe('My Basic Auth Username');
+    expect(client.basicAuthPassword).toBe('My Basic Auth Password');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['API_KEY'] = 'another My API Key';
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+    process.env['BASIC_AUTH_USERNAME'] = 'another My Basic Auth Username';
+    process.env['BASIC_AUTH_PASSWORD'] = 'another My Basic Auth Password';
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+    });
     expect(client.apiKey).toBe('My API Key');
+    expect(client.basicAuthUsername).toBe('My Basic Auth Username');
+    expect(client.basicAuthPassword).toBe('My Basic Auth Password');
   });
 });
 
 describe('request building', () => {
-  const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+  const client = new HelloWorldTestingggg({
+    apiKey: 'My API Key',
+    basicAuthUsername: 'My Basic Auth Username',
+    basicAuthPassword: 'My Basic Auth Password',
+  });
 
   describe('custom headers', () => {
-    test('handles undefined', () => {
-      const { req } = client.buildRequest({
+    test('handles undefined', async () => {
+      const { req } = await client.buildRequest({
         path: '/foo',
         method: 'post',
         body: { value: 'hello' },
@@ -320,7 +583,11 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new HelloWorldTestingggg({ apiKey: 'My API Key' });
+  const client = new HelloWorldTestingggg({
+    apiKey: 'My API Key',
+    basicAuthUsername: 'My Basic Auth Username',
+    basicAuthPassword: 'My Basic Auth Password',
+  });
 
   class Serializable {
     toJSON() {
@@ -340,8 +607,8 @@ describe('default encoder', () => {
     }
   }
   for (const jsonValue of [{}, [], { __proto__: null }, new Serializable(), new Collection(['item'])]) {
-    test(`serializes ${util.inspect(jsonValue)} as json`, () => {
-      const { req } = client.buildRequest({
+    test(`serializes ${util.inspect(jsonValue)} as json`, async () => {
+      const { req } = await client.buildRequest({
         path: '/foo',
         method: 'post',
         body: jsonValue,
@@ -364,7 +631,7 @@ describe('default encoder', () => {
     asyncIterable,
   ]) {
     test(`converts ${util.inspect(streamValue)} to ReadableStream`, async () => {
-      const { req } = client.buildRequest({
+      const { req } = await client.buildRequest({
         path: '/foo',
         method: 'post',
         body: streamValue,
@@ -377,7 +644,7 @@ describe('default encoder', () => {
   }
 
   test(`can set content-type for ReadableStream`, async () => {
-    const { req } = client.buildRequest({
+    const { req } = await client.buildRequest({
       path: '/foo',
       method: 'post',
       body: new Response('a\nb\nc\n').body,
@@ -405,7 +672,13 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      timeout: 10,
+      fetch: testFetch,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -435,7 +708,13 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      fetch: testFetch,
+      maxRetries: 4,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
 
@@ -459,7 +738,13 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      fetch: testFetch,
+      maxRetries: 4,
+    });
 
     expect(
       await client.request({
@@ -490,6 +775,8 @@ describe('retries', () => {
     };
     const client = new HelloWorldTestingggg({
       apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -521,7 +808,13 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      fetch: testFetch,
+      maxRetries: 4,
+    });
 
     expect(
       await client.request({
@@ -551,7 +844,12 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      fetch: testFetch,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -581,7 +879,12 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new HelloWorldTestingggg({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new HelloWorldTestingggg({
+      apiKey: 'My API Key',
+      basicAuthUsername: 'My Basic Auth Username',
+      basicAuthPassword: 'My Basic Auth Password',
+      fetch: testFetch,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
