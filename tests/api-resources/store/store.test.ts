@@ -4,13 +4,27 @@ import HelloWorldTestingggg from 'hello-world-testingggg';
 
 const client = new HelloWorldTestingggg({
   apiKey: 'My API Key',
+  basicAuthUsername: 'My Basic Auth Username',
+  basicAuthPassword: 'My Basic Auth Password',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource store', () => {
-  // skipped: tests are disabled for the time being
+  // Mock server tests are disabled
   test.skip('listInventory', async () => {
     const responsePromise = client.store.listInventory();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveActivity', async () => {
+    const responsePromise = client.store.retrieveActivity('activityId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

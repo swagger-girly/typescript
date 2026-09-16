@@ -1,0 +1,1233 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { APIResource } from '../../core/resource';
+import * as PetAPI from './pet';
+import * as Shared from '../shared';
+import { APIPromise } from '../../core/api-promise';
+import {
+  CustomCursorPage,
+  type CustomCursorPageParams,
+  PagePromise,
+  XFakeSinglePage,
+} from '../../core/pagination';
+import { Stream } from '../../core/streaming';
+import { buildHeaders } from '../../internal/headers';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
+
+/**
+ * Everything about your Pets
+ */
+export class PetResource extends APIResource {
+  /**
+   * Add a new pet to the store
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.create({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
+   */
+  create(body: PetCreateParams, options?: RequestOptions): APIPromise<Pet> {
+    return this._client.post('/pet', { body, ...options });
+  }
+
+  /**
+   * Returns a single pet
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.retrieve(0);
+   * ```
+   */
+  retrieve(petID: number, options?: RequestOptions): APIPromise<Pet> {
+    return this._client.get(path`/pet/${petID}`, options);
+  }
+
+  /**
+   * Update an existing pet by Id
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.update({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
+   */
+  update(body: PetUpdateParams, options?: RequestOptions): APIPromise<Pet> {
+    return this._client.put('/pet', { body, ...options });
+  }
+
+  /**
+   * Returns a cursor-paginated list of pets.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PetListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PetsCustomCursorPage, Pet> {
+    return this._client.getAPIList('/pet', CustomCursorPage<Pet>, { query, ...options });
+  }
+
+  /**
+   * Deletes a pet
+   *
+   * @example
+   * ```ts
+   * await client.pet.delete(0);
+   * ```
+   */
+  delete(petID: number, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/pet/${petID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Multiple status values can be provided with comma separated strings
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.findByStatus();
+   * ```
+   */
+  findByStatus(
+    query: PetFindByStatusParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetFindByStatusResponse> {
+    return this._client.get('/pet/findByStatus', { query, ...options });
+  }
+
+  /**
+   * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
+   * for testing.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.findByTags();
+   * ```
+   */
+  findByTags(
+    query: PetFindByTagsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetFindByTagsResponse> {
+    return this._client.get('/pet/findByTags', { query, ...options });
+  }
+
+  /**
+   * Returns a single page-shaped pet response without SDK pagination helpers.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listFakePage();
+   * ```
+   */
+  listFakePage(options?: RequestOptions): APIPromise<PetListFakePageResponse> {
+    return this._client.get('/pet/fake-page', options);
+  }
+
+  /**
+   * Returns a single page-shaped pet response whose fake pagination behavior is
+   * inferred from the config scheme.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const pet of client.pet.listFakePageInferred()) {
+   *   // ...
+   * }
+   * ```
+   */
+  listFakePageInferred(options?: RequestOptions): PagePromise<PetsXFakeSinglePage, Pet> {
+    return this._client.getAPIList('/pet/fake-page-inferred', XFakeSinglePage<Pet>, options);
+  }
+
+  /**
+   * Returns a bare top-level array of inline objects so generators must mint a
+   * distinct element type instead of reusing the response alias name.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listLeaderboard();
+   * ```
+   */
+  listLeaderboard(options?: RequestOptions): APIPromise<PetListLeaderboardResponse> {
+    return this._client.get('/pet/leaderboard', options);
+  }
+
+  /**
+   * Returns the same cursor-shaped pet list response without enabling SDK pagination
+   * helpers.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.listUnpaginated();
+   * ```
+   */
+  listUnpaginated(
+    query: PetListUnpaginatedParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetListUnpaginatedResponse> {
+    return this._client.get('/pet/unpaginated', { query, ...options });
+  }
+
+  /**
+   * Returns the premium profile for a pet, extending the base pet with pedigree and
+   * insurance details.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.retrievePremium(0);
+   * ```
+   */
+  retrievePremium(petID: number, options?: RequestOptions): APIPromise<PetRetrievePremiumResponse> {
+    return this._client.get(path`/pet/${petID}/premium`, options);
+  }
+
+  /**
+   * Typed query-parameter probe matrix: an object-schema query param mints a typed
+   * params model, an array-of-object query param mints a singularized element type,
+   * an empty object (additionalProperties:false) stays a bare object, and a scalar
+   * stays scalar. Isolates the emitter query-parameter type-resolution branches so
+   * object/array-of-object/empty-object params are each exercised.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pet.search();
+   * ```
+   */
+  search(
+    query: PetSearchParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PetSearchResponse> {
+    return this._client.get('/pet/search', { query, ...options });
+  }
+
+  /**
+   * Updates a pet in the store with form data
+   *
+   * @example
+   * ```ts
+   * await client.pet.updateWithForm(0);
+   * ```
+   */
+  updateWithForm(
+    petID: number,
+    params: PetUpdateWithFormParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { name, status } = params ?? {};
+    return this._client.post(path`/pet/${petID}`, {
+      query: { name, status },
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * uploads an image
+   *
+   * @example
+   * ```ts
+   * const response = await client.pet.uploadImage(
+   *   0,
+   *   fs.createReadStream('path/to/file'),
+   * );
+   * ```
+   */
+  uploadImage(
+    petID: number,
+    body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
+    params: PetUploadImageParams,
+    options?: RequestOptions,
+  ): APIPromise<PetUploadImageResponse> {
+    const { additionalMetadata } = params;
+    return this._client.post(path`/pet/${petID}/uploadImage`, {
+      body: body,
+      query: { additionalMetadata },
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/octet-stream' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Streams pet status updates over Server-Sent Events. Each `status` event contains
+   * a full `Pet` payload.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pet.watchStatus(0);
+   * ```
+   */
+  watchStatus(
+    petID: number,
+    params: PetWatchStatusParams | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Stream<Pet>> {
+    const { 'Last-Event-ID': lastEventID } = params ?? {};
+    return this._client.get(path`/pet/${petID}/status/stream`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          Accept: 'text/event-stream',
+          ...(lastEventID != null ? { 'Last-Event-ID': lastEventID } : undefined),
+        },
+        options?.headers,
+      ]),
+      stream: true,
+    }) as APIPromise<Stream<Pet>>;
+  }
+}
+
+export type PetsCustomCursorPage = CustomCursorPage<Pet>;
+
+export type PetsXFakeSinglePage = XFakeSinglePage<Pet>;
+
+export interface Pet {
+  name: string;
+
+  photoUrls: Array<string>;
+
+  id?: number;
+
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
+
+  category?: unknown;
+
+  /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: unknown;
+
+  relatedCustomer?: unknown;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: unknown;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: unknown;
+
+  relatedUser?: unknown;
+
+  /**
+   * pet status in the store
+   */
+  status?: PetStatus;
+
+  tags?: Array<unknown>;
+}
+
+/**
+ * pet status in the store
+ */
+export type PetStatus = 'available' | 'pending' | 'sold';
+
+export type PetFindByStatusResponse = Array<Pet>;
+
+export type PetFindByTagsResponse = Array<Pet>;
+
+export interface PetListFakePageResponse {
+  data: Array<Pet>;
+
+  has_more: boolean;
+}
+
+export type PetListLeaderboardResponse = Array<PetListLeaderboardResponse.PetListLeaderboardResponseItem>;
+
+export namespace PetListLeaderboardResponse {
+  export interface PetListLeaderboardResponseItem {
+    /**
+     * Ranked pet ID
+     */
+    petId: number;
+
+    badge?: PetListLeaderboardResponseItem.Badge;
+
+    /**
+     * Docs anchor for the badge a leaderboard entry was awarded.
+     */
+    docsRef?:
+      | 'https://docs.petstore.example/leaderboard#top-adopter'
+      | 'https://docs.petstore.example/leaderboard#rising-star';
+
+    /**
+     * Leaderboard position
+     */
+    rank?: number;
+
+    /**
+     * Adoption return on investment
+     */
+    roi?: PetListLeaderboardResponseItem.Roi;
+
+    /**
+     * Consecutive days on the leaderboard.
+     */
+    streak7d?: number;
+  }
+
+  export namespace PetListLeaderboardResponseItem {
+    export interface Badge {}
+
+    /**
+     * Adoption return on investment
+     */
+    export interface Roi {
+      currency?: string;
+
+      times?: number;
+    }
+  }
+}
+
+export interface PetListUnpaginatedResponse {
+  items: Array<Pet>;
+
+  next_cursor?: string | null;
+}
+
+/**
+ * A pet extended with premium-tier pedigree and insurance details.
+ */
+export interface PetRetrievePremiumResponse extends Pet {
+  premiumSince: string;
+
+  /**
+   * Coverage limit in minor units, or a negotiated custom limit.
+   */
+  coverageLimit?: number | PetRetrievePremiumResponse.CustomLimit;
+
+  insurance?: PetRetrievePremiumResponse.Insurance;
+
+  pedigree?: PetRetrievePremiumResponse.Pedigree;
+}
+
+export namespace PetRetrievePremiumResponse {
+  export interface CustomLimit {
+    amount: number;
+
+    currency?: string;
+
+    negotiated?: boolean;
+  }
+
+  export interface Insurance {
+    planId: string;
+
+    provider: string;
+
+    deductible?: number;
+
+    premium?: Shared.Money;
+
+    tier?: 'basic' | 'plus' | 'platinum';
+  }
+
+  export interface Pedigree {
+    certified?: boolean;
+
+    lineage?: Array<string>;
+
+    registry?: string;
+  }
+}
+
+export type PetSearchResponse = Array<Pet>;
+
+export interface PetUploadImageResponse {
+  code?: number;
+
+  message?: string;
+
+  type?: string;
+}
+
+export type ConnectClientEvent =
+  | ConnectClientEvent.PetClientPingEvent
+  | ConnectClientEvent.PetClientSubscribeEvent;
+
+export namespace ConnectClientEvent {
+  export interface PetClientPingEvent {
+    type: 'ping';
+  }
+
+  export interface PetClientSubscribeEvent {
+    /**
+     * pet status in the store
+     */
+    status: PetAPI.PetStatus;
+
+    type: 'subscribe';
+  }
+}
+
+export type ConnectServerEvent =
+  | ConnectServerEvent.PetServerPongEvent
+  | ConnectServerEvent.PetServerStatusEvent;
+
+export namespace ConnectServerEvent {
+  export interface PetServerPongEvent {
+    type: 'pong';
+  }
+
+  export interface PetServerStatusEvent {
+    pet: PetAPI.Pet;
+
+    type: 'status';
+  }
+}
+
+export interface PetCreateParams {
+  name: string;
+
+  photoUrls: Array<string>;
+
+  id?: number;
+
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
+
+  category?: PetCreateParams.Category;
+
+  /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: PetCreateParams.RelatedCategory;
+
+  relatedCustomer?: PetCreateParams.RelatedCustomer;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: PetCreateParams.RelatedOrder;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: PetCreateParams.RelatedShelter;
+
+  relatedUser?: PetCreateParams.RelatedUser;
+
+  /**
+   * pet status in the store
+   */
+  status?: PetStatus;
+
+  tags?: Array<PetCreateParams.Tag>;
+}
+
+export namespace PetCreateParams {
+  export interface Category {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCategory {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCustomer {
+    id?: number;
+
+    address?: Array<Shared.Address>;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    username?: string;
+  }
+
+  export interface RelatedOrder {
+    id?: number;
+
+    complete?: boolean;
+
+    petId?: number;
+
+    quantity?: number;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    shipDate?: string;
+
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+
+    total?: Shared.Money;
+  }
+
+  export interface RelatedShelter {
+    name: string;
+
+    address?: Shared.Address;
+
+    contact?: RelatedShelter.Contact;
+
+    location?: RelatedShelter.Location;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+  }
+
+  export namespace RelatedShelter {
+    export interface Contact {
+      primary?: Contact.Primary;
+    }
+
+    export namespace Contact {
+      export interface Primary {
+        availability?: Primary.Availability;
+
+        name?: string;
+
+        phone?: string;
+      }
+
+      export namespace Primary {
+        export interface Availability {
+          weekday?: Availability.Weekday;
+
+          weekend?: Availability.Weekend | null;
+        }
+
+        export namespace Availability {
+          export interface Weekday {
+            close?: string;
+
+            open?: string;
+          }
+
+          export interface Weekend {
+            close?: string;
+
+            open?: string;
+          }
+        }
+      }
+    }
+
+    export interface Location {
+      latitude: number;
+
+      longitude: number;
+    }
+  }
+
+  export interface RelatedUser {
+    id?: number;
+
+    email?: string;
+
+    firstName?: string;
+
+    lastName?: string;
+
+    password?: string;
+
+    phone?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    username?: string;
+
+    /**
+     * User Status
+     */
+    userStatus?: number;
+  }
+
+  export interface Tag {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedUser?: unknown;
+  }
+}
+
+export interface PetUpdateParams {
+  name: string;
+
+  photoUrls: Array<string>;
+
+  id?: number;
+
+  /**
+   * How the pet entered the store. Open enum: known channels plus forward-compatible
+   * free-form strings.
+   */
+  acquisitionChannel?: 'breeder' | 'shelter' | 'surrender' | 'transfer' | (string & {});
+
+  category?: PetUpdateParams.Category;
+
+  /**
+   * Microchip identifier; legacy chips used numeric identifiers.
+   */
+  microchipId?: string | number;
+
+  relatedAddress?: Shared.Address;
+
+  relatedCategory?: PetUpdateParams.RelatedCategory;
+
+  relatedCustomer?: PetUpdateParams.RelatedCustomer;
+
+  relatedMoney?: Shared.Money;
+
+  relatedOrder?: PetUpdateParams.RelatedOrder;
+
+  relatedPet?: Pet;
+
+  relatedShelter?: PetUpdateParams.RelatedShelter;
+
+  relatedUser?: PetUpdateParams.RelatedUser;
+
+  /**
+   * pet status in the store
+   */
+  status?: PetStatus;
+
+  tags?: Array<PetUpdateParams.Tag>;
+}
+
+export namespace PetUpdateParams {
+  export interface Category {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCategory {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    /**
+     * Nested subcategories; the tree can recurse arbitrarily deep.
+     */
+    subcategories?: Array<unknown>;
+  }
+
+  export interface RelatedCustomer {
+    id?: number;
+
+    address?: Array<Shared.Address>;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    username?: string;
+  }
+
+  export interface RelatedOrder {
+    id?: number;
+
+    complete?: boolean;
+
+    petId?: number;
+
+    quantity?: number;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+
+    shipDate?: string;
+
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+
+    total?: Shared.Money;
+  }
+
+  export interface RelatedShelter {
+    name: string;
+
+    address?: Shared.Address;
+
+    contact?: RelatedShelter.Contact;
+
+    location?: RelatedShelter.Location;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedTag?: unknown;
+
+    relatedUser?: unknown;
+  }
+
+  export namespace RelatedShelter {
+    export interface Contact {
+      primary?: Contact.Primary;
+    }
+
+    export namespace Contact {
+      export interface Primary {
+        availability?: Primary.Availability;
+
+        name?: string;
+
+        phone?: string;
+      }
+
+      export namespace Primary {
+        export interface Availability {
+          weekday?: Availability.Weekday;
+
+          weekend?: Availability.Weekend | null;
+        }
+
+        export namespace Availability {
+          export interface Weekday {
+            close?: string;
+
+            open?: string;
+          }
+
+          export interface Weekend {
+            close?: string;
+
+            open?: string;
+          }
+        }
+      }
+    }
+
+    export interface Location {
+      latitude: number;
+
+      longitude: number;
+    }
+  }
+
+  export interface RelatedUser {
+    id?: number;
+
+    email?: string;
+
+    firstName?: string;
+
+    lastName?: string;
+
+    password?: string;
+
+    phone?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedTag?: unknown;
+
+    username?: string;
+
+    /**
+     * User Status
+     */
+    userStatus?: number;
+  }
+
+  export interface Tag {
+    id?: number;
+
+    name?: string;
+
+    relatedAddress?: Shared.Address;
+
+    relatedCategory?: unknown;
+
+    relatedCustomer?: unknown;
+
+    relatedMoney?: Shared.Money;
+
+    relatedOrder?: unknown;
+
+    relatedPet?: PetAPI.Pet;
+
+    relatedShelter?: unknown;
+
+    relatedUser?: unknown;
+  }
+}
+
+export interface PetListParams extends CustomCursorPageParams {
+  /**
+   * Filter by created_at timestamp range in UTC. Accepts gt/gte/lt/lte.
+   */
+  created_at?: PetListParams.CreatedAt;
+}
+
+export namespace PetListParams {
+  /**
+   * Filter by created_at timestamp range in UTC. Accepts gt/gte/lt/lte.
+   */
+  export interface CreatedAt {
+    /**
+     * Minimum value to filter by (exclusive).
+     */
+    gt?: string;
+
+    /**
+     * Minimum value to filter by (inclusive).
+     */
+    gte?: string;
+
+    /**
+     * Maximum value to filter by (exclusive).
+     */
+    lt?: string;
+
+    /**
+     * Maximum value to filter by (inclusive).
+     */
+    lte?: string;
+  }
+}
+
+export interface PetFindByStatusParams {
+  /**
+   * Status values that need to be considered for filter
+   */
+  status?: 'available' | 'pending' | 'sold';
+}
+
+export interface PetFindByTagsParams {
+  /**
+   * Tags to filter by
+   */
+  tags?: Array<string>;
+}
+
+export interface PetListUnpaginatedParams {
+  /**
+   * Cursor from a previous response used to fetch the next page.
+   */
+  cursor?: string;
+
+  /**
+   * Maximum number of pets to return.
+   */
+  limit?: number;
+}
+
+export interface PetSearchParams {
+  /**
+   * Object-schema query parameter: mints a typed params model instead of collapsing
+   * to a bare object.
+   */
+  filters?: PetSearchParams.Filters;
+
+  /**
+   * Scalar query parameter: stays a plain scalar (control probe).
+   */
+  max_results?: number;
+
+  /**
+   * Empty-object query parameter (additionalProperties:false): stays a bare object,
+   * exercising the empty-object branch.
+   */
+  raw_filter?: unknown;
+
+  /**
+   * Array-of-object query parameter: emitters mint a singularized element type for
+   * each item.
+   */
+  tag_filters?: Array<PetSearchParams.TagFilter>;
+}
+
+export namespace PetSearchParams {
+  /**
+   * Object-schema query parameter: mints a typed params model instead of collapsing
+   * to a bare object.
+   */
+  export interface Filters {
+    color?: string;
+
+    size?: number;
+  }
+
+  export interface TagFilter {
+    key?: string;
+
+    match?: 'exact' | 'prefix';
+  }
+}
+
+export interface PetUpdateWithFormParams {
+  /**
+   * Name of pet that needs to be updated
+   */
+  name?: string;
+
+  /**
+   * Status of pet that needs to be updated
+   */
+  status?: string;
+}
+
+export interface PetUploadImageParams {
+  /**
+   * Query param: Additional Metadata
+   */
+  additionalMetadata?: string;
+}
+
+export interface PetWatchStatusParams {
+  /**
+   * Optional event identifier used to resume a previous stream.
+   */
+  'Last-Event-ID'?: string;
+}
+
+export declare namespace PetResource {
+  export {
+    type Pet as Pet,
+    type PetStatus as PetStatus,
+    type PetFindByStatusResponse as PetFindByStatusResponse,
+    type PetFindByTagsResponse as PetFindByTagsResponse,
+    type PetListFakePageResponse as PetListFakePageResponse,
+    type PetListLeaderboardResponse as PetListLeaderboardResponse,
+    type PetListUnpaginatedResponse as PetListUnpaginatedResponse,
+    type PetRetrievePremiumResponse as PetRetrievePremiumResponse,
+    type PetSearchResponse as PetSearchResponse,
+    type PetUploadImageResponse as PetUploadImageResponse,
+    type ConnectClientEvent as ConnectClientEvent,
+    type ConnectServerEvent as ConnectServerEvent,
+    type PetsCustomCursorPage as PetsCustomCursorPage,
+    type PetsXFakeSinglePage as PetsXFakeSinglePage,
+    type PetCreateParams as PetCreateParams,
+    type PetUpdateParams as PetUpdateParams,
+    type PetListParams as PetListParams,
+    type PetFindByStatusParams as PetFindByStatusParams,
+    type PetFindByTagsParams as PetFindByTagsParams,
+    type PetListUnpaginatedParams as PetListUnpaginatedParams,
+    type PetSearchParams as PetSearchParams,
+    type PetUpdateWithFormParams as PetUpdateWithFormParams,
+    type PetUploadImageParams as PetUploadImageParams,
+    type PetWatchStatusParams as PetWatchStatusParams,
+  };
+}
