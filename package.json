@@ -1,6 +1,6 @@
 {
   "name": "hello-world-testingggg",
-  "version": "0.0.1-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "The official TypeScript library for the Hello World Testingggg API",
   "author": "Hello World Testingggg <apiteam@swagger.io>",
   "types": "dist/index.d.ts",
